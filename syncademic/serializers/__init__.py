@@ -1,0 +1,1 @@
+from .actividad_serializer import ActividadSerializer
