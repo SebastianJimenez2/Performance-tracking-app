@@ -2,6 +2,7 @@ from django.db import models
 
 class Asignatura(models.Model):
     id_asignatura = models.AutoField(primary_key=True)
+    prerequisito = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='anteriores')
     subsecuente = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='siguientes')
     nota_minima = models.DecimalField(max_digits=5, decimal_places=2)
     nombre = models.CharField(max_length=100)
