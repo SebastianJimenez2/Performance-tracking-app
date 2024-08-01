@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Asignatura(models.Model):
     id_asignatura = models.AutoField(primary_key=True)
     prerequisito = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='anteriores')
