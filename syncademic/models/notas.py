@@ -1,11 +1,18 @@
 from django.db import models
 
 
-class Actividad(models.Model):
-    id_actividad = models.AutoField(primary_key=True)
+class HistorialNotas(models.Model):
+    id_nota = models.AutoField(primary_key=True)
 
-    # TODO: Relación asignatura - actividad
+    # TODO: Relación asignatura - nota
     id_asignatura = models.IntegerField()
+    # TODO: Relación asignatura - nota
+    id_estudiante = models.IntegerField()
+
+    grupo = models.IntegerField()
+    periodo = models.ForeignKey('Periodo',
+                                on_delete=models.CASCADE)
+
     nota = models.DecimalField(max_digits=5, decimal_places=2)
     tipo_actividad = models.ForeignKey('TipoActividad',
                                        on_delete=models.CASCADE,
