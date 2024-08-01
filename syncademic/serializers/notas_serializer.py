@@ -1,15 +1,18 @@
 from rest_framework import serializers
-from ..models import Actividad
+from ..models import HistorialNotas
 
 
-class ActividadSerializer(serializers.ModelSerializer):
+class NotasSerializer(serializers.ModelSerializer):
     tipo_actividad_nombre = serializers.CharField(source='tipo_actividad.nombre_tipo',
                                                   read_only=True)
 
     class Meta:
-        model = Actividad
-        fields = ["id_actividad",
+        model = HistorialNotas
+        fields = ["id_nota",
                   "id_asignatura",
+                  "id_estudiante",
+                  "grupo",
+                  "periodo",
                   "nota",
                   "tipo_actividad_nombre",
                   "tema"]
