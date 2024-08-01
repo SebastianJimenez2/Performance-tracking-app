@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from syncademic import views
+from backend.syncademic import views
 
 urlpatterns = [
     path('', views.index, name='index'),

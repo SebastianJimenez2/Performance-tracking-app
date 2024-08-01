@@ -19,6 +19,3 @@ class HistorialNotasAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         except ObjectNotFound as e:
             return Response({'Error': e.detail}, status=status.HTTP_404_NOT_FOUND)
-
-
-

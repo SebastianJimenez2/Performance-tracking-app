@@ -10,5 +10,4 @@ class Docente(models.Model):
     def __str__(self):
         return self.nombre + self.correo
 
-
 # TODO: Relaciones de otras entidades con docente

@@ -1,5 +1,5 @@
 from behave import *
-from syncademic.utils.control_notas import ControlNotas
+from backend.syncademic.utils.control_notas import ControlNotas
 
 
 # use_step_matcher("re")
@@ -44,7 +44,6 @@ def step_impl(context, recibe):
 
 @step('un estudiante tiene un promedio de "{promedio}" que ha bajado del mínimo "{ocasiones}" ocasiones')
 def step_impl(context, promedio, ocasiones):
-
     context.control_calificaciones = ControlNotas(promedio=float(promedio))
     context.ocasiones = int(ocasiones)
 
@@ -53,7 +52,6 @@ def step_impl(context, promedio, ocasiones):
 
 @step('baje del mínimo aceptable de "{minimo}" nuevamente')
 def step_impl(context, minimo):
-
     if context.control_calificaciones.existe_incidencia:
         context.ocasiones_final = context.ocasiones + 1
 
