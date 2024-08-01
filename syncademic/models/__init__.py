@@ -1,2 +1,2 @@
-from .actividad import Actividad, TipoActividad
+from .notas import HistorialNotas, TipoActividad
 from .docente import Docente

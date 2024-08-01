@@ -1,1 +1,1 @@
-from .actividad_serializer import ActividadSerializer
+from .notas_serializer import NotasSerializer
