@@ -1,35 +1,37 @@
 from collections import defaultdict
+from typing import List, Tuple
+
 from ..models.asignatura import Asignatura
 from ..models.evaluacion import Evaluacion
+from ..utils.evaluacion_docente_utils import _calcular_promedios
 
-def docentes_por_promedio(tipo_evaluacion: int, asignatura: Asignatura):
-    resultados = defaultdict(list)
-    evaluaciones = Evaluacion.objects.filter(tipo_evaluacion=tipo_evaluacion, asignatura=asignatura)
-    for evaluacion in evaluaciones:
-        resultados[evaluacion.docente].append(evaluacion.calificacion)
+class evaluacion_docente_service:
 
-    promedios_docentes = []
-    for docente, calificaciones in resultados.items():
-        promedio = sum(calificaciones) / len(calificaciones)
-        promedios_docentes.append((docente, promedio))
+    @staticmethod
+    def get_evaluaciones_docente(self):
+        if self.id_docente is not None:
+            return Evaluacion.objects.filter(docente=self.id_docente)
+        return Evaluacion.objects.none()
 
-    promedios_docentes.sort(key=lambda x: x[1], reverse=True)
-    return promedios_docentes
+    @staticmethod
+    def get_evaluaciones_asignatura(self):
+        if self.id_asignatura is not None:
+            return Evaluacion.objects.filter(asignatura=self.id_asignatura)
+        return Evaluacion.objects.none()
 
-def validar_docentes_asignatura(nombre_asignatura: str):
-    asignatura_docentes = Evaluacion.objects.filter(asignatura__nombre=nombre_asignatura).count()
-    return asignatura_docentes >= 2
+    @staticmethod
+    def get_evaluaciones_tipo(self):
+        if self.id_tipo_evaluacion is not None:
+            return Evaluacion.objects.filter(tipo_evaluacion=self.id_tipo_evaluacion)
+        return Evaluacion.objects.none()
 
-def sugerencias_docentes():
-    resultados = defaultdict(list)
-    evaluaciones = Evaluacion.objects.all()
-    for evaluacion in evaluaciones:
-        resultados[evaluacion.docente].append(evaluacion.calificacion)
+    @staticmethod
+    def get_mejores_docentes_por_asignatura(tipo_evaluacion: int, asignatura: Asignatura) -> List[Tuple[str, float]]:
+        evaluaciones = Evaluacion.objects.filter(tipo_evaluacion=tipo_evaluacion, asignatura=asignatura)
 
-    promedios_docentes = []
-    for docente, calificaciones in resultados.items():
-        promedio = sum(calificaciones) / len(calificaciones)
-        promedios_docentes.append((docente, promedio))
+        return _calcular_promedios(evaluaciones)
 
-    promedios_docentes.sort(key=lambda x: x[1], reverse=True)
-    return promedios_docentes
+    @staticmethod
+    def get_mejores_evaluaciones () -> List[Tuple[str, float]]:
+        evaluaciones = Evaluacion.objects.all()
+        return _calcular_promedios(evaluaciones)

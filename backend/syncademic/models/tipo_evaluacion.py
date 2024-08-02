@@ -1,5 +1,5 @@
-
 from django.db import models
+
 
 class TipoEvaluacion(models.IntegerChoices):
     HETEROEVALUACION = 1, 'Heteroevaluacion'
