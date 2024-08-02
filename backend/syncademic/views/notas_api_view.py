@@ -9,16 +9,43 @@ from ..exceptions import ObjectNotFound
 
 class HistorialNotasAPIView(APIView):
     permission_classes = (permissions.AllowAny,)
+    service = NotasService()
 
-    @staticmethod
-    def get_notas_estudiante(id_asignatura: int, id_estudiante: int, periodo: int):
-        service = NotasService(id_asignatura, id_estudiante, periodo)
+    def get_notas_estudiante(self, request):
+
+        data = {
+            'id_asignatura': request.data['id_asignatura'],
+            'id_estudiante': request.data['id_estudiante'],
+            'periodo': request.data['periodo']
+        }
+
+        self.service.id_asignatura = data['id_asignatura']
+        self.service.id_estudiante = data['id_estudiante']
+        self.service.periodo = data['periodo']
+
         try:
-            notas = service.get_notas_estudiante_asignatura()
+            notas = self.service.get_notas_estudiante_asignatura()
             serializer = NotasSerializer(notas, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except ObjectNotFound as e:
             return Response({'Error': e.detail}, status=status.HTTP_404_NOT_FOUND)
 
+    def post_nueva_nota_estudiante(self, request):
 
+        data = {
+            'id_asignatura': request.data['id_asignatura'],
+            'id_estudiante': request.data['id_estudiante'],
+            'periodo': request.data['periodo'],
+            'grupo': request.data['grupo'],
+            'tema': request.data['tema'],
+            'nota': request.data['nota'],
+            'tipo_actividad_nombre': request.data['tipo_actividad'],
+        }
+        self.service.id_asignatura = data['id_asignatura']
+        self.service.id_estudiante = data['id_estudiante']
+        self.service.periodo = data['periodo']
 
+        self.service.save_nueva_nota(nueva_nota=data['nota'], grupo=data['grupo'],
+                                     tema=data['tema'], tipo_actividad_nombre=data['tipo_actividad'])
+
+        self.service.get_alertas()
