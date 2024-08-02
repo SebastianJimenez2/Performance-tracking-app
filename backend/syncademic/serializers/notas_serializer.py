@@ -8,8 +8,7 @@ class NotasSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = HistorialNotas
-        fields = ["id_nota",
-                  "id_asignatura",
+        fields = ["id_asignatura",
                   "id_estudiante",
                   "grupo",
                   "periodo",
