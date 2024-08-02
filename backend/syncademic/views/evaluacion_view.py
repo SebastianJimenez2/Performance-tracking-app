@@ -13,7 +13,8 @@ class EvaluacionViewSet(viewsets.ModelViewSet):
     queryset = Evaluacion.objects.all()
     serializer_class = EvaluacionSerializer
 
-    @action(detail=False, methods=['get'], url_path='docentes-por-promedio/(?P<tipo_evaluacion>[^/.]+)/(?P<asignatura_id>[^/.]+)')
+    @action(detail=False, methods=['get'],
+            url_path='docentes-por-promedio/(?P<tipo_evaluacion>[^/.]+)/(?P<asignatura_id>[^/.]+)')
     def docentes_por_promedio(self, request, tipo_evaluacion, asignatura_id):
         tipo_evaluacion_int = int(tipo_evaluacion)  # Convertir a entero
         asignatura = Asignatura.objects.get(id=asignatura_id)
