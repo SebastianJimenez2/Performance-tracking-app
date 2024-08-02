@@ -16,10 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
-
 from syncademic import views
+from syncademic.views.seguimiento_api_view import ListaEstudiantesCandidatosCursoVerano
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path("seguimiento/<str:asignatura_prerequisito>/<str:periodo_actual>/", ListaEstudiantesCandidatosCursoVerano.as_view(), name='seguimiento-malla'),
     re_path(r'^', include('syncademic.urls'))
 ]
