@@ -1,1 +1,1 @@
-from notas_service import NotasService
+from syncademic.services.notas_service import NotasService

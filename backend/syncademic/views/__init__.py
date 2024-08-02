@@ -1,1 +1,1 @@
-from notas_api_view import HistorialNotasAPIView
+from syncademic.views.notas_api_view import HistorialNotasAPIView

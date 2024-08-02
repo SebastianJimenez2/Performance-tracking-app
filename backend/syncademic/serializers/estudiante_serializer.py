@@ -6,3 +6,12 @@ class EstudianteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Estudiante
         fields = '__all__'
+
+
+class ListaEstudianteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Estudiante
+        fields = [
+            "id_estudiante",
+            "nombre"
+        ]

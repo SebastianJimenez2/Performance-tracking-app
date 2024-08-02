@@ -17,9 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 
-from syncademic import views
+from syncademic.views import (
+    HistorialNotasAPIView
+)
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    re_path(r'^', include('syncademic.urls'))
+    path('notas/asignatura=<int:id_asignatura>?periodo=<int:periodo>', HistorialNotasAPIView.as_view(), name='notas'),
 ]
