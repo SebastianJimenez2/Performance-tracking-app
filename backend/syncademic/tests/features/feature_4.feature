@@ -1,4 +1,4 @@
-# Created by USER at 27/7/2024
+# Created by Grupo01 at 27/7/2024
 # language: es
 
 
@@ -30,8 +30,8 @@ Característica: Identificar estudiantes
 
   Escenario: Manifestar la imposibilidad de identificar a los estudiantes con problemas en aquellas asignaturas que no tienen una asignatura subsecuente.
     Dado que el docente desea saber el promedio histórico de notas finales de los estudiantes de la materia "Comunicación" en el periodo actual "2024B"
-    Cuando se determine que la asignatura indicada no tiene una asignatura subsecuente
-    Entonces se emitirá un mensaje manifestando que no es posible identificar a los estudiantes con problemas
+    Cuando se determine que no es posible identificar a los estudiantes con problemas debido a que la asignatura indicada no tiene una asignatura subsecuente
+    Entonces se emitirá un mensaje manifestando la imposibilidad
 
 
 
