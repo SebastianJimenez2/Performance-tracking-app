@@ -29,7 +29,6 @@ class HistorialNotasAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         except ObjectNotFound as e:
             return Response({'Error': e.detail}, status=status.HTTP_404_NOT_FOUND)
-<<<<<<< HEAD
 
     def post_nueva_nota_estudiante(self, request):
 
@@ -50,5 +49,3 @@ class HistorialNotasAPIView(APIView):
                                      tema=data['tema'], tipo_actividad_nombre=data['tipo_actividad'])
 
         self.service.get_alertas()
-=======
->>>>>>> 2b918400d20eeafce9b3a0e7117dee2c2afa3ac6
