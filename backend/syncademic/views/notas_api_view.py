@@ -1,6 +1,6 @@
-from rest_framework.views import APIView
+from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, viewsets
 from rest_framework import permissions
 from ..serializers import ListaEstudianteSerializer
 from ..services import NotasService
@@ -8,11 +8,24 @@ from ..exceptions import ObjectNotFound
 import json
 
 
-class HistorialNotasAPIView(APIView):
+class ControlNotasAPIView(viewsets.ModelViewSet):
     permission_classes = (permissions.AllowAny,)
     service = NotasService()
 
-    def get(self, request, id_asignatura, periodo, grupo, *args, **kwargs):
+    @action(detail=False, methods=['get'], url_path='estudiantes/(?P<id_asignatura>[^/.]+)/(?P<periodo>[^/.]+)/(?P<grupo>[^/.]+)/')
+    def get_promedios(self, request, id_asignatura, periodo, grupo):
+        self.service.id_asignatura = id_asignatura
+        self.service.periodo = periodo
+        self.service.grupo = grupo
+
+        try:
+            estudiantes = self.service.get_promedios_estudiantes()
+            return Response(estudiantes, status=status.HTTP_200_OK)
+        except ObjectNotFound as e:
+            return Response({'Error': e.detail}, status=status.HTTP_404_NOT_FOUND)
+
+    @action(detail=False, methods=['get'], url_path='(?P<id_asignatura>[^/.]+)/(?P<periodo>[^/.]+)/(?P<grupo>[^/.]+)/')
+    def get(self, request, id_asignatura, periodo, grupo):
 
         self.service.id_asignatura = id_asignatura
         self.service.periodo = periodo
@@ -25,8 +38,9 @@ class HistorialNotasAPIView(APIView):
         except ObjectNotFound as e:
             return Response({'Error': e.detail}, status=status.HTTP_404_NOT_FOUND)
 
-    def post(self, request, id_asignatura, periodo, grupo, *args, **kwargs):
-        mensaje = {'response': 'No se han procesado los datos'}
+    @action(detail=True, methods=['post'], url_path='(?P<id_asignatura>[^/.]+)/(?P<periodo>[^/.]+)/(?P<grupo>[^/.]+)/')
+    def post(self, request, id_asignatura, periodo, grupo):
+
         for notas_data in request.data:
             data = {
                 'id_estudiante': notas_data['id_estudiante'],
@@ -42,8 +56,6 @@ class HistorialNotasAPIView(APIView):
 
             self.service.save_nota(data)
 
-            mensaje = self.service.get_alertas()
+        mensaje = self.service.get_alertas()
 
         return Response(json.dumps(mensaje), status=status.HTTP_201_CREATED)
-
-

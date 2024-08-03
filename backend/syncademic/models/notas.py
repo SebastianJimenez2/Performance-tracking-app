@@ -27,7 +27,7 @@ class TipoActividad(models.Model):
     nombre_tipo = models.CharField(max_length=50)
 
     # puntos en relación con la nota final
-    peso = models.IntegerField()
+    peso = models.DecimalField(max_digits=4, decimal_places=1)
 
     def __str__(self):
         return self.nombre_tipo

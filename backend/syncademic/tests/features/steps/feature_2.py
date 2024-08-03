@@ -2,7 +2,6 @@ from behave import *
 from syncademic.Utils import ControlNotas, EstadoEstudiante
 from faker import Faker
 
-
 # use_step_matcher("re")
 
 
@@ -12,12 +11,14 @@ def step_impl(context, promedio):
     :type context: behave.runner.Context
     :type promedio: str
     """
+
     faker = Faker("es")
-    context.estudiante = EstadoEstudiante(faker.name(), faker.email(), float(promedio))
+    context.estudiante = EstadoEstudiante(faker.name(), faker.email())
 
     context.control_calificaciones = ControlNotas(context.estudiante)
+    context.control_calificaciones.promedio = float(promedio)
 
-    assert context.estudiante.promedio == float(promedio)
+    assert context.control_calificaciones.promedio == float(promedio)
 
 
 @step(
@@ -55,25 +56,25 @@ def step_impl(context, recibe):
 def step_impl(context, promedio, ocasiones):
 
     faker = Faker("es")
-    context.estudiante = EstadoEstudiante(faker.name(), faker.email(), float(promedio))
-    context.estudiante.incidencias = int(ocasiones)
-    context.estudiante.promedio = float(promedio)
+    context.estudiante = EstadoEstudiante(faker.name(), faker.email())
+    context.estudiante.numero_incidencias = int(ocasiones)
 
     context.control_calificaciones = ControlNotas(context.estudiante)
+    context.control_calificaciones.promedio = float(promedio)
 
-    assert (context.control_calificaciones.estudiante.promedio == float(promedio)
-            and context.control_calificaciones.estudiante.incidencias == int(ocasiones))
+    assert (context.control_calificaciones.promedio == float(promedio)
+            and context.control_calificaciones.estudiante.numero_incidencias == int(ocasiones))
 
 
 @step('baje del mínimo aceptable de "{minimo}" nuevamente')
 def step_impl(context, minimo):
-
-    context.ocasiones = context.estudiante.incidencias
+    context.control_calificaciones.minimo_aceptable = float(minimo)
+    context.ocasiones = context.control_calificaciones.estudiante.numero_incidencias
 
     if context.control_calificaciones.existe_incidencia:
-        context.control_calificaciones.estudiante.incidencias += 1
+        context.control_calificaciones.estudiante.numero_incidencias += 1
 
-    assert context.control_calificaciones.estudiante.incidencias == context.ocasiones + 1
+    assert context.control_calificaciones.estudiante.numero_incidencias == context.ocasiones + 1
 
 
 @step('el profesor de la asignatura recibe un mensaje de alerta con una prioridad "{prioridad}"')

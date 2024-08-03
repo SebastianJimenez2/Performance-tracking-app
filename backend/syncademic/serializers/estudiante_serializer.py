@@ -13,5 +13,5 @@ class ListaEstudianteSerializer(serializers.ModelSerializer):
         model = Estudiante
         fields = [
             "id_estudiante",
-            "nombre"
+            "nombre_estudiante"
         ]

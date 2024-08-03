@@ -16,11 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
+from rest_framework.routers import DefaultRouter
 
 from syncademic.views import (
-    HistorialNotasAPIView
+    ControlNotasAPIView
 )
 
+router = DefaultRouter()
+router.register(r'control-notas', ControlNotasAPIView, basename='control-notas')
+
 urlpatterns = [
-    path('notas/asignatura=<int:id_asignatura>?periodo=<int:periodo>', HistorialNotasAPIView.as_view(), name='notas'),
+    path('', include(router.urls)),
 ]
