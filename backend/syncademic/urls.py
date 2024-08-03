@@ -15,11 +15,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include, re_path
+from django.urls import path
 from syncademic import views
-from syncademic.views.seguimiento_api_view import ListaEstudiantesCandidatosCursoVerano
+from syncademic.views.seguimiento_api_view import SeguimientoMallaAPIView
 
 urlpatterns = [
-    path("seguimiento/<str:asignatura_prerequisito>/<str:periodo_actual>/", ListaEstudiantesCandidatosCursoVerano.as_view(), name='seguimiento-malla'),
-    re_path(r'^', include('syncademic.urls'))
+    path("seguimiento/<str:asignatura_prerequisito>/<str:periodo_actual>/", SeguimientoMallaAPIView.as_view(), name='seguimiento-malla')
 ]
