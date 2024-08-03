@@ -10,7 +10,7 @@ Característica: Identificar estudiantes
 
   #Redundancia en la palabra asignatura - ¿Es válido cambiarlo por materia?
   Escenario: Identificar a los estudiantes con problemas en aquellas asignaturas que tienen una asignatura prerequisito.
-    Dado que el docente desea conocer el promedio histórico con las siguientes notas finales de los estudiantes que cursaron "Programacion 1" en el periodo "2024A", y obtuvieron una nota final menor a "7.0" en "Programacion 2" en el periodo "2024B"
+    Dado que el docente desea conocer el promedio histórico con las siguientes notas finales de los estudiantes que cursaron "Programacion1" en el periodo "2024A", y obtuvieron una nota final menor a "7.0" en "Programacion2" en el periodo "2024B"
       | estudiante | nota_materia_subsecuente_periodo_actual | nota_materia_prerequisito_periodo_anterior |
       | Chris      | 5                                       | 6.8                                        |
       | Juan       | 8                                       | 8                                          |

@@ -12,7 +12,7 @@ class SeguimientoService:
     def obtener_promedio_historico(self):
         try:
             asignatura_prerequisito = Asignatura.objects.get(nombre=self.asignatura_prerequisito)
-            asignatura_subsecuente = Asignatura.objects.get(subsecuente=asignatura_prerequisito.subsecuente)
+            asignatura_subsecuente = Asignatura.objects.get(id_asignatura=asignatura_prerequisito.subsecuente_id)
             periodo_actual = Periodo.objects.get(nombre=self.periodo_actual)
             periodo_anterior = Periodo.objects.get(id_periodo=periodo_actual.id_periodo-1)
 
