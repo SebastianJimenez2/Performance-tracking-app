@@ -9,9 +9,6 @@ class Tema(models.Model):
     id_cronograma = models.ForeignKey(Cronograma, on_delete=models.CASCADE, related_name='temas')
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
-    total_clases = models.IntegerField()
-    total_inscritos = models.IntegerField()
-    total_comprende = models.IntegerField()
 
     def __str__(self):
         return self.nombre
