@@ -1,1 +1,1 @@
-from not_found import ObjectNotFound
+from syncademic.exceptions.not_found import ObjectNotFound
