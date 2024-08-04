@@ -1,51 +1,63 @@
-from rest_framework.views import APIView
+from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, viewsets
 from rest_framework import permissions
-from ..serializers import NotasSerializer
+from ..serializers import ListaEstudianteSerializer
 from ..services import NotasService
 from ..exceptions import ObjectNotFound
+import json
 
 
-class HistorialNotasAPIView(APIView):
+class ControlNotasAPIView(viewsets.ModelViewSet):
     permission_classes = (permissions.AllowAny,)
     service = NotasService()
 
-    def get_notas_estudiante(self, request):
-
-        data = {
-            'id_asignatura': request.data['id_asignatura'],
-            'id_estudiante': request.data['id_estudiante'],
-            'periodo': request.data['periodo']
-        }
-
-        self.service.id_asignatura = data['id_asignatura']
-        self.service.id_estudiante = data['id_estudiante']
-        self.service.periodo = data['periodo']
+    @action(detail=False, methods=['get'], url_path='estudiantes/(?P<id_asignatura>[^/.]+)/(?P<periodo>[^/.]+)/(?P<grupo>[^/.]+)/')
+    def get_promedios(self, request, id_asignatura, periodo, grupo):
+        self.service.id_asignatura = id_asignatura
+        self.service.periodo = periodo
+        self.service.grupo = grupo
 
         try:
-            notas = self.service.get_notas_estudiante_asignatura()
-            serializer = NotasSerializer(notas, many=True)
+            estudiantes = self.service.get_promedios_estudiantes()
+            return Response(estudiantes, status=status.HTTP_200_OK)
+        except ObjectNotFound as e:
+            return Response({'Error': e.detail}, status=status.HTTP_404_NOT_FOUND)
+
+    @action(detail=False, methods=['get'], url_path='(?P<id_asignatura>[^/.]+)/(?P<periodo>[^/.]+)/(?P<grupo>[^/.]+)/')
+    def get(self, request, id_asignatura, periodo, grupo):
+
+        self.service.id_asignatura = id_asignatura
+        self.service.periodo = periodo
+        self.service.grupo = grupo
+
+        try:
+            estudiantes = self.service.get_lista_estudiantes()
+            serializer = ListaEstudianteSerializer(estudiantes, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except ObjectNotFound as e:
             return Response({'Error': e.detail}, status=status.HTTP_404_NOT_FOUND)
 
-    def post_nueva_nota_estudiante(self, request):
+    @action(detail=True, methods=['post'], url_path='(?P<id_asignatura>[^/.]+)/(?P<periodo>[^/.]+)/(?P<grupo>[^/.]+)/')
+    def post(self, request, id_asignatura, periodo, grupo):
 
-        data = {
-            'id_asignatura': request.data['id_asignatura'],
-            'id_estudiante': request.data['id_estudiante'],
-            'periodo': request.data['periodo'],
-            'grupo': request.data['grupo'],
-            'tema': request.data['tema'],
-            'nota': request.data['nota'],
-            'tipo_actividad_nombre': request.data['tipo_actividad'],
-        }
-        self.service.id_asignatura = data['id_asignatura']
-        self.service.id_estudiante = data['id_estudiante']
-        self.service.periodo = data['periodo']
+        for notas_data in request.data:
+            data = {
+                'id_estudiante': notas_data['id_estudiante'],
+                'nombre': notas_data['nombre'],
+                'nota': notas_data['nota'],
+                'tema': notas_data['tema'],
+                'tipo_actividad': notas_data['tipo_actividad'],
+            }
 
-        self.service.save_nueva_nota(nueva_nota=data['nota'], grupo=data['grupo'],
-                                     tema=data['tema'], tipo_actividad_nombre=data['tipo_actividad'])
+            self.service.id_asignatura = id_asignatura
+            self.service.periodo = periodo
+            self.service.grupo = grupo
+            
+            self.service.save_nota(data)
 
-        self.service.get_alertas()
+
+        mensaje = self.service.get_alertas()
+
+        return Response(json.dumps(mensaje), status=status.HTTP_201_CREATED)
+
