@@ -3,7 +3,7 @@ from .models.asignatura import Asignatura
 from .models.cronograma import Cronograma
 from .models.docente import Docente
 from .models.estudiante import Estudiante
-from .models.evaluacion import Evaluacion
+from .models.evaluacion_docente import Evaluacion
 from .models.notas import HistorialNotas,TipoActividad
 from .models.periodo import Periodo
 

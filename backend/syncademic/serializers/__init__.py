@@ -1,1 +1,2 @@
 from .notas_serializer import NotasSerializer
+from .evaluacion_docente_serializer import EvaluacionSerializer
