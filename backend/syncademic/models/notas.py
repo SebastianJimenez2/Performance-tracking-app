@@ -1,18 +1,14 @@
 from django.db import models
-
+from .asignatura import Asignatura
+from .estudiante import Estudiante
+from .periodo import Periodo
 
 class HistorialNotas(models.Model):
     id_nota = models.AutoField(primary_key=True)
-
-    # TODO: Relación asignatura - nota
-    id_asignatura = models.IntegerField()
-    # TODO: Relación asignatura - nota
-    id_estudiante = models.IntegerField()
-
+    id_asignatura = models.ForeignKey(Asignatura, on_delete=models.CASCADE)
+    id_estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE)
     grupo = models.IntegerField()
-    periodo = models.ForeignKey('Periodo',
-                                on_delete=models.CASCADE)
-
+    periodo = models.ForeignKey(Periodo,on_delete=models.CASCADE)
     nota = models.DecimalField(max_digits=5, decimal_places=2)
     tipo_actividad = models.ForeignKey('TipoActividad',
                                        on_delete=models.CASCADE,
@@ -22,7 +18,7 @@ class HistorialNotas(models.Model):
     tema = models.TextField()
 
     def __str__(self):
-        return self.nota
+        return f"Nota: {self.nota}"
 
 
 class TipoActividad(models.Model):
