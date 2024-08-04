@@ -1,6 +1,6 @@
 from django.db import models
-from estudiante import Estudiante
-from asignatura import Asignatura
+from .estudiante import Estudiante
+from .asignatura import Asignatura
 
 
 class Asistencia(models.Model):
