@@ -1,1 +1,2 @@
 from .notas_serializer import NotasSerializer
+from .estudiante_serializer import EstudianteSerializer, ListaEstudianteSerializer
