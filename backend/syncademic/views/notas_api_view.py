@@ -60,8 +60,6 @@ class ControlNotasAPIView(viewsets.ModelViewSet):
             
             self.service.save_nota(data)
 
-
         mensaje = self.service.get_alertas()
 
         return Response(json.dumps(mensaje), status=status.HTTP_201_CREATED)
-
