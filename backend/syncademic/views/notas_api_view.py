@@ -2,6 +2,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status, viewsets
 from rest_framework import permissions
+
+from ..models.notas import HistorialNotas
 from ..serializers import ListaEstudianteSerializer
 from ..services import NotasService
 from ..exceptions.not_found import ObjectNotFound
@@ -9,6 +11,8 @@ import json
 
 
 class ControlNotasAPIView(viewsets.ModelViewSet):
+    queryset = HistorialNotas.objects.all()
+    serializer_class = ListaEstudianteSerializer
     permission_classes = (permissions.AllowAny,)
     service = NotasService()
 
