@@ -1,9 +1,14 @@
+from ..models.notas import HistorialNotas
+from ..models.asignatura import Asignatura
+from ..models.periodo import Periodo
+from ..models.estudiante import Estudiante
 from django.db.models import OuterRef, Avg, Subquery
 
 from syncademic.models.notas import HistorialNotas
 from syncademic.models.asignatura import Asignatura
 from syncademic.models.periodo import Periodo
 from syncademic.models.estudiante import Estudiante
+
 
 
 class SeguimientoService:
