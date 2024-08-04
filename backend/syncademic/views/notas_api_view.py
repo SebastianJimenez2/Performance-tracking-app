@@ -53,9 +53,11 @@ class ControlNotasAPIView(viewsets.ModelViewSet):
             self.service.id_asignatura = id_asignatura
             self.service.periodo = periodo
             self.service.grupo = grupo
-
+            
             self.service.save_nota(data)
+
 
         mensaje = self.service.get_alertas()
 
         return Response(json.dumps(mensaje), status=status.HTTP_201_CREATED)
+

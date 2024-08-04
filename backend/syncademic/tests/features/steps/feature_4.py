@@ -1,4 +1,5 @@
 from behave import *
+from syncademic.services.seguimiento_malla_service import SeguimientoService
 # use_step_matcher("re")
 
 #Escenario 01
@@ -14,7 +15,7 @@ def step_impl(context, asignatura_prerequisito, periodo_anterior, nota_minima, a
 
     valores_notas_finales = []
     context.promedio = 0.0
-    context.historial_notas = HistorialNotas()
+    context.seguimiento_service = SeguimientoService(context.asignatura_prerequisito, context.periodo_actual)
 
     for fila in context.table:
         if float(fila['nota_materia_subsecuente_periodo_actual']) < context.nota_minima:
@@ -25,10 +26,7 @@ def step_impl(context, asignatura_prerequisito, periodo_anterior, nota_minima, a
 
     context.promedio /= len(valores_notas_finales)
 
-    assert context.promedio == context.historial_notas.obtener_promedio_histórico(context.asignatura_subsecuente,
-                                                                                  context.periodo_actual,
-                                                                                  context.asignatura_prerequisito,
-                                                                                  context.periodo_anterior)
+    assert context.promedio == context.seguimiento_service.obtener_promedio_historico()
 
 
 @step('las siguientes notas finales de los estudiantes que actualmente están cursando la asignatura prerequisito '
@@ -41,20 +39,13 @@ def step_impl(context, nota_minima_aprobar):
         if context.nota_minima_aprobar <= float(fila['nota_final_materia_prerequisito']) <= context.promedio:
             context.estudiantes_en_rango = (fila['estudiante'], float(fila['nota_final_materia_prerequisito']))
 
-    notas = [nota for estudiante, nota in context.estudiantes_en_rango]
 
-    assert set(notas) == set(context.historial_notas.obtener_estudiantes_candidatos(context.asignatura_subsecuente,
-                                                                                    context.periodo_actual,
-                                                                                    context.asignatura_prerequisito,
-                                                                                    context.periodo_anterior)['nota'])
+    assert len(context.estudiantes_en_rango) == len(context.seguimiento_service.obtener_estudiantes_candidatos())
 
 
 @step("se listarán los siguientes estudiantes candidatos a tomar un curso vacacional de bienestar estudiantil")
 def step_impl(context):
-    assert set(context.estudiantes_en_rango['estudiante']) == set(context.historial_notas.obtener_estudiantes_candidatos(context.asignatura_subsecuente,
-                                                                                                                         context.periodo_actual,
-                                                                                                                         context.asignatura_prerequisito,
-                                                                                                                         context.periodo_anterior)['estudiante'])
+    assert set(context.estudiantes_en_rango['estudiante']) == set(context.seguimiento_service.obtener_estudiantes_candidatos().values('nombre'))
 
 #Escenario 02
 
@@ -63,18 +54,16 @@ def step_impl(context, asignatura_sin_subsecuente, periodo_actual):
     context.asignatura_sin_subsecuente = asignatura_sin_subsecuente
     context.periodo_actual = periodo_actual
 
-    context.historial_notas = HistorialNotas()
+    context.seguimiento_service = SeguimientoService(context.asignatura_prerequisito, context.periodo_actual)
 
-    assert None == context.historial_notas.obtener_promedio_histórico(None, context.periodo_actual, context.asignatura_sin_subsecuente, None)
+    assert 0 == context.seguimiento_service.obtener_promedio_historico()
 
 
 
 @step("se determine que no es posible identificar a los estudiantes con problemas debido a que la asignatura indicada no tiene una asignatura subsecuente")
 def step_impl(context):
     try:
-        context.historial_notas.obtener_estudiantes_candidatos(None, context.periodo_actual,
-                                                               context.asignatura_sin_subsecuente,
-                                                               None)
+        context.seguimiento_service.obtener_estudiantes_candidatos()
     except ValueError as e:
         context.mensaje_excepcion = str(e)
         pass

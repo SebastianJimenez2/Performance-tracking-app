@@ -3,20 +3,18 @@ from ..models.asignatura import Asignatura
 from ..models.periodo import Periodo
 from ..models.estudiante import Estudiante
 
-class SeguimientoMallaService:
-    def __init__(self, asignatura_subsecuente: int, periodo_actual: int, asignatura_prerequisito: int, periodo_anterior: int):
-        self.asignatura_subsecuente = asignatura_subsecuente
-        self.periodo_actual = periodo_actual
-        self.asignatura_prerequisito = asignatura_prerequisito
-        self.periodo_anterior = periodo_anterior
 
+class SeguimientoService:
+    def __init__(self, asignatura_prerequisito: str, periodo_actual: str):
+        self.asignatura_prerequisito = asignatura_prerequisito
+        self.periodo_actual = periodo_actual
 
     def obtener_promedio_historico(self):
         try:
             asignatura_prerequisito = Asignatura.objects.get(nombre=self.asignatura_prerequisito)
-            asignatura_subsecuente = Asignatura.objects.get(nombre=self.asignatura_subsecuente)
+            asignatura_subsecuente = Asignatura.objects.get(subsecuente=asignatura_prerequisito.subsecuente)
             periodo_actual = Periodo.objects.get(nombre=self.periodo_actual)
-            periodo_anterior = Periodo.objects.get(nombre=self.periodo_anterior)
+            periodo_anterior = Periodo.objects.get(id_periodo=periodo_actual.id_periodo-1)
 
             estudiantes_asignatura_subsecuente_periodo_actual = (
                 HistorialNotas.objects
@@ -26,7 +24,8 @@ class SeguimientoMallaService:
             )
 
             if estudiantes_asignatura_subsecuente_periodo_actual.exists():
-                ids_estudiantes = estudiantes_asignatura_subsecuente_periodo_actual.values_list('id_estudiante', flat=True)
+                ids_estudiantes = estudiantes_asignatura_subsecuente_periodo_actual.values_list('id_estudiante',
+                                                                                                flat=True)
 
                 notas_prerequisito = HistorialNotas.objects.filter(
                     id_estudiante__in=ids_estudiantes,
@@ -45,19 +44,18 @@ class SeguimientoMallaService:
 
         except Asignatura.DoesNotExist:
             raise ValueError(
-                "ERROR: Hay un problema al localizar la asignatura.")
+                "Hay un problema al localizar las asignaturas.")
         except Periodo.DoesNotExist:
-            raise ValueError("ERROR: Periodo actual no encontrado.")
+            raise ValueError("Periodo actual no encontrado.")
         except Exception as e:
-            raise ValueError(f"ERROR: Se produjo un error al calcular el promedio histórico -> {str(e)}")
+            raise ValueError(f"Se produjo un error al calcular el promedio histórico -> {str(e)}")
 
-
-    def obtener_estudiantes_canidatos(self):
+    def obtener_estudiantes_candidatos(self):
         try:
             asignatura_prerequisito = Asignatura.objects.get(nombre=self.asignatura_prerequisito)
             periodo_actual = Periodo.objects.get(nombre=self.periodo_actual)
 
-            id_estudiantes_canditados = (
+            id_estudiantes_candidatos = (
                 HistorialNotas.objects
                 .filter(id_asignatura=asignatura_prerequisito.id_asignatura)
                 .filter(nota__lt=self.obtener_promedio_historico())
@@ -65,17 +63,16 @@ class SeguimientoMallaService:
             ).values_list('id_estudiante', flat=True)
 
             estudiantes_candidatos = Estudiante.objects.filter(
-                id_estudiante__in=id_estudiantes_canditados
+                id_estudiante__in=id_estudiantes_candidatos
             )
 
             return estudiantes_candidatos
 
         except Asignatura.DoesNotExist:
             raise ValueError(
-                "ERROR: No es posible identificar a los estudiantes con problemas, puesto que, la asignatura indicada no tiene una asignatura subsecuente.")
+                "No es posible identificar a los estudiantes con problemas, puesto que, la asignatura indicada "
+                "no tiene una asignatura subsecuente.")
         except Periodo.DoesNotExist:
-            raise ValueError("ERROR: Periodo actual no encontrado.")
+            raise ValueError("Periodo actual no encontrado.")
         except Exception as e:
-            raise ValueError(f"ERROR: Se produjo un error al obtener los estudiantes candidatos -> {str(e)}")
-
-
+            raise ValueError(f"Se produjo un error al obtener los estudiantes candidatos -> {str(e)}")

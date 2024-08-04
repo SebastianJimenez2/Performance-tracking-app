@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
+from syncademic import views
+from syncademic.views.seguimiento_api_view import SeguimientoMallaAPIView
 from rest_framework.routers import DefaultRouter
 
 from syncademic.views import (
@@ -24,6 +26,10 @@ from syncademic.views import (
 
 router = DefaultRouter()
 router.register(r'control-notas', ControlNotasAPIView, basename='control-notas')
+
+urlpatterns = [
+    path("seguimiento/<str:asignatura_prerequisito>/<str:periodo_actual>/", SeguimientoMallaAPIView.as_view(), name='seguimiento-malla')
+]
 
 urlpatterns = [
     path('', include(router.urls)),

@@ -1,5 +1,5 @@
 from behave import *
-from syncademic.Utils import ControlNotas, EstadoEstudiante
+from syncademic.utils import ControlNotas, EstadoEstudiante
 from faker import Faker
 
 # use_step_matcher("re")

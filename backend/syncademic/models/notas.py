@@ -19,7 +19,7 @@ class HistorialNotas(models.Model):
     tema = models.TextField()
 
     def __str__(self):
-        return self.nota
+        return f"Nota: {self.nota}"
 
 
 class TipoActividad(models.Model):
