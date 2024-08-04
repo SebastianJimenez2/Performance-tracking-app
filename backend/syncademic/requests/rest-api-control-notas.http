@@ -1,0 +1,49 @@
+GET http://127.0.0.1:8000/syncademic/control-notas/estudiantes/1/5/1//
+Accept: application/json
+
+###
+GET http://127.0.0.1:8000/syncademic/control-notas/1/5/1//
+Accept: application/json
+
+###
+POST http://127.0.0.1:8000/syncademic/control-notas/1/5/1//
+content-type: application/json
+
+[
+  {
+    "id_estudiante": 1,
+    "nombre": "Juan Perez",
+    "nota": 8.5,
+    "tema": "introduccion",
+    "tipo_actividad": 1
+  },
+  {
+    "id_estudiante": 3,
+    "nombre": "Carlos Martinez",
+        "nota": 6.5,
+    "tema": "introduccion",
+    "tipo_actividad": 1
+  },
+  {
+    "id_estudiante": 5,
+    "nombre": "Luis Sanchez",
+        "nota": 9.5,
+    "tema": "introduccion",
+    "tipo_actividad": 1
+  },
+  {
+    "id_estudiante": 9,
+    "nombre": "Pedro Torres",
+        "nota": 10,
+    "tema": "introduccion",
+    "tipo_actividad": 1
+  },
+  {
+    "id_estudiante": 11,
+    "nombre": "Andres Suarez",
+        "nota": 8,
+    "tema": "introduccion",
+    "tipo_actividad": 1
+  }
+]
+
