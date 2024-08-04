@@ -1,4 +1,4 @@
-from ..models import HistorialNotas
+from ..models.notas import HistorialNotas
 from ..models.asignatura import Asignatura
 from ..models.periodo import Periodo
 from ..models.estudiante import Estudiante
