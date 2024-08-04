@@ -8,7 +8,7 @@ Característica: Identificar estudiantes
   en la asignatura pre-requisito y el mínimo establecido por la institución.
   para decidir si notificar a bienestar estudiantil sobre una asignación a un curso de verano.
 
-  #Redundancia en la palabra asignatura - ¿Es válido cambiarlo por materia?
+
   Escenario: Identificar a los estudiantes con problemas en aquellas asignaturas que tienen una asignatura prerequisito.
     Dado que el docente desea conocer el promedio histórico con las siguientes notas finales de los estudiantes que cursaron "Programacion1" en el periodo "2024A", y obtuvieron una nota final menor a "7.0" en "Programacion2" en el periodo "2024B"
       | estudiante | nota_materia_subsecuente_periodo_actual | nota_materia_prerequisito_periodo_anterior |
@@ -29,7 +29,7 @@ Característica: Identificar estudiantes
       | Joseph     |
 
   Escenario: Manifestar la imposibilidad de identificar a los estudiantes con problemas en aquellas asignaturas que no tienen una asignatura subsecuente.
-    Dado que el docente desea saber el promedio histórico de notas finales de los estudiantes de la materia "Comunicación" en el periodo actual "2024B"
+    Dado que el docente desea saber el promedio histórico de notas finales de los estudiantes de la materia "Comunicacion" en el periodo actual "2024B"
     Cuando se determine que no es posible identificar a los estudiantes con problemas debido a que la asignatura indicada no tiene una asignatura subsecuente
     Entonces se emitirá un mensaje manifestando la imposibilidad
 

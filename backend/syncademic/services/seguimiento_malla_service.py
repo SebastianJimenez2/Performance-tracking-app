@@ -1,7 +1,7 @@
-from ..models import HistorialNotas
-from ..models.asignatura import Asignatura
-from ..models.periodo import Periodo
-from ..models.estudiante import Estudiante
+from syncademic.models.notas import HistorialNotas
+from syncademic.models.asignatura import Asignatura
+from syncademic.models.periodo import Periodo
+from syncademic.models.estudiante import Estudiante
 
 
 class SeguimientoService:
@@ -43,8 +43,7 @@ class SeguimientoService:
             return promedio_historico
 
         except Asignatura.DoesNotExist:
-            raise ValueError(
-                "Hay un problema al localizar las asignaturas.")
+            raise ValueError("Hay un problema al localizar las asignaturas.")
         except Periodo.DoesNotExist:
             raise ValueError("Periodo actual no encontrado.")
         except Exception as e:
@@ -67,12 +66,9 @@ class SeguimientoService:
             )
 
             return estudiantes_candidatos
-
-        except Asignatura.DoesNotExist:
-            raise ValueError(
-                "No es posible identificar a los estudiantes con problemas, puesto que, la asignatura indicada "
-                "no tiene una asignatura subsecuente.")
         except Periodo.DoesNotExist:
             raise ValueError("Periodo actual no encontrado.")
         except Exception as e:
-            raise ValueError(f"Se produjo un error al obtener los estudiantes candidatos -> {str(e)}")
+            raise ValueError(
+                "No es posible identificar a los estudiantes con problemas, puesto que, la asignatura indicada "
+                "no tiene una asignatura subsecuente.")
