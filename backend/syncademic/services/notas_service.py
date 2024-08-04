@@ -1,6 +1,6 @@
 from ..models import HistorialNotas, TipoActividad
 from ..exceptions import ObjectNotFound
-from backend.syncademic.utils.control_notas import ControlNotas
+from ..utils.control_notas import ControlNotas
 
 
 class NotasService:

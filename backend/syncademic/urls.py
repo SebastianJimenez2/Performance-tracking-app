@@ -17,9 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 
-from syncademic import views
+from django.contrib import admin
+from django.urls import path, include
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    re_path(r'^', include('syncademic.urls'))
+    path('admin/', admin.site.urls),
+    path('syncademic/', include('syncademic.urls')),
 ]

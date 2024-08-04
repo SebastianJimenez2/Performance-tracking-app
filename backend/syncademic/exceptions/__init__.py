@@ -1,1 +1,1 @@
-from not_found import ObjectNotFound
+from .not_found import ObjectNotFound

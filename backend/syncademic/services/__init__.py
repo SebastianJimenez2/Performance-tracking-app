@@ -1,1 +1,1 @@
-from notas_service import NotasService
+from .notas_service import NotasService

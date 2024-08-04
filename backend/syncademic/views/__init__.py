@@ -1,1 +1,1 @@
-from notas_api_view import HistorialNotasAPIView
+from .notas_api_view import HistorialNotasAPIView
