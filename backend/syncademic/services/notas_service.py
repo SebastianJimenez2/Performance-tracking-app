@@ -1,12 +1,9 @@
 from django.db.models import Avg
-
-from ..models import HistorialNotas, TipoActividad
-from ..exceptions import ObjectNotFound
-from syncademic.utils.control_notas import ControlNotas
-from ..utils import ControlNotas, EstadoEstudiante
+from ..exceptions.not_found import ObjectNotFound
+from ..Utils import ControlNotas, EstadoEstudiante
 from ..models.asignatura import Asignatura
 from ..models.estudiante import Estudiante
-
+from ..models.notas import HistorialNotas, TipoActividad
 
 class NotasService:
 

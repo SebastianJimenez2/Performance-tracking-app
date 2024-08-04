@@ -1,1 +1,1 @@
-from syncademic.utils.control_notas import ControlNotas, EstadoEstudiante
+from syncademic.Utils.control_notas_utils import ControlNotas, EstadoEstudiante

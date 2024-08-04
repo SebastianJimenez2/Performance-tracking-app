@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import HistorialNotas
+from ..models.notas import HistorialNotas
 
 
 class NotasSerializer(serializers.ModelSerializer):

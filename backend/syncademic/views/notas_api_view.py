@@ -4,7 +4,7 @@ from rest_framework import status, viewsets
 from rest_framework import permissions
 from ..serializers import ListaEstudianteSerializer
 from ..services import NotasService
-from ..exceptions import ObjectNotFound
+from ..exceptions.not_found import ObjectNotFound
 import json
 
 
