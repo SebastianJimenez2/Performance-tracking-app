@@ -1,0 +1,75 @@
+.contenedor-tabs {
+  display: flex;
+  height: 90vh;
+}
+
+.barra-lateral {
+  height: 100%;
+  width: 15vw;
+  background-color: #715bda;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tabs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 30%;
+  width: 100%;
+}
+
+.tab {
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  background-color: #715bda;
+  border-radius: 20px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tab:hover,
+.tab:focus,
+.tab-activo {
+  background-color: #fff;
+  color: #715bda;
+  border-radius: 20px 0px 0px 20px;
+  font-weight: bold;
+  margin-left: 1rem;
+}
+
+.contenido-tabs {
+  width: 85vw;
+  height: 90vh;
+}
+
+.perfil-profesor {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+  background-color: #715bda;
+  padding: 5vh 0 0 0;
+}
+
+.perfil-profesor img {
+  height: 150px;
+  width: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.perfil-profesor p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.btn-cerrar-semestre {
+  padding: 0 1rem 1rem 1rem;
+}
