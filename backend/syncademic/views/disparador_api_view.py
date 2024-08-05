@@ -1,11 +1,17 @@
-from rest_framework.views import APIView
+# syncademic/views/disparador_api_view.py
+
+from rest_framework import viewsets
 from rest_framework.response import Response
 from datetime import datetime
-from syncademic.models import Docente, Aspecto, Notificacion
+from syncademic.models.notificacion import Notificacion
+from syncademic.models.docente import Docente
+from syncademic.models.aspecto import Aspecto
 
-class DisparadorAPIView(APIView):
-    def get(self, request, id_docente):
+
+class DisparadorViewSet(viewsets.ViewSet):
+    def retrieve(self, request, pk=None):
         try:
+            id_docente = pk
             docente = Docente.objects.get(id_docente=id_docente)
             nombre = docente.nombre
             fecha_actual = datetime.now().date()
@@ -18,8 +24,6 @@ class DisparadorAPIView(APIView):
                         aspecto.calcular_tiempo_transcurrido(),
                         aspecto.calcular_progreso_actual()
                     )
-
-                    # Construir mensaje según el estado de la notificación
                     mensaje = {
                         'estado_aspecto': 'Activo',
                         'nombre_aspecto': aspecto.nombre,
@@ -28,9 +32,7 @@ class DisparadorAPIView(APIView):
                         'progreso_general_porcentaje': aspecto.calcular_progreso_actual(),
                         'tiempo_transcurrido_porcentaje': aspecto.calcular_tiempo_transcurrido()
                     }
-
                     if estado_notificacion in ["CRITICO", "INTENSO"]:
-                        # Agregar información detallada de los subaspectos
                         mensaje['subaspectos'] = aspecto.subaspectos
 
                     notificacion = Notificacion.objects.create(
@@ -45,20 +47,14 @@ class DisparadorAPIView(APIView):
                         'nombre_aspecto': aspecto.nombre,
                         'estado_notificacion': estado_notificacion,
                         'notificaciones_disponibles': es_dia_notificacion,
-                        'mensaje': mensaje if es_dia_notificacion else {}
+                        'mensaje': notificacion.mensaje if es_dia_notificacion else {}
                     })
-
                 else:
                     aspectos_info.append({
+                        'estado_aspecto': 'Inactivo',
                         'nombre_aspecto': aspecto.nombre,
-                        'estado_notificacion': "INACTIVO",
-                        'notificaciones_disponibles': False,
-                        'mensaje': {
-                            'estado_aspecto': 'Inactivo',
-                            'nombre_aspecto': aspecto.nombre,
-                            'fecha_inicio': aspecto.fecha_inicio.isoformat(),
-                            'fecha_fin': aspecto.fecha_fin.isoformat()
-                        }
+                        'fecha_inicio': aspecto.fecha_inicio,
+                        'fecha_fin': aspecto.fecha_fin
                     })
 
             response_data = {
