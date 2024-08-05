@@ -1,19 +1,19 @@
-GET http://127.0.0.1:8000/syncademic/control-notas/estudiantes/1/5/1//
+GET http://0.0.0.0:8000/syncademic/control-notas/estudiantes/1/5/1//
 Accept: application/json
 
 ###
-GET http://127.0.0.1:8000/syncademic/control-notas/1/5/1//
+GET http://0.0.0.0:8000/syncademic/control-notas/1/5/1//
 Accept: application/json
 
 ###
-POST http://127.0.0.1:8000/syncademic/control-notas/1/5/1//
+POST http://0.0.0.0:8000/syncademic/control-notas/1/5/1//
 content-type: application/json
 
 [
   {
     "id_estudiante": 1,
     "nombre": "Juan Perez",
-    "nota": 8.5,
+    "nota": 4,
     "tema": "introduccion",
     "tipo_actividad": 1
   },
