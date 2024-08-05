@@ -1,6 +1,6 @@
 from behave import *
 from faker import Faker
-from syncademic.utils import obtener_estudiantes_en_riesgo, EstudianteControlAsistencia, AsignaturaControlAsistencia, ControlAsistencia
+from syncademic.utils import EstudianteControlAsistencia, AsignaturaControlAsistencia, ControlAsistencia
 
 use_step_matcher("parse")
 
@@ -33,7 +33,7 @@ def step_impl(context, tasa_asistencia):
 def step_impl(context, minimo, maximo):
     context.minimo = float(minimo)
     context.maximo = float(maximo)
-    context.estudiantes_en_riesgo = obtener_estudiantes_en_riesgo(context.estudiantes, context.asistencias, 1)
+    context.estudiantes_en_riesgo = ControlAsistencia.obtener_estudiantes_en_riesgo(context.estudiantes, context.asistencias, 1)
 
 @step("se marca al estudiante en riesgo {riesgo} de abandono alertando al profesor")
 def step_impl(context, riesgo):
@@ -53,3 +53,4 @@ def step_impl(context, posible_notificacion):
         assert 'sí' == context.posible_notificacion, "Se esperaba notificación a bienestar estudiantil."
     elif context.posible_notificacion == 'no':
         assert 'no' == context.posible_notificacion, "No se esperaba notificación a bienestar estudiantil."
+
