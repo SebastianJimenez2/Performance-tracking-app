@@ -94,4 +94,20 @@ class Migration(migrations.Migration):
                 ('tipo_actividad', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='syncademic.tipoactividad')),
             ],
         ),
+        migrations.CreateModel(
+            name='Asistencia',
+            fields=[
+                ('id_asistencia', models.AutoField(primary_key=True, serialize=False)),
+                ('semana', models.IntegerField()),
+                ('dia', models.CharField(max_length=10)),
+                ('presente', models.BooleanField(default=False)),
+                ('asignatura',
+                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='syncademic.asignatura')),
+                ('estudiante',
+                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='syncademic.estudiante')),
+            ],
+            options={
+                'unique_together': {('estudiante', 'asignatura', 'semana', 'dia')},
+            },
+        ),
     ]
