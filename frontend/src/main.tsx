@@ -9,6 +9,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <ProveedorContextoGlobal>
     <React.StrictMode>
       <App />
-    </React.StrictMode>,
+    </React.StrictMode>
   </ProveedorContextoGlobal>
 )
