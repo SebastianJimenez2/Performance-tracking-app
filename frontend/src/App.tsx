@@ -2,6 +2,7 @@ import Asignatura from './components/Asignatura';
 import Cursos from './pages/Cursos';
 import Capacitaciones from './pages/Capacitaciones';
 import Login from './pages/Login';
+import RegistroNotas from './pages/RegistroNotas';
 import { useContextoGlobal } from './ContextoGlobal';
 
 function App() {
@@ -16,10 +17,10 @@ function App() {
       case 'Login':
         return <Login />
       default:
-        return <Asignatura>
-                    <Componente1 id="tab numero 1" />
+        return <Asignatura cerrarSemestre={() => console.log('Cerrando semestre')}>
                     <Componente2 id="tab número 2" />
                     <Componente3 id="tab número 3" />
+                    <RegistroNotas id="Registro notas" />
                     <Componente3 id="tab número 4" />
                </Asignatura>
     }
@@ -29,14 +30,6 @@ function App() {
     <>
       {mostrarPagina()}
     </>
-  )
-}
-
-function Componente1({ id }: { id: string }) {
-  return (
-    <div id={id}>
-      <h1>Componente 1</h1>
-    </div>
   )
 }
 
