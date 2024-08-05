@@ -8,10 +8,11 @@ import "../styles/components/Tabs.css"
 
 
 type TabsProps = {
-    children: React.ReactNode[];
+    children: React.ReactNode[],
+    cerrarSemestre: () => void
 }
 
-function Tabs({ children }: TabsProps) {
+function Tabs({ children, cerrarSemestre }: TabsProps) {
 
     const [tabActivo, setTabActivo] = useState<string>(
         isValidElement(children[0])
@@ -19,12 +20,12 @@ function Tabs({ children }: TabsProps) {
             children[0].props.id
             :
             ""
-    );
+    )
 
     const cambiarTab = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        e.preventDefault();
+        e.preventDefault()
         if (e.target instanceof HTMLAnchorElement) {
-            setTabActivo(e.target.innerText);
+            setTabActivo(e.target.innerText)
         }
     }
 
@@ -50,28 +51,28 @@ function Tabs({ children }: TabsProps) {
                                     </a>
                                 );
                             }
-                            return null;
+                            return null
                         })
                     }
                 </div>
                 <div className="btn-cerrar-semestre d-grid">
-                    <Button variant="danger">Cerrar semestre</Button>{' '}
+                    <Button onClick={() => cerrarSemestre()} variant="danger">Cerrar semestre</Button>
                 </div>
             </nav>
             {
                 children.map((contenidoTab) => {
                     if (isValidElement(contenidoTab) && contenidoTab.props.id === tabActivo) {
                         return (
-                            <div key={contenidoTab.props.id} className="tabs-content">
+                            <div key={contenidoTab.props.id} className="contenido-tabs">
                                 {contenidoTab}
                             </div>
                         );
                     }
-                    return null;
+                    return null
                 })
             }
         </div>
     )
 }
 
-export default Tabs;
+export default Tabs
