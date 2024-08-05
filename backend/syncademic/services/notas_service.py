@@ -1,6 +1,6 @@
 from django.db.models import Avg
 from ..exceptions.not_found import ObjectNotFound
-from ..Utils import ControlNotas, EstadoEstudiante
+from ..utils import ControlNotas, EstadoEstudiante
 from ..models.asignatura import Asignatura
 from ..models.estudiante import Estudiante
 from ..models.notas import HistorialNotas, TipoActividad
