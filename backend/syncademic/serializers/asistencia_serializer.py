@@ -10,7 +10,7 @@ class AsistenciaSerializer(serializers.ModelSerializer):
         model = Asistencia
         fields = ['id_asistencia', 'estudiante', 'asignatura', 'semana', 'dia', 'presente']
 
-    def _init_(self, *args, **kwargs):
-        super()._init_(*args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         from . import AsignaturaSerializer
         self.fields['asignatura'] = AsignaturaSerializer()
