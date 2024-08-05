@@ -9,7 +9,7 @@ from ..services import AsistenciaService
 
 class AsistenciaAPIView(viewsets.ViewSet):
 
-    @action(detail=False, methods=['get'], url_path='estudiantes-en-riesgo/(?P<mes>\d+)')
+    @action(detail=False, methods=['get'], url_path=r'estudiantes-en-riesgo/(?P<mes>\d+)')
     def estudiantes_en_riesgo(self, request, mes=None):
         try:
             mes = int(mes)
