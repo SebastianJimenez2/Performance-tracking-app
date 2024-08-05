@@ -1,2 +1,3 @@
 from syncademic.views.notas_api_view import ControlNotasAPIView
 from syncademic.views.asistencia_api_view import AsistenciaAPIView
+from syncademic.views.seguimiento_malla_api_view import SeguimientoMallaAPIView
