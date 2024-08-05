@@ -3,6 +3,7 @@ import Cursos from './pages/Cursos';
 import Capacitaciones from './pages/Capacitaciones';
 import Login from './pages/Login';
 import RegistroNotas from './pages/RegistroNotas';
+import Estudiantes from './pages/Estudiantes';
 import { useContextoGlobal } from './ContextoGlobal';
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
         return <Login />
       default:
         return <Asignatura cerrarSemestre={() => console.log('Cerrando semestre')}>
-                    <Componente2 id="tab número 2" />
+                    <Estudiantes id="Estudiantes" />
                     <Componente3 id="tab número 3" />
                     <RegistroNotas id="Registro notas" />
                     <Componente3 id="tab número 4" />
@@ -30,14 +31,6 @@ function App() {
     <>
       {mostrarPagina()}
     </>
-  )
-}
-
-function Componente2({ id }: { id: string }) {
-  return (
-    <div id={id}>
-      <h1>Componente 2</h1>
-    </div>
   )
 }
 
