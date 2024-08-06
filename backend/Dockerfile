@@ -15,6 +15,11 @@ ADD . /app/
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
+ARG DJANGO_SUPERUSER_USERNAME=admin
+ARG DJANGO_SUPERUSER_PASSWORD=adminpassword
+ARG DJANGO_SUPERUSER_EMAIL=admin@example.com
+RUN python manage.py createsuperuser --noinput --username $DJANGO_SUPERUSER_USERNAME --email $DJANGO_SUPERUSER_EMAIL || true
+
 # Expose the port server is running on
 EXPOSE 8000
 
