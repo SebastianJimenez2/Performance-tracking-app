@@ -18,7 +18,7 @@ type contextoType = {
 const ContextoGlobal = createContext<contextoType | undefined>(undefined)
 
 export function ProveedorContextoGlobal({ children }: { children: ReactNode }) {
-    const [paginaActual, setPaginaActual] = useState<string>('')
+    const [paginaActual, setPaginaActual] = useState<string>('Asignatura')
     const [listaEstudiantes, setListaEstudiantes] = useState<Estudiante[]>([])
     const [profesor, setProfesor] = useState<Profesor | null>(null);
     const [rol, setRol] = useState<string>('normal');
