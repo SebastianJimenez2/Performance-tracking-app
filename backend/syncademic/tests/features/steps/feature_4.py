@@ -45,7 +45,7 @@ def step_impl(context, nota_minima_aprobar):
 
 @step("se listarán los siguientes estudiantes candidatos a tomar un curso vacacional de bienestar estudiantil")
 def step_impl(context):
-    assert set(context.estudiantes_en_rango) == set(context.seguimiento_service.obtener_estudiantes_candidatos().values_list('nombre', flat=True))
+    assert set(context.estudiantes_en_rango) == set(context.seguimiento_service.obtener_estudiantes_candidatos().values_list('nombre_estudiante', flat=True))
 
 
 #Escenario 02
@@ -77,5 +77,4 @@ def step_impl(context):
 
 @step("se emitirá un mensaje manifestando la imposibilidad")
 def step_impl(context):
-    print(f"{context.mensaje_excepcion}----------------------------")
     assert context.mensaje_excepcion == "No es posible identificar a los estudiantes con problemas, puesto que, la asignatura indicada no tiene una asignatura subsecuente."
