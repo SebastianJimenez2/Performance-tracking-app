@@ -1,10 +1,10 @@
 from behave import *
 from faker import Faker
-from backend.syncademic.models.asignatura import Asignatura
-from backend.syncademic.models.docente import Docente
-from backend.syncademic.models.tipo_evaluacion_docente import TipoEvaluacion
-from backend.syncademic.models.evaluacion_docente import Evaluacion
-from backend.syncademic.services.evaluacion_docente_service import evaluacion_docente_service
+from syncademic.models.asignatura import Asignatura
+from syncademic.models.docente import Docente
+from syncademic.models.tipo_evaluacion_docente import TipoEvaluacion
+from syncademic.models.evaluacion_docente import Evaluacion
+from syncademic.services.evaluacion_docente_service import evaluacion_docente_service
 
 fake = Faker()
 

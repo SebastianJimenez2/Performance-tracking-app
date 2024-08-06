@@ -24,7 +24,7 @@ function NotaEstudiante({ idEstudiante, nombre, onFocusNotaEstudiante, onChangeN
                 }}
                 onBlur={(e) => {
                     const valorNota = parseFloat(e.target.value)
-                    if(isNaN(valorNota) || valorNota < 0 || valorNota > 20) {
+                    if(isNaN(valorNota) || valorNota < 0 || valorNota > 10) {
                         setNota('')
                         onChangeNotaEstudiante(idEstudiante, -1)
                     } else {
