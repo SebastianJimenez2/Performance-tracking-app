@@ -7,7 +7,6 @@ from ..models.notas import HistorialNotas
 from ..serializers import ListaEstudianteSerializer
 from ..services import NotasService
 from ..exceptions.not_found import ObjectNotFound
-import json
 
 
 class ControlNotasAPIView(viewsets.ModelViewSet):
@@ -61,5 +60,6 @@ class ControlNotasAPIView(viewsets.ModelViewSet):
             self.service.save_nota(data)
 
         mensaje = self.service.get_alertas()
+        self.service.reset_conteo_alertas()
 
-        return Response(json.dumps(mensaje), status=status.HTTP_201_CREATED)
+        return Response(mensaje, status=status.HTTP_201_CREATED)

@@ -38,7 +38,8 @@ class NotasService:
 
         for estudiante in estudiantes:
             promedio = self.get_promedio_asignatura(estudiante.get('id_estudiante'))
-            estudiante['promedio'] = promedio
+            estudiante['promedio'] = round(promedio, 2)
+            print(round(promedio, 2))
 
         return estudiantes
 
@@ -61,9 +62,9 @@ class NotasService:
         promedio_2 = 0.0
         try:
             notas_1 = (self.get_notas_estudiante_asignatura(id_estudiante)
-                       .filter(tipo_actividad_id=1).aggregate(total=Avg('nota'))['total'])
+            .filter(tipo_actividad_id=1).aggregate(total=Avg('nota'))['total'])
             notas_2 = (self.get_notas_estudiante_asignatura(id_estudiante)
-                       .filter(tipo_actividad_id=2).aggregate(total=Avg('nota'))['total'])
+            .filter(tipo_actividad_id=2).aggregate(total=Avg('nota'))['total'])
 
             peso_1 = TipoActividad.objects.filter(id_tipo_actividad=1).values('peso').first().get('peso')
             peso_2 = TipoActividad.objects.filter(id_tipo_actividad=2).values('peso').first().get('peso')
@@ -120,13 +121,12 @@ class NotasService:
                 else:
                     self.alerta_alta += 1
             else:
-                control_nota.estudiante.prioridad = 'BAJA'
+                control_nota.definir_prioridad_alerta()
 
             estudiante_bd.numero_incidencias = control_nota.estudiante.numero_incidencias
-            estudiante_bd.prioridad = control_nota.estudiante.prioridad
+            estudiante_bd.prioridad = control_nota.estudiante.prioridad if control_nota.estudiante.prioridad is not None else estudiante_bd.prioridad
 
             estudiante_bd.save()
-
         except Exception as e:
             raise ObjectNotFound(Estudiante._meta.model_name, detail=str(e))
 
@@ -138,6 +138,11 @@ class NotasService:
         }
 
         return alerta
+
+    def reset_conteo_alertas(self):
+        self.en_riesgo = 0
+        self.alerta_media = 0
+        self.alerta_alta = 0
 
     @property
     def id_asignatura(self):
