@@ -35,7 +35,7 @@ def step_impl(context, minimo, maximo):
     context.maximo = float(maximo)
     context.estudiantes_en_riesgo = ControlAsistencia.obtener_estudiantes_en_riesgo(context.estudiantes, context.asistencias, 1)
 
-@step("se marca al estudiante en riesgo {riesgo} de abandono alertando al profesor")
+@step("se marca al estudiante en riesgo {riesgo} de abandono alertando al docente")
 def step_impl(context, riesgo):
     riesgo = 'alto' if context.tasa_asistencia < context.minimo or context.tasa_asistencia > context.maximo else 'bajo'
     for estudiante in context.estudiantes:
