@@ -3,7 +3,7 @@ from typing import List, Tuple
 
 
 
-def _calcular_promedios(evaluaciones) -> List[Tuple[str, float]]:
+def calcular_promedios(evaluaciones) -> List[Tuple[str, float]]:
     resultados = defaultdict(list)
     for evaluacion in evaluaciones:
         resultados[evaluacion.docente].append(evaluacion.calificacion)

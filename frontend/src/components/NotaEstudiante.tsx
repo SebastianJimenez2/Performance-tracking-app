@@ -4,24 +4,33 @@ import '../styles/components/NotaEstudiante.css'
 type NotaEstudianteProps = {
     idEstudiante: number,
     nombre: string,
-    onFocus: (idEstudiante: number, nombre: string) => void,
-    onChange: (idEstudiante: number, nota: number) => void,
+    onFocusNotaEstudiante: (idEstudiante: number, nombre: string) => void,
+    onChangeNotaEstudiante: (idEstudiante: number, nota: number) => void,
 }
 
-function NotaEstudiante({ idEstudiante, nombre, onFocus, onChange }: NotaEstudianteProps) {
+function NotaEstudiante({ idEstudiante, nombre, onFocusNotaEstudiante, onChangeNotaEstudiante }: NotaEstudianteProps) {
 
-    const [nota, setNota] = useState<number>(-1)
+    const [nota, setNota] = useState<string>('')
 
     return (
         <div className='nota-estudiante-container'>
             <span>{nombre}</span>
             <input
                 type="text"
-                value={nota === -1 || isNaN(nota) ? '' : nota}
-                onFocus={() => onFocus(idEstudiante, nombre)}
+                value={nota}
+                onFocus={() => onFocusNotaEstudiante(idEstudiante, nombre)}
                 onChange={(e) => { 
-                    setNota(parseFloat(e.target.value || '-1'))
-                    onChange(idEstudiante, parseFloat(e.target.value || '-1'))
+                    setNota(e.target.value)
+                }}
+                onBlur={(e) => {
+                    const valorNota = parseFloat(e.target.value)
+                    if(isNaN(valorNota) || valorNota < 0 || valorNota > 20) {
+                        setNota('')
+                        onChangeNotaEstudiante(idEstudiante, -1)
+                    } else {
+                        setNota(valorNota.toString())
+                        onChangeNotaEstudiante(idEstudiante, valorNota)
+                    }
                 }}
             />
         </div>
