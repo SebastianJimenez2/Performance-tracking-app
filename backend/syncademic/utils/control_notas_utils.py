@@ -1,7 +1,8 @@
 class EstadoEstudiante:
     """
             EstadoEstudiante
-            Clase auxiliar para recopilar solo la información necesaria del estudiante.
+            Clase auxiliar para recopilar solo la información necesaria del estudiante
+            para realizar la verificación de incidencias por bajas calificaciones.
 
             Atributos: nombre, email, numero_incidencias, prioridad
     """

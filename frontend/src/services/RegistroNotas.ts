@@ -8,7 +8,7 @@ export const registrarNotas = async (
 ): Promise<RespuestaRegistroNotas> => {
   const url = `https://syncademic-0-1.onrender.com/syncademic/control-notas/${asignatura}/${periodo}/${curso}//`;
 
-  return await fetch(url, {
+  return fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -21,8 +21,8 @@ export const registrarNotas = async (
       }
       return response.json();
     })
-    .then((data) => {
-      return data;
+    .then((data: RespuestaRegistroNotas) => {
+      return (data);
     })
     .catch((error) => {
       console.error("Fetch error:", error);
