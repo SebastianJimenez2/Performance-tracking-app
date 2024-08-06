@@ -24,12 +24,22 @@ class CronogramaService:
     """
     
     @staticmethod
-    def get_temas_cronograma(cronograma_id):
+    def get_temas_cronograma(cronograma_id: int) -> List[Dict[str, any]]:
         try:
             cronograma = Cronograma.objects.get(id_cronograma=cronograma_id)
-            return cronograma.temas.all()  # Devuelve todos los temas asociados al cronograma
-        except Cronograma.DoesNotExist:
-            raise ObjectNotFound('Cronograma not found')
+        except ObjectNotFound:
+            return []  # Retorna una lista vacía si el cronograma no existe
+
+        temas = cronograma.temas.all()
+        return [{
+            'id_tema': tema.id_tema,
+            'descripcion': tema.descripcion,
+            'orden': tema.orden,
+            'tiempo_en_semanas': tema.tiempo_en_semanas,
+            'completado': tema.completado,
+            'semana_finalizacion_relativa_a_inicio': tema.semana_finalizacion_relativa_a_inicio,
+            'fecha_completado': tema.fecha_completado if tema.completado else None  # solo devolver fecha si está completado
+        } for tema in temas]
         
     @staticmethod
     def get_temas_completados(cronograma_id: int, hasta_semana: int) -> int:
