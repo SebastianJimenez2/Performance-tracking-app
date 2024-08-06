@@ -1,12 +1,16 @@
-import BarraNavegacion from "../components/BarraNavegacion"
+import BarraNavegacion from "../components/BarraNavegacion";
+import FormularioCapacitaciones from "../components/FormularioCapacitaciones";
+import TablaCapacitaciones from "../components/TablaCapacitaciones"
 
-function Cursos() {
+function Capacitaciones() {
     return (
-      <div>
+      <>
         <BarraNavegacion />
-        <h1>Capacitaciones</h1>
-      </div>
-    )
-  }
-  
-  export default Cursos
+        <FormularioCapacitaciones />
+        <TablaCapacitaciones/>
+
+      </>
+    );
+}
+
+export default Capacitaciones;
