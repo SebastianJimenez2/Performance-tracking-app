@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { obtenerSeguimientoMalla } from '../services/EstudiantesCandidatos';
-import { SeguimientoMalla } from '../types/SeguimientoMalla';
+import { EstudianteCandidato } from '../types/EstudiantesCandidatos';
 
 import '../styles/pages/Estudiantes.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,7 +11,7 @@ type EstudiantesCandidatosProps = {
 };
 
 function EstudiantesCandidatos({ id }: EstudiantesCandidatosProps) {
-        const [data, setData] = useState<SeguimientoMalla[]>([]);
+        const [data, setData] = useState<EstudianteCandidato[]>([]);
         const [error, setError] = useState<string | null>(null);
         const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
         const [sortColumn, setSortColumn] = useState<string | null>(null);
