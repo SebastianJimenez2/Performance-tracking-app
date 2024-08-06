@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Table, Button, Form } from 'react-bootstrap';
 import file from '../assets/file.svg';
 
