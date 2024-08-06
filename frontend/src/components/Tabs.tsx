@@ -9,7 +9,7 @@ import "../styles/components/Tabs.css"
 
 type TabsProps = {
     children: React.ReactNode[],
-    cerrarSemestre: () => void
+    cerrarSemestre: (isClosed: boolean) => void
 }
 
 function Tabs({ children, cerrarSemestre }: TabsProps) {
@@ -22,12 +22,20 @@ function Tabs({ children, cerrarSemestre }: TabsProps) {
             ""
     )
 
+    const [isSemesterClosed, setIsSemesterClosed] = useState<boolean>(false);
+
     const cambiarTab = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault()
         if (e.target instanceof HTMLAnchorElement) {
             setTabActivo(e.target.innerText)
         }
     }
+
+    const handleCerrarSemestre = () => {
+        const newStatus = !isSemesterClosed;
+        setIsSemesterClosed(newStatus);
+        cerrarSemestre(newStatus);
+    };
 
     return (
         <div className="contenedor-tabs">
@@ -56,7 +64,9 @@ function Tabs({ children, cerrarSemestre }: TabsProps) {
                     }
                 </div>
                 <div className="btn-cerrar-semestre d-grid">
-                    <Button onClick={() => cerrarSemestre()} variant="danger">Cerrar semestre</Button>
+                    <Button onClick={handleCerrarSemestre} variant="danger">
+                        {isSemesterClosed ? 'Abrir semestre' : 'Cerrar semestre'}
+                    </Button>
                 </div>
             </nav>
             {
