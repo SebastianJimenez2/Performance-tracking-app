@@ -2,8 +2,8 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 
 from ..models.asignatura import Asignatura
-from ..models.evaluacion import Evaluacion
-from ..serializers.evaluacion_serializer import EvaluacionSerializer
+from ..models.evaluacion_docente import Evaluacion
+from ..serializers.evaluacion_docente_serializer import EvaluacionSerializer
 from ..serializers.docente_serializer import DocenteSerializer
 from rest_framework.response import Response
 # from ..services.evaluacion_docente_service import docentes_por_promedio, sugerencias_docentes
