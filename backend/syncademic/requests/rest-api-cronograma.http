@@ -1,0 +1,59 @@
+### Crongrama
+
+GET http://127.0.0.1:8000/syncademic/cronograma/
+Accept: application/json
+
+###
+
+# Mandar con una fecha actual
+POST http://127.0.0.1:8000/syncademic/cronograma/
+Content-Type: application/json
+Accept: application/json
+
+{
+    "asignatura": 1,
+    "estado": "normal",
+    "fecha_inicio": "2024-07-01" 
+}
+
+###
+
+GET http://127.0.0.1:8000/syncademic/cronograma/13/
+Accept: application/json
+
+###
+
+PUT http://127.0.0.1:8000/syncademic/cronograma/9/
+Content-Type: application/json
+Accept: application/json
+
+{
+    "asignatura": 1,
+    "estado": "normal",
+    "fecha_inicio": "2024-09-05"
+}
+
+###
+
+DELETE http://127.0.0.1:8000/syncademic/cronograma/11/
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:8000/syncademic/cronograma/temas-cronograma/10/
+Accept: application/json
+
+###
+
+###GET http://127.0.0.1:8000/syncademic/cronograma/completados/10
+###Accept: application/json
+
+###
+
+GET http://127.0.0.1:8000/syncademic/cronograma/10/estado
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:8000/syncademic/cronograma/10/completados?hasta_semana=2
+Accept: application/json
