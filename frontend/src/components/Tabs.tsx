@@ -64,7 +64,7 @@ function Tabs({ children, cerrarSemestre }: TabsProps) {
                     }
                 </div>
                 <div className="btn-cerrar-semestre d-grid">
-                    <Button onClick={handleCerrarSemestre} variant="danger">
+                    <Button onClick={handleCerrarSemestre} variant={isSemesterClosed ? "success" : "danger"}>
                         {isSemesterClosed ? 'Abrir semestre' : 'Cerrar semestre'}
                     </Button>
                 </div>
