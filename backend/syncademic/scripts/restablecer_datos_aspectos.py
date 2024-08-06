@@ -4,7 +4,7 @@ from syncademic.models.aspecto import Aspecto, Docente
 
 def run():
     # Borrar todos los datos existentes
-    Docente.objects.all().delete()
+    # Docente.objects.all().delete()
     Aspecto.objects.all().delete()
 
     # Crear el docente Carlos

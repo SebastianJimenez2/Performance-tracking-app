@@ -1,12 +1,12 @@
-GET http://0.0.0.0:8000/syncademic/control-notas/estudiantes/1/5/1//
+GET https://syncademic-0-1.onrender.com/syncademic/control-notas/estudiantes/1/5/1//
 Accept: application/json
 
 ###
-GET http://0.0.0.0:8000/syncademic/control-notas/1/5/1//
+GET https://syncademic-0-1.onrender.com/syncademic/control-notas/1/5/1//
 Accept: application/json
 
 ###
-POST http://0.0.0.0:8000/syncademic/control-notas/1/5/1//
+POST https://syncademic-0-1.onrender.com/syncademic/control-notas/1/5/1//
 content-type: application/json
 
 [

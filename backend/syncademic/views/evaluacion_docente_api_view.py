@@ -9,6 +9,7 @@ from rest_framework.response import Response
 # from ..services.evaluacion_docente_service import docentes_por_promedio, sugerencias_docentes
 from ..services.evaluacion_docente_service import evaluacion_docente_service
 
+
 class EvaluacionViewSet(viewsets.ModelViewSet):
     queryset = Evaluacion.objects.all()
     serializer_class = EvaluacionSerializer
@@ -17,7 +18,7 @@ class EvaluacionViewSet(viewsets.ModelViewSet):
             url_path='docentes-por-promedio/(?P<tipo_evaluacion>[^/.]+)/(?P<asignatura_id>[^/.]+)')
     def docentes_por_promedio(self, request, tipo_evaluacion, asignatura_id):
         tipo_evaluacion_int = int(tipo_evaluacion)  # Convertir a entero
-        asignatura = Asignatura.objects.get(id=asignatura_id)
+        asignatura = Asignatura.objects.get(id_asignatura=asignatura_id)
         servicio = evaluacion_docente_service()
         resultados = servicio.get_mejores_docentes_por_asignatura(tipo_evaluacion_int, asignatura)
         data = [{'docente': DocenteSerializer(docente).data, 'promedio': promedio} for docente, promedio in resultados]
