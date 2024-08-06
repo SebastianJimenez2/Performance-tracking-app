@@ -1,4 +1,4 @@
-export type SeguimientoMalla = {
+export type EstudianteCandidato = {
         id_estudiante: number;
         nombre_estudiante: string;
         email: string;
