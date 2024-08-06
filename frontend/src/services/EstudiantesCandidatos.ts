@@ -1,6 +1,6 @@
-import { SeguimientoMalla } from "../types/SeguimientoMalla";
+import { EstudianteCandidato } from "../types/EstudiantesCandidatos";
 
-export const obtenerSeguimientoMalla = async (): Promise<SeguimientoMalla[]> => {
+export const obtenerSeguimientoMalla = async (): Promise<EstudianteCandidato[]> => {
         const url = 'https://syncademic-0-1.onrender.com/syncademic/seguimiento-malla/ProgramacionI/2024B/';
 
         return fetch(url, {
