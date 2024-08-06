@@ -7,8 +7,8 @@ from syncademic.views import DisparadorViewSet, SeguimientoMallaAPIView, Control
 router = DefaultRouter()
 router.register(r'auth', DisparadorViewSet, basename='disparador')
 router.register(r'control-notas', ControlNotasAPIView, basename='control-notas')
+router.register(r'seguimiento-malla', SeguimientoMallaAPIView, basename='seguimiento-malla')
 
 urlpatterns = [
-    path("seguimiento/<str:asignatura_prerequisito>/<str:periodo_actual>/", SeguimientoMallaAPIView.as_view(), name='seguimiento-malla'),
     path('', include(router.urls)),
 ]
