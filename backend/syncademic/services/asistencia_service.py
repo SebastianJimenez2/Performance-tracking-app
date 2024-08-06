@@ -1,3 +1,4 @@
+from ..exceptions.not_found import ObjectNotFound
 from ..models.estudiante import Estudiante
 from ..models.asistencia import Asistencia
 
@@ -35,6 +36,15 @@ class AsistenciaService:
                 })
 
         return estudiantes_en_riesgo
+
+    @staticmethod
+    def obtener_lista_estudiantes():
+        estudiantes = Estudiante.objects.filter().values('id_estudiante', 'nombre_estudiante')
+        if estudiantes is None:
+            raise ObjectNotFound(Asistencia._meta.model_name,
+                                 "No se han encontrado registros para los parámetros dados")
+        else:
+            return estudiantes
 
     @staticmethod
     def actualizar_asistencia(estudiante_id, asignatura_id, semana, dia, presente):
