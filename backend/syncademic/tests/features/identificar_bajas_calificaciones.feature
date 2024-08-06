@@ -1,6 +1,9 @@
 # Creado por Grupo 2 at 23/7/24
 # language: es
 
+# FEATURE  2
+# Creado por: Darío Charro, Alejandra Colcha, Martín Mendieta
+
 Característica: Identificación de estudiantes con bajas calificaciones
   Como docente quiero saber quienes son los estudiantes con tendencia a
   tener un promedio por debajo del mínimo aceptable en base a su perfil e historial académico
