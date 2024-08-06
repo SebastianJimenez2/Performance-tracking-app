@@ -1,4 +1,4 @@
-import { Nota, RespuestaRegistroNotas } from "../types/RegistroNotas.ts"
+import { Nota } from "../types/RegistroNotas.ts"
 import NotaEstudiante from "../components/NotaEstudiante.tsx"
 import { useState } from "react"
 import Button from "react-bootstrap/Button"
@@ -62,12 +62,24 @@ function RegistroNotas({ id }: RegistroNotasProps) {
         })
     }
 
-    const registrarNotasEstudiantes = async() => {
+    const registrarNotasEstudiantes = async () => {
         if (listaNotas.some(nota => nota.nota === -1) || listaNotas.length !== listaEstudiantes.length || tema === '') {
             setMostrarAlertaError(true)
             return
         }
-        console.log((await registrarNotas(1, 1, 1, listaNotas)).en_riesgo)
+        const conteoPrioridades = await registrarNotas(1, 5, 1, listaNotas)
+        if (conteoPrioridades.en_riesgo > 0) {
+            setEstudiantesRiesgo(conteoPrioridades.en_riesgo)
+            setMostrarAlertaRiesgo(true)
+        }
+        if (conteoPrioridades.alerta_media > 0) {
+            setEstudiantesPrioridadMedia(conteoPrioridades.alerta_media)
+            setMostrarAlertaPrioridadMedia(true)
+        }
+        if (conteoPrioridades.alerta_alta > 0) {
+            setEstudiantesPrioridadAlta(conteoPrioridades.alerta_alta)
+            setMostrarAlertaPrioridadAlta(true)
+        }
     }
 
     return (
@@ -88,13 +100,13 @@ function RegistroNotas({ id }: RegistroNotasProps) {
                     </div>
                     <div className="parametros-generales">
                         <div className="tema-notas">
-                            <label htmlFor="tema">Tema</label>
-                            <input type="text" name="tema" id="tema" value={tema} onChange={e => onChangeTema(e.target.value)} />
+                            <span>Tema</span>
+                            <input type="text" value={tema} onChange={e => onChangeTema(e.target.value)} />
                         </div>
                         <div className="tipo-nota">
-                            <label htmlFor="tipo-nota">Tipo de nota</label>
+                            <span>Tipo de nota</span>
                             <Dropdown id="tipo-nota">
-                                <Dropdown.Toggle variant="primary">
+                                <Dropdown.Toggle variant="light">
                                     {tipoActividad === 1 ? 'Actividad' : 'Evaluación'}
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
@@ -105,7 +117,7 @@ function RegistroNotas({ id }: RegistroNotasProps) {
                         </div>
                     </div>
                 </div>
-                <Button onClick={() => registrarNotasEstudiantes()} variant="success">Registrar</Button>
+                <Button onClick={() => registrarNotasEstudiantes()} size="lg" variant="primary">Registrar</Button>
                 <div className="contenedor-alertas">
                     {
                         mostrarAlertaError &&
@@ -118,20 +130,41 @@ function RegistroNotas({ id }: RegistroNotasProps) {
                     }
                     {
                         mostrarAlertaRiesgo &&
-                        <Alert variant="success" onClose={() => setMostrarAlertaRiesgo(false)} dismissible>
-                            Existen {estudiantesRiesgo} estudiantes en riesgo de diminuir su promedio
+                        <Alert variant="secondary" onClose={() => setMostrarAlertaRiesgo(false)} dismissible>
+                            {
+                                estudiantesRiesgo === 1 ?
+                                    <span><b>1</b> nuevo estudiante en riesgo de disminuir su promedio detectado</span>
+                                    :
+                                    <span><b>{estudiantesRiesgo}</b> nuevos estudiantes en riesgo de disminuir su promedio detectados</span>
+                            }
+                            <hr />
+                            Por favor, revise la lista de estudiantes
                         </Alert>
                     }
                     {
                         mostrarAlertaPrioridadMedia &&
-                        <Alert variant="success" onClose={() => setMostrarAlertaPrioridadMedia(false)} dismissible>
-                            Existen {estudiantesPrioridadMedia} estudiantes que han bajado su promedio en hasta 2 ocasiones
+                        <Alert variant="warning" onClose={() => setMostrarAlertaPrioridadMedia(false)} dismissible>
+                            {
+                                estudiantesPrioridadMedia === 1 ?
+                                    <span><b>1</b> nuevo estudiante que ha bajado su promedio en hasta 2 ocasiones detectado</span>
+                                    :
+                                    <span><b>{estudiantesPrioridadMedia}</b> nuevos estudiantes que han bajado su promedio en hasta 2 ocasiones detectados</span>
+                            }
+                            <hr />
+                            Por favor, revise la lista de estudiantes
                         </Alert>
                     }
                     {
                         mostrarAlertaPrioridadAlta &&
-                        <Alert variant="success" onClose={() => setMostrarAlertaPrioridadAlta(false)} dismissible>
-                            Existen {estudiantesPrioridadAlta} estudiantes que han bajado su promedio en 3 o más ocasiones
+                        <Alert variant="danger" onClose={() => setMostrarAlertaPrioridadAlta(false)} dismissible>
+                            {
+                                estudiantesPrioridadAlta === 1 ?
+                                    <span><b>1</b> nuevo estudiante que ha bajado su promedio en 3 o más ocasiones detectado</span>
+                                    :
+                                    <span><b>{estudiantesPrioridadMedia}</b> nuevos estudiantes que han bajado su promedio en 3 o más ocasiones detectados</span>
+                            }
+                            <hr />
+                            Por favor, revise la lista de estudiantes
                         </Alert>
                     }
                 </div>
