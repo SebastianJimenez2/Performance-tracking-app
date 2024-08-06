@@ -25,17 +25,17 @@ function App() {
   const renderAsignaturaChildren = (): React.ReactNode[] => {
     if (isSemesterClosed) {
       return [
-        <Estudiantes id="Estudiantes" />,
-        <Componente3 id="tab número 3" />,
-        <EstudiantesCandidatos id="Estudiantes candidatos" />,
-        <Componente3 id="tab número 4" />
+        <Estudiantes key={'Estudiantes'} id="Estudiantes" />,
+        <Componente3 key={'tab número 3'} id="tab número 3" />,
+        <EstudiantesCandidatos key={'Estudiantes candidatos'} id="Estudiantes candidatos" />,
+        <Componente3 key={'tab número 4'} id="tab número 4" />
       ];
     } else {
       return [
-        <Estudiantes id="Estudiantes" />,
-        <Componente3 id="tab número 3" />,
-        <RegistroNotas id="Registro notas" />,
-        <Componente3 id="tab número 4" />
+        <Estudiantes key={'Estudiantes'} id="Estudiantes" />,
+        <Componente3 key={'tab número 3'} id="tab número 3" />,
+        <RegistroNotas key={'Registro notas'} id="Registro notas" />,
+        <Componente3 key={'tab número 4'} id="tab número 4" />
       ];
     }
   };
