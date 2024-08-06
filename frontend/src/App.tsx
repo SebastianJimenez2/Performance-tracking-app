@@ -6,7 +6,7 @@ import Capacitaciones from './pages/Capacitaciones';
 import Login from './pages/Login';
 import RegistroNotas from './pages/RegistroNotas';
 import Estudiantes from './pages/Estudiantes';
-import EstudiantesCandidatos from './pages/EstudiantesCandidatos'
+import EstudiantesCandidatos from './pages/EstudiantesCandidatos';
 import { useContextoGlobal } from './ContextoGlobal';
 
 function App() {

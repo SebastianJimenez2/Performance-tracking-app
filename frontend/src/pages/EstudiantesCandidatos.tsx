@@ -24,9 +24,7 @@ function EstudiantesCandidatos({ id }: EstudiantesCandidatosProps) {
                                 setData(result);
                         } catch (err) {
                                 setError('Error fetching data');
-                        } finally {
-                                setLoading(false);
-                        }
+                        } 
                 };
 
                 getData();

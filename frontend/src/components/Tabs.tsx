@@ -4,7 +4,7 @@ import ImagenPRofesor from "../assets/profesor.jpg";
 import Button from "react-bootstrap/Button";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "../styles/components/Tabs.css"
+import "../styles/components/Tabs.css";
 
 
 type TabsProps = {
