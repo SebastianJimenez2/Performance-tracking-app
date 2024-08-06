@@ -1,24 +1,21 @@
 import { createContext, useState, ReactNode, useContext } from 'react'
-import { Profesor } from './types/Capacitaciones';
+import { Estudiante } from './types/RegistroNotas';
 
 type contextoType = {
     paginaActual: string;
     setPaginaActual: (paginaActual: string) => void;
-    profesor: Profesor | null; 
-    setProfesor: (profesor: Profesor | null) => void; 
-    modoUsuario: string; 
-    setModoUsuario: (modo: string) => void; 
+    listaEstudiantes: Estudiante[];
+    setListaEstudiantes: (listaEstudiantes: Estudiante[]) => void;
 }
 
 const ContextoGlobal = createContext<contextoType | undefined>(undefined)
 
 export function ProveedorContextoGlobal({ children }: { children: ReactNode }) {
     const [paginaActual, setPaginaActual] = useState<string>('')
-    const [profesor, setProfesor] = useState<Profesor | null>(null);
-    const [modoUsuario, setModoUsuario] = useState<string>('normal');
+    const [listaEstudiantes, setListaEstudiantes] = useState<Estudiante[]>([])
 
     return (
-        <ContextoGlobal.Provider value={{ paginaActual, setPaginaActual,profesor, setProfesor, modoUsuario, setModoUsuario }}>
+        <ContextoGlobal.Provider value={{ paginaActual, setPaginaActual, listaEstudiantes, setListaEstudiantes }}>
             {children}
         </ContextoGlobal.Provider>
     )

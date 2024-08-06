@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ld&q347_7o4-7+pat0q$=pmpciu3*om0p6uej(or%sof&)ih%1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['syncademic-0-1.onrender.com', '0.0.0.0']
 
 
 # Application definition
@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'behave_django',
-    'django_extensions'
+    'django_extensions',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'Performance_tracking_app.urls'
@@ -129,3 +131,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://syncademic-0-1.onrender.com',
+]

@@ -3,7 +3,7 @@ import BarraNavegacion from './BarraNavegacion';
 
 type AsignaturaProps = {
     children: React.ReactNode[],
-    cerrarSemestre: () => void
+    cerrarSemestre: (isClosed: boolean) => void
 }
 
 function Asignatura({ children, cerrarSemestre }: AsignaturaProps) {
