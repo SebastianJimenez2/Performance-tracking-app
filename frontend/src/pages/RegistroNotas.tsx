@@ -1,9 +1,11 @@
-import { Estudiante, Nota } from "../types/RegistroNotas.ts"
+import { Nota, RespuestaRegistroNotas } from "../types/RegistroNotas.ts"
 import NotaEstudiante from "../components/NotaEstudiante.tsx"
 import { useState } from "react"
 import Button from "react-bootstrap/Button"
 import Dropdown from 'react-bootstrap/Dropdown';
 import Alert from 'react-bootstrap/Alert';
+import { useContextoGlobal } from "../ContextoGlobal.tsx";
+import { registrarNotas } from "../services/RegistroNotas.ts"
 
 import '../styles/pages/RegistroNotas.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -24,88 +26,7 @@ function RegistroNotas({ id }: RegistroNotasProps) {
     const [estudiantesRiesgo, setEstudiantesRiesgo] = useState<number>(0)
     const [estudiantesPrioridadMedia, setEstudiantesPrioridadMedia] = useState<number>(0)
     const [estudiantesPrioridadAlta, setEstudiantesPrioridadAlta] = useState<number>(0)
-    const listaEstudiantes: Estudiante[] = [
-        {
-            id_estudiante: 1,
-            nombre_estudiante: 'Juan',
-            email: 'juan@gmail.com',
-            numero_incidencias: 0,
-            prioridad: 'BAJA',
-            promedio: 0
-        },
-        {
-            id_estudiante: 2,
-            nombre_estudiante: 'Maria',
-            email: 'maria@gmail.com',
-            numero_incidencias: 0,
-            prioridad: 'BAJA',
-            promedio: 0
-        },
-        {
-            id_estudiante: 3,
-            nombre_estudiante: 'Pedro',
-            email: 'pedro@gmail.com',
-            numero_incidencias: 0,
-            prioridad: 'BAJA',
-            promedio: 0
-        },
-        {
-            id_estudiante: 4,
-            nombre_estudiante: "Ana",
-            email: "ana@gmail.com",
-            numero_incidencias: 1,
-            prioridad: "MEDIA",
-            promedio: 7.5
-        },
-        {
-            id_estudiante: 5,
-            nombre_estudiante: "Luis",
-            email: "luis@gmail.com",
-            numero_incidencias: 2,
-            prioridad: "ALTA",
-            promedio: 6.0
-        },
-        {
-            id_estudiante: 6,
-            nombre_estudiante: "Carmen",
-            email: "carmen@gmail.com",
-            numero_incidencias: 0,
-            prioridad: "BAJA",
-            promedio: 9.0
-        },
-        {
-            id_estudiante: 7,
-            nombre_estudiante: "Jose de los monteros",
-            email: "jose@gmail.com",
-            numero_incidencias: 3,
-            prioridad: "ALTA",
-            promedio: 5.5
-        },
-        {
-            id_estudiante: 8,
-            nombre_estudiante: "Laura",
-            email: "laura@gmail.com",
-            numero_incidencias: 1,
-            prioridad: "MEDIA",
-            promedio: 8.0
-        },
-        {
-            id_estudiante: 9,
-            nombre_estudiante: "Miguel",
-            email: "miguel@gmail.com",
-            numero_incidencias: 0,
-            prioridad: "BAJA",
-            promedio: 7.0
-        },
-        {
-            id_estudiante: 10,
-            nombre_estudiante: "Sara",
-            email: "sara@gmail.com",
-            numero_incidencias: 0,
-            prioridad: "BAJA",
-            promedio: 9.5
-        }
-    ]
+    const { listaEstudiantes } = useContextoGlobal()
 
     const onFocusNotaEstudiante = (idEstudiante: number, nombre: string) => {
         if (!listaNotas.some(nota => nota.id_estudiante === idEstudiante)) {
@@ -141,11 +62,12 @@ function RegistroNotas({ id }: RegistroNotasProps) {
         })
     }
 
-    const registrarNotas = () => {
-        if (listaNotas.some(nota => nota.nota === -1) || listaNotas.length !== listaEstudiantes.length) {
+    const registrarNotasEstudiantes = async() => {
+        if (listaNotas.some(nota => nota.nota === -1) || listaNotas.length !== listaEstudiantes.length || tema === '') {
             setMostrarAlertaError(true)
             return
         }
+        console.log((await registrarNotas(1, 1, 1, listaNotas)).en_riesgo)
     }
 
     return (
@@ -183,14 +105,14 @@ function RegistroNotas({ id }: RegistroNotasProps) {
                         </div>
                     </div>
                 </div>
-                <Button onClick={() => registrarNotas()} variant="success">Registrar</Button>
+                <Button onClick={() => registrarNotasEstudiantes()} variant="success">Registrar</Button>
                 <div className="contenedor-alertas">
                     {
                         mostrarAlertaError &&
                         <Alert variant="danger" onClose={() => setMostrarAlertaError(false)} dismissible>
                             <Alert.Heading>Error al registrar las notas</Alert.Heading>
                             <p>
-                                Por favor, registre las notas de todos los estudiantes
+                                Por favor, complete todos los campos para poder registrar las notas
                             </p>
                         </Alert>
                     }
