@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from ..models.evaluacion import Evaluacion
+from ..models.evaluacion_docente import Evaluacion
 
 
 class EvaluacionSerializer(serializers.ModelSerializer):
