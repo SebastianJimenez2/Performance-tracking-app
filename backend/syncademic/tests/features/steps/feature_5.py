@@ -35,13 +35,13 @@ def step_impl(context, semana_actual, temas_marcados):
 
     context.cronograma = Cronograma(
         id_cronograma=1,
-        id_asignatura=context.asignatura,
+        asignatura=context.asignatura,
         fecha_inicio=datetime.now() - timedelta(weeks=5),
     )
 
     context.tema_cronograma1 = TemaCronograma(
         id_tema=2,
-        id_cronograma=context.cronograma,
+        cronograma=context.cronograma,
         descripcion="Tema 1",
         orden=1,
         tiempo_en_semanas=1,
@@ -52,7 +52,7 @@ def step_impl(context, semana_actual, temas_marcados):
 
     context.tema_cronograma2 = TemaCronograma(
         id_tema=2,
-        id_cronograma=context.cronograma,
+        cronograma=context.cronograma,
         descripcion="Tema 2",
         orden=2,
         tiempo_en_semanas=1,
@@ -63,7 +63,7 @@ def step_impl(context, semana_actual, temas_marcados):
 
     context.tema_cronograma3 = TemaCronograma(
         id_tema=3,
-        id_cronograma=context.cronograma,
+        cronograma=context.cronograma,
         descripcion="Tema 3",
         orden=3,
         tiempo_en_semanas=2,
