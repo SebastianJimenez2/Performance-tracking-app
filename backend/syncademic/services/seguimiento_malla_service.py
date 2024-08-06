@@ -4,13 +4,6 @@ from ..models.periodo import Periodo
 from ..models.estudiante import Estudiante
 from django.db.models import OuterRef, Avg, Subquery
 
-from syncademic.models.notas import HistorialNotas
-from syncademic.models.asignatura import Asignatura
-from syncademic.models.periodo import Periodo
-from syncademic.models.estudiante import Estudiante
-
-
-
 class SeguimientoService:
     def __init__(self, asignatura_prerequisito: str, periodo_actual: str):
         self.asignatura_prerequisito = asignatura_prerequisito
@@ -34,7 +27,7 @@ class SeguimientoService:
                 .values('id_estudiante')
                 .annotate(promedio=Subquery(self.obtener_promedio_notas_estudiantes(asignatura_prerequisito, periodo_actual)))
                 .filter(promedio__gte=asignatura_prerequisito.nota_minima)
-                .filter(promedio__lte=self.obtener_promedio_historico(asignatura_prerequisito, periodo_actual))
+                .filter(promedio__lte=self.obtener_promedio_historico())
             ).values_list('id_estudiante', flat=True)
 
             # Con los identificadores solo hace falta hacer una consulta en tabla de estudiantes.
@@ -52,12 +45,13 @@ class SeguimientoService:
                 "No es posible identificar a los estudiantes con problemas, puesto que, la asignatura indicada "
                 "no tiene una asignatura subsecuente.")
 
-    def obtener_promedio_historico(self, asignatura_prerequisito, periodo_actual):
+    def obtener_promedio_historico(self):
         try:
-            # Para obtener el promedio histórico, hay que determinar la asignatura subsecuente y el periodo anterior.
-
+            # Para obtener el promedio histórico, hay que determinar las asignaturas y periodos.
+            asignatura_prerequisito = Asignatura.objects.get(nombre=self.asignatura_prerequisito)
             asignatura_subsecuente = Asignatura.objects.get(id_asignatura=asignatura_prerequisito.subsecuente_id)
-            periodo_anterior = Periodo.objects.get(id_periodo=periodo_actual.id_periodo - 1)
+            periodo_actual = Periodo.objects.get(nombre=self.periodo_actual)
+            periodo_anterior = Periodo.objects.get(id_periodo=periodo_actual.id_periodo-1)
 
             # Obtenemos a los estudiantes que tienen menos de la nota mínima en la asignatura subsecuente actual.
             estudiantes_asignatura_subsecuente_periodo_actual = (

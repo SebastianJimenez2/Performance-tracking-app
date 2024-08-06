@@ -2,15 +2,16 @@ import Tabs from './Tabs';
 import BarraNavegacion from './BarraNavegacion';
 
 type AsignaturaProps = {
-    children: React.ReactNode[];
+    children: React.ReactNode[],
+    cerrarSemestre: () => void
 }
 
-function Asignatura({ children }: AsignaturaProps) {
+function Asignatura({ children, cerrarSemestre }: AsignaturaProps) {
 
     return (
         <>
             <BarraNavegacion />
-            <Tabs>
+            <Tabs cerrarSemestre={cerrarSemestre}>
                 {children}
             </Tabs>
         </>
