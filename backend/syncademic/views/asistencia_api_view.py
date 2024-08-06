@@ -36,3 +36,11 @@ class AsistenciaAPIView(viewsets.ViewSet):
             except ObjectNotFound as e:
                 return Response({'Error': e.detail}, status=status.HTTP_404_NOT_FOUND)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=False, methods=['get'], url_path='lista-estudiantes')
+    def lista_estudiantes(self, request):
+        try:
+            estudiantes = AsistenciaService.obtener_lista_estudiantes()
+            return Response({'estudiantes': estudiantes}, status=status.HTTP_200_OK)
+        except ObjectNotFound as e:
+            return Response({'error': str(e)}, status=status.HTTP_404_NOT_FOUND)
