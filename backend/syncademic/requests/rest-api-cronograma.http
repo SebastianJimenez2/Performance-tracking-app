@@ -11,7 +11,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-    "asignatura": 1,
+    "asignatura": 3,
     "estado": "normal",
     "fecha_inicio": "2024-07-01" 
 }
@@ -23,7 +23,7 @@ Accept: application/json
 
 ###
 
-PUT http://127.0.0.1:8000/syncademic/cronograma/9/
+PUT http://127.0.0.1:8000/syncademic/cronograma/12/
 Content-Type: application/json
 Accept: application/json
 
@@ -35,12 +35,12 @@ Accept: application/json
 
 ###
 
-DELETE http://127.0.0.1:8000/syncademic/cronograma/11/
+DELETE http://127.0.0.1:8000/syncademic/cronograma/19/
 Accept: application/json
 
 ###
-
-GET http://127.0.0.1:8000/syncademic/cronograma/temas-cronograma/10/
+### arreglar
+GET http://127.0.0.1:8000/syncademic/cronograma/temas-cronograma/14/
 Accept: application/json
 
 ###
@@ -50,10 +50,10 @@ Accept: application/json
 
 ###
 
-GET http://127.0.0.1:8000/syncademic/cronograma/10/estado
+GET http://127.0.0.1:8000/syncademic/cronograma/12/estado
 Accept: application/json
 
 ###
 
-GET http://127.0.0.1:8000/syncademic/cronograma/10/completados?hasta_semana=2
+GET http://127.0.0.1:8000/syncademic/cronograma/12/completados?hasta_semana=2
 Accept: application/json

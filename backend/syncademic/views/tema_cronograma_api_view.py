@@ -58,6 +58,6 @@ class TemaCronogramaAPIView(viewsets.ModelViewSet):
         try:
             tema = TemaCronograma.objects.get(id_tema=pk)
             tema.delete()
-            return Response(status=status.HTTP_200_OK)
+            return Response({'message': 'Eliminado exitosamente'}, status=status.HTTP_200_OK)
         except TemaCronograma.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)

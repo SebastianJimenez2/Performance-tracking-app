@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from rest_framework import viewsets, status
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view
 
 from ..serializers import CronogramaSerializer
 from ..serializers import TemaCronogramaSerializer
@@ -18,14 +18,12 @@ class CronogramaAPIView(viewsets.ModelViewSet):
     def temas_cronograma(self, request, cronograma_id=None):
         try:
             temas = CronogramaService.get_temas_cronograma(int(cronograma_id))
-            if temas:
-                return Response({'temas': temas}, status=status.HTTP_200_OK)
-            else:
-                return Response({'message': 'No temas found for this cronograma'}, status=status.HTTP_404_NOT_FOUND)
+            temas_count = temas.count()
+            return Response({'temas_count': temas_count}, status=status.HTTP_200_OK)
         except ValueError:
             return Response({'error': 'Invalid cronograma ID'}, status=status.HTTP_400_BAD_REQUEST)
-        except ObjectNotFound:
-            return Response({'error': 'Cronograma not found'}, status=status.HTTP_404_NOT_FOUND)
+        except ObjectNotFound as e:
+            return Response({'error': str(e)}, status=status.HTTP_404_NOT_FOUND)
         
     @action(detail=True, methods=['get'], url_path='completados')
     def get_completados(self, request, pk=None):
@@ -51,5 +49,15 @@ class CronogramaAPIView(viewsets.ModelViewSet):
             return Response({'error': str(e)}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+    
+    @api_view(['DELETE'])
+    def delete_cronograma(request, pk):
+        try:
+            tema = Cronograma.objects.get(id_cronograma=pk)
+            tema.delete()
+            return Response({'message': 'Eliminado exitosamente'}, status=status.HTTP_200_OK)
+        except Cronograma.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
     
