@@ -2,8 +2,9 @@ from collections import defaultdict
 from typing import List, Tuple
 
 from ..models.asignatura import Asignatura
-from ..models.evaluacion import Evaluacion
-from ..utils.evaluacion_docente_utils import _calcular_promedios
+from ..models.evaluacion_docente import Evaluacion
+from ..utils.evaluacion_docente_utils import calcular_promedios
+
 
 class evaluacion_docente_service:
 
@@ -29,9 +30,9 @@ class evaluacion_docente_service:
     def get_mejores_docentes_por_asignatura(tipo_evaluacion: int, asignatura: Asignatura) -> List[Tuple[str, float]]:
         evaluaciones = Evaluacion.objects.filter(tipo_evaluacion=tipo_evaluacion, asignatura=asignatura)
 
-        return _calcular_promedios(evaluaciones)
+        return calcular_promedios(evaluaciones)
 
     @staticmethod
-    def get_mejores_evaluaciones () -> List[Tuple[str, float]]:
+    def get_mejores_evaluaciones() -> List[Tuple[str, float]]:
         evaluaciones = Evaluacion.objects.all()
-        return _calcular_promedios(evaluaciones)
+        return calcular_promedios(evaluaciones)
