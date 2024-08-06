@@ -1,3 +1,13 @@
-from syncademic.views.notas_api_view import ControlNotasAPIView
-from syncademic.views.asistencia_api_view import AsistenciaAPIView
-from syncademic.views.seguimiento_malla_api_view import SeguimientoMallaAPIView
+# syncademic/views/__init__.py
+
+from .disparador_api_view import DisparadorViewSet
+from .seguimiento_malla_api_view import SeguimientoMallaAPIView
+from .notas_api_view import ControlNotasAPIView
+from .asistencia_api_view import AsistenciaAPIView
+
+__all__ = [
+    'DisparadorViewSet',
+    'SeguimientoMallaAPIView',
+    'ControlNotasAPIView',
+    'AsistenciaAPIView',
+]
