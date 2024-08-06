@@ -3,13 +3,16 @@ class AreaDocente:
                 AreaDocente
                 Clase auxiliar para recopilar solo la información necesaria del docente.
 
-                Atributos: nombre, áreas
+                Atributos: nombre, áreas, puntos_capacitacion
     """
 
-    def __init__(self, nombre: str, areas: list):
+    def __init__(self, nombre: str):
         self.nombre = nombre
-        self.area = areas
+        self.areas = None
         self.puntos_capacitacion = 0
+        self.capacitaciones = 0
+        self.ha_registrado_capacitacion = None
+        self.estado: str = "incompleto"
 
     @property
     def nombre(self):
@@ -32,30 +35,46 @@ class AreaDocente:
         return self._puntos_capacitacion
 
     @puntos_capacitacion.setter
-    def numero_incidencias(self, puntos_capacitacion):
-        self._puntos_capacitacion = puntos_capacitacion
+    def puntos_capacitacion(self, value):
+        self._puntos_capacitacion = value
 
     @property
-    def tiene_area(self, cadena_buscada):
-        # Recorre cada elemento en la lista
-        for elemento in self.areas:
-            # Verifica si el elemento es una cadena y si es igual a cadena_buscada
-            if isinstance(elemento, str) and elemento == cadena_buscada:
-                return True
-        # Si no se encontró la cadena buscada, retorna False
-        return False
+    def capacitaciones(self):
+        return self._capacitaciones
+
+    @capacitaciones.setter
+    def capacitaciones(self, capacitaciones):
+        self._capacitaciones = capacitaciones
+
+    @property
+    def ha_registrado_capacitacion(self):
+        return self._ha_registrado_capacitacion
+
+    @ha_registrado_capacitacion.setter
+    def ha_registrado_capacitacion(self, ha_registrado_capacitacion):
+        self._ha_registrado_capacitacion = ha_registrado_capacitacion
+
+    @property
+    def estado(self):
+        return self._estado
+
+    @estado.setter
+    def estado(self, value) -> str:
+        self._estado = value
+
+
 
 class AreaCapacitacion:
         """
-                    AreaCapacitacion
-                    Clase auxiliar para recopilar solo la información necesaria de la capacitacion.
+                AreaCapacitacion
+                Clase auxiliar para recopilar solo la información necesaria de la capacitacion.
 
-                    Atributos: nombre, área
-            """
+                Atributos: nombre, área
+        """
 
-        def __init__(self, nombre: str, area: str):
+        def __init__(self, nombre: str):
             self.nombre = nombre
-            self.area = area
+            self.area = None
 
         @property
         def nombre(self):
@@ -73,27 +92,25 @@ class AreaCapacitacion:
         def area(self, area):
             self._area = area
 
+
 class ControlAreas:
     """
             CONTROL ÁREAS
             Recibe un docente para comparar su area respecto al area de una capacitacion.
     """
-    class ControlCapacitacion:
-        def __init__(self, docente: AreaDocente):
-            self.docente = docente
-            self.calificacion_actual = 0
 
+    def __init__(self, docente: AreaDocente, capacitacion: AreaCapacitacion):
+        self.docente = docente
+        self.capacitacion = capacitacion
 
+    def son_afines(self):
+        if self.capacitacion.area in self.docente.areas:
+            return True
+        else:
+            return False
 
-        def pertenece_al_area(self, capacitacion):
-            areaDocente = self.docente.asignatura
-
-            if (self.docente.id_docente == self.asignatura.id_docente):
-
-                areaDocente = self.asignatura.area
-
-                if (areaDocente == capacitacion.area):
-
-                    return True
-            else:
-                    return False
+    def calcular_puntuacion(self):
+        if self.son_afines():
+            self.docente.puntos_capacitacion = self.docente.puntos_capacitacion + 5
+        else:
+            self.docente.puntos_capacitacion = self.docente.puntos_capacitacion + 2
