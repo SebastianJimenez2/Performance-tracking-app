@@ -2,6 +2,7 @@
 
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from syncademic.views import DisparadorViewSet, SeguimientoMallaAPIView, ControlNotasAPIView
 from syncademic.views import DisparadorViewSet, SeguimientoMallaAPIView, ControlNotasAPIView, CronogramaAPIView, TemaCronogramaAPIView
 
 router = DefaultRouter()

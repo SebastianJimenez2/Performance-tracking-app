@@ -42,6 +42,11 @@
   margin-left: 1rem;
 }
 
+.contenido-tabs {
+  width: 85vw;
+  height: 90vh;
+}
+
 .perfil-profesor {
   display: flex;
   flex-direction: column;
