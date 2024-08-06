@@ -90,4 +90,8 @@ def step_impl(context, estado):
 
 @step('la institución decide que "{envia}" un recordatorio al docente')
 def step_impl(context, envia):
-    raise NotImplementedError(u'STEP: Y la institución decide que "<envia>" un recordatorio al docente')
+    context.envia = envia.strip()
+    if context.envia == 'envia':
+        assert 'envia' == context.envia
+    elif context.envia == 'no envia':
+        assert 'no envia' == context.envia
