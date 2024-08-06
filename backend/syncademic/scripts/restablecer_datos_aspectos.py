@@ -1,5 +1,5 @@
 from datetime import datetime
-from syncademic.models import Docente, Aspecto
+from syncademic.models.aspecto import Aspecto, Docente
 
 
 def run():

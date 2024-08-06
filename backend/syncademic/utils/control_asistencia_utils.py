@@ -29,13 +29,14 @@ class ControlAsistencia:
             1 for a in asistencias if a.estudiante == estudiante and a.presente and (mes - 1) * 4 < a.semana <= mes * 4)
         return (clases_asistidas / total_clases) * 100 if total_clases > 0 else 0
 
-    def obtener_estudiantes_en_riesgo(self, estudiantes, asistencias, mes):
+    @classmethod
+    def obtener_estudiantes_en_riesgo(cls, estudiantes, asistencias, mes):
         minimo = 0
         maximo = 70
         estudiantes_en_riesgo = []
 
         for estudiante in estudiantes:
-            tasa_asistencia = self.calcular_tasa_asistencia(estudiante, asistencias, mes)
+            tasa_asistencia = cls.calcular_tasa_asistencia(cls, estudiante, asistencias, mes)
             if minimo <= tasa_asistencia <= maximo:
                 estudiantes_en_riesgo.append({
                     'nombre': estudiante.nombre,
