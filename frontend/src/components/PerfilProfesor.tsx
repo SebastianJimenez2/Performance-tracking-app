@@ -1,15 +1,34 @@
 import { Card, Image, ListGroup } from 'react-bootstrap';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { Line } from 'react-chartjs-2';
+import { Chart, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import { Profesor } from '../types/Capacitaciones';
 import '../styles/components/PerfilProfesor.css';
 
-const datos = [
-  { semestre: '2022-A', puntaje: 40 },
-  { semestre: '2022-B', puntaje: 45 },
-  { semestre: '2023-A', puntaje: 50 },
-  { semestre: '2023-B', puntaje: 55 },
-  { semestre: '2024-A', puntaje: 60 }
-];
+// Registrar los componentes de Chart.js
+Chart.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+
+const datos = {
+  labels: ['2022-A', '2022-B', '2023-A', '2023-B', '2024-A'],
+  datasets: [
+    {
+      label: 'Puntaje',
+      data: [40, 45, 50, 55, 60],
+      fill: false,
+      backgroundColor: '#8884d8',
+      borderColor: '#8884d8',
+      tension: 0.1
+    }
+  ]
+};
+
+const opciones = {
+  responsive: true,
+  plugins: {
+    legend: {
+      display: false
+    }
+  }
+};
 
 function PerfilProfesor({ profesor }: { profesor: Profesor }) {
   return (
@@ -29,15 +48,7 @@ function PerfilProfesor({ profesor }: { profesor: Profesor }) {
           </Card.Body>
         </Card>
         <div className="grafico-profesor">
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={datos} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="semestre" />
-              <YAxis />
-              <Tooltip />
-              <Line type="monotone" dataKey="puntaje" stroke="#8884d8" activeDot={{ r: 8 }} />
-            </LineChart>
-          </ResponsiveContainer>
+          <Line data={datos} options={opciones} />
         </div>
       </div>
     </div>

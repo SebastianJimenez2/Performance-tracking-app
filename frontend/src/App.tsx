@@ -8,9 +8,14 @@ import RegistroNotas from './pages/RegistroNotas';
 import Estudiantes from './pages/Estudiantes';
 import EstudiantesCandidatos from './pages/EstudiantesCandidatos';
 import { useContextoGlobal } from './ContextoGlobal';
+import PerfilProfesor from './pages/Profesor';
+import { Profesor as TipoProfesor } from './types/Capacitaciones';
+import TablaProfesores from './components/TablaProfesores';
+
+
 
 function App() {
-  const { paginaActual } = useContextoGlobal()
+  const { paginaActual, rol, profesor, setRol } = useContextoGlobal()
   const [isSemesterClosed, setIsSemesterClosed] = useState<boolean>(false);
   const handleSemesterToggle = (isClosed: boolean) => {
     console.log('Semestre cerrado:', isClosed);
@@ -36,6 +41,23 @@ function App() {
   };
 
   const mostrarPagina = () => {
+    //setRol('Admin')
+    if (rol === 'Admin') {
+      switch (paginaActual) {
+        case 'Profesor':
+          return profesor ? <PerfilProfesor profesor={profesor} /> : <div>No se ha seleccionado ningún profesor</div>;
+        default:
+          return (
+            <>
+              <Asignatura cerrarSemestre={() => console.log('Cerrando semestre')}>
+                <Componente_profesor id="Profesores" />
+                <Componente_asignatura id="Asignaturas" />
+              </Asignatura>
+            </>
+          );
+      }
+    } else {
+
     switch (paginaActual) {
       case 'Cursos':
         return <Cursos />
@@ -51,12 +73,32 @@ function App() {
         );
     }
   }
+  }
 
   return (
     <>
       {mostrarPagina()}
     </>
   )
+}
+
+function Componente_profesor({ id }: { id: string }) {
+  const { setPaginaActual, setProfesor } = useContextoGlobal();
+
+  const handleRowClick = (profesor: TipoProfesor) => {
+    setProfesor(profesor);
+    setPaginaActual('Profesor');
+  };
+
+  return <TablaProfesores alHacerClicEnFila={handleRowClick} />;
+}
+
+function Componente_asignatura({ id }: { id: string }) {
+  return (
+    <div id={id}>
+      <h1>Componente Asignatura</h1>
+    </div>
+  );
 }
 
 function Componente3({ id }: { id: string }) {

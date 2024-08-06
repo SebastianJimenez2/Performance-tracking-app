@@ -62,5 +62,3 @@ function CourseTable() {
 }
 
 export default CourseTable;
-
-
