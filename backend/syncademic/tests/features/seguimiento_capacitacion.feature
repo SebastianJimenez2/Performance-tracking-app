@@ -1,6 +1,9 @@
 # Creado por Grupo 4 el 28/07/2024
 # language: es
 
+# Feature 8
+# Grupo 4: Sebastian Moyano, Luis De La Cruz, Christopher Zambrano
+
 Característica: Seguimiento de capacitaciones
   Como institución
   quiero llevar un seguimiento de la capacitación de los docentes
