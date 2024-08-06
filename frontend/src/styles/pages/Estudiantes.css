@@ -1,4 +1,44 @@
 .estudiantes-contenedor {
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    position: relative;
+}
+
+.contenedor-tabla {
+    width: 90%;
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+.celda-tabla {
+    text-align: center;
+}	
+
+.riesgo {
+    background-color: #565e64 !important;
+    color: #fff !important;
+}
+
+.media {
+    background-color: #FFCA2C !important;
+}
+
+.alta {
+    background-color: #BB2D3B !important;
+    color: #fff !important;
+}
+
+.contenedor-notificacion {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.badge.bg-warning {
+    color: #000 !important;
 }
