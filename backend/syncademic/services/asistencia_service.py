@@ -30,7 +30,7 @@ class AsistenciaService:
             tasa_asistencia = AsistenciaService.calcular_tasa_asistencia(estudiante, mes)
             if minimo <= tasa_asistencia <= maximo:
                 estudiantes_en_riesgo.append({
-                    'nombre': estudiante.nombre,
+                    'nombre': estudiante.nombre_estudiante,
                     'tasa_asistencia': tasa_asistencia,
                 })
 

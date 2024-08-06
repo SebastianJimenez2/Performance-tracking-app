@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import PerfilProfesor from '../components/PerfilProfesor';
 import { useContextoGlobal } from '../ContextoGlobal';
 import TablaCapacitaciones from "../components/TablaCapacitaciones";
@@ -39,6 +39,5 @@ function Profesor({ profesor }: { profesor: TipoProfesor }) {
 }
 
 export default Profesor;
-
 
 

@@ -9,10 +9,11 @@ from ..utils.evaluacion_docente_utils import calcular_promedios
 class evaluacion_docente_service:
 
     @staticmethod
-    def get_evaluaciones_docente(self):
-        if self.id_docente is not None:
-            return Evaluacion.objects.filter(docente=self.id_docente)
+    def get_evaluaciones_docente(docente_id: int):
+        if docente_id is not None:
+            return Evaluacion.objects.filter(docente=docente_id).select_related('asignatura')
         return Evaluacion.objects.none()
+
 
     @staticmethod
     def get_evaluaciones_asignatura(self):
