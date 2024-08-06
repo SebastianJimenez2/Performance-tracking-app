@@ -5,6 +5,7 @@ from ..models.asignatura import Asignatura
 from ..models.estudiante import Estudiante
 from ..models.notas import HistorialNotas, TipoActividad
 
+
 class NotasService:
 
     def __init__(self):
@@ -106,10 +107,11 @@ class NotasService:
 
             control_nota = ControlNotas(estado_est)
             control_nota.minimo_aceptable = asignatura.nota_minima
-            control_nota.promedio = self.get_promedio_asignatura(int(id_est))
+            control_nota.promedio = round(self.get_promedio_asignatura(int(id_est)), 2)
 
             if control_nota.existe_riesgo:
                 self.en_riesgo += 1
+                control_nota.estudiante.prioridad = 'RIESGO'
             elif control_nota.existe_incidencia:
                 control_nota.estudiante.numero_incidencias += 1
                 control_nota.definir_prioridad_alerta()
