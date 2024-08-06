@@ -17,7 +17,7 @@ function App() {
         return <Capacitaciones />
       case 'Login':
         return <Login />
-      default:
+      case 'Asignatura':
         return <Asignatura cerrarSemestre={() => console.log('Cerrando semestre')}>
                     <Estudiantes id="Estudiantes" />
                     <Componente3 id="tab número 3" />
