@@ -14,8 +14,8 @@ from ..exceptions.not_found import ObjectNotFound
 from ..models.cronograma import Cronograma
 
 class TemaCronogramaAPIView(viewsets.ModelViewSet):
-    queryset = Cronograma.objects.all()
-    serializer_class = CronogramaSerializer
+    queryset = TemaCronograma.objects.all()
+    serializer_class = TemaCronogramaSerializer
 
     @action(detail=True, methods=['put'], url_path='check')
     def check_tema(self, request, pk=None):
@@ -31,22 +31,33 @@ class TemaCronogramaAPIView(viewsets.ModelViewSet):
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    @api_view(['POST'])
-    def crear_tema_cronograma(request, id_tema):
-        id_cronograma = request.data.get('id_cronograma')
+    @action(detail=False, methods=['post'], url_path='create')
+    def crear_tema_cronograma(self, request):
+        id_cronograma = request.data.get('cronograma')
         if not id_cronograma:
-            return Response({'error': 'id_cronograma es requerido'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': 'cronograma es requerido'}, status=status.HTTP_400_BAD_REQUEST)
         
-        orden = TemaCronogramaService.get_orden_tema(id_cronograma)
+        orden_cronologico = TemaCronogramaService.get_orden_tema(id_cronograma)
         semana_finalizacion = TemaCronogramaService.get_semana_finalizacion_relativa(id_cronograma)
 
-        # Crear el tema con los datos obtenidos y adicionales del body
-        nuevo_tema = TemaCronograma.objects.create(
-            id_cronograma=id_cronograma,
-            orden=orden,
-            semana_finalizacion_relativa_a_inicio=semana_finalizacion,
-            **request.data
-        )
-        nuevo_tema.save()
+        # Preparar los datos adicionales que no están directamente incluidos en el request.data
+        data = request.data.copy()
+        data['orden'] = orden_cronologico
+        data['semana_finalizacion_relativa_a_inicio'] = semana_finalizacion
+        data['cronograma'] = id_cronograma
 
-        return Response({'message': 'Tema creado exitosamente'}, status=status.HTTP_201_CREATED)
+        serializer = self.get_serializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': 'Tema creado exitosamente'}, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+    @api_view(['DELETE'])
+    def delete_tema_cronograma(request, pk):
+        try:
+            tema = TemaCronograma.objects.get(id_tema=pk)
+            tema.delete()
+            return Response(status=status.HTTP_200_OK)
+        except TemaCronograma.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)

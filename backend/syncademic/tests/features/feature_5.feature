@@ -11,5 +11,5 @@ Característica: : Seguimiento del progreso del Sílabo de docentes
     Ejemplos:
       |semana_actual  | estado      | temas_marcados                                          |
       |2              | normal      | Todos los temas hasta la semana actual están marcados   |
-      |3              | atrasado    | Faltan temas por marcar en la semana actual             |
+      |4              | atrasado    | Faltan temas por marcar en la semana actual             |
       |1              | adelantado  | Temas de semanas futuras están marcados                 |

@@ -26,7 +26,7 @@ class CronogramaService:
     @staticmethod
     def get_temas_cronograma(cronograma_id: int) -> List[Dict[str, any]]:
         try:
-            cronograma = Cronograma.objects.get(id_cronograma=cronograma_id)
+            cronograma = Cronograma.objects.get(cronograma=cronograma_id)
         except ObjectNotFound:
             return []  # Retorna una lista vacía si el cronograma no existe
 
@@ -42,12 +42,15 @@ class CronogramaService:
         } for tema in temas]
         
     @staticmethod
-    def get_temas_completados(cronograma_id: int, hasta_semana: int):
+    def get_temas_completados(cronograma_id: int, hasta_semana: int) -> int:
         try:
-            cronograma = Cronograma.objects.get(id_cronograma=cronograma_id)
-            temas = cronograma.temas.filter(completado=True, semana_finalizacion_relativa_a_inicio__lte=hasta_semana)
-            return temas
-        except ObjectNotFound:
+            cronograma = Cronograma.objects.get(pk=cronograma_id)  # Usar pk para obtener por id primario
+            temas_completados_count = cronograma.temas.filter(
+                completado=True, 
+                semana_finalizacion_relativa_a_inicio__lte=hasta_semana
+            ).count()  # Agregar .count() aquí para obtener la cantidad de temas completados
+            return temas_completados_count
+        except Cronograma.DoesNotExist:  # Usar la excepción apropiada para la no existencia de un objeto
             raise ValueError("Cronograma no encontrado")
 
     @staticmethod

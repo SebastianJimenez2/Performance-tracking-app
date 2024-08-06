@@ -35,9 +35,8 @@ class CronogramaAPIView(viewsets.ModelViewSet):
 
         try:
             hasta_semana = int(hasta_semana)
-            temas = CronogramaService.get_temas_completados(pk, hasta_semana)
-            serializer = TemaCronogramaSerializer(temas, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            temas_completados_count = CronogramaService.get_temas_completados(pk, hasta_semana)
+            return Response({"temas_completados": temas_completados_count}, status=status.HTTP_200_OK)
         except ValueError as e:
             return Response({"error": str(e)}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:

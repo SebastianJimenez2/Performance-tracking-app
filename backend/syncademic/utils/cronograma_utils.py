@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 @staticmethod
 # Llamar a este metodo cada vez que se ingrese un nuevo tema_cronograma y insertar el resultado en cronograma.estado
@@ -17,7 +17,7 @@ def obtener_progreso(temas_completados, temas_esperados):
     elif temas_esperados < temas_completados:
         return "Temas de semanas futuras están marcados"
     
-    return "Faltan temas por marcar en la semana actual "
+    return "Faltan temas por marcar en la semana actual"
 
 @staticmethod
 def sumar_semanas(fecha, semanas):
@@ -38,7 +38,7 @@ def calcular_semana_relativa(fecha_inicio_str, fecha_dada_str):
     - int: Número de semanas completas desde la fecha de inicio hasta la fecha dada.
     """
     # Convertir las cadenas de fecha en objetos datetime
-    fecha_formato = "%d-%m-%y"  # Definir el formato de fecha
+    fecha_formato = "%Y-%m-%d"  # Definir el formato de fecha
     fecha_inicio = datetime.strptime(fecha_inicio_str, fecha_formato)
     fecha_dada = datetime.strptime(fecha_dada_str, fecha_formato)
     

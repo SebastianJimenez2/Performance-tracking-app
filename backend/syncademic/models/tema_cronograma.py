@@ -4,7 +4,7 @@ from .cronograma import Cronograma
 
 class TemaCronograma(models.Model):
     id_tema = models.AutoField(primary_key=True)
-    id_cronograma = models.ForeignKey(Cronograma, on_delete=models.CASCADE, related_name='temas')
+    cronograma = models.ForeignKey(Cronograma, on_delete=models.CASCADE, related_name='temas')
     descripcion = models.TextField()
     orden = models.IntegerField() # Guardara que orden tiene el cronograma en la lista de cronogramas, setear al crea un nuevo tema_cronograma
     tiempo_en_semanas = models.IntegerField() 

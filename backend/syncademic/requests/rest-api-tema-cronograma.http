@@ -1,0 +1,66 @@
+### Temas cronograma
+
+GET http://127.0.0.1:8000/syncademic/tema-cronograma/
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:8000/syncademic/tema-cronograma/12
+Accept: application/json
+
+###
+### NO USAR ESE METODO PARA CREAR UN TEMA CRONOGRAMA
+# El orden de los temas se asigna automaticamente en /create
+POST http://127.0.0.1:8000/syncademic/tema-cronograma/
+Content-Type: application/json
+Accept: application/json
+
+{
+    "cronograma": 9,
+    "descripcion": "Nuevo Tema",
+    "orden": 0,
+    "tiempo_en_semanas": 2,
+    "completado": false
+}
+
+###
+
+PUT http://127.0.0.1:8000/syncademic/tema-cronograma/12/
+Content-Type: application/json
+Accept: application/json
+
+{
+    "cronograma": 10,
+    "descripcion": "Tema Actualizado",
+    "orden": 3,
+    "tiempo_en_semanas": 2,
+    "completado": true
+}
+
+###
+
+DELETE http://127.0.0.1:8000/syncademic/tema-cronograma/29/
+Accept: application/json
+
+###
+
+PUT http://127.0.0.1:8000/syncademic/tema-cronograma/14/check/
+Content-Type: application/json
+Accept: application/json
+
+{
+    "fecha_actual": "2024-08-15"
+}
+
+###
+
+POST http://127.0.0.1:8000/syncademic/tema-cronograma/create/
+Content-Type: application/json
+Accept: application/json
+
+{
+    "cronograma": 14,
+    "descripcion": "Tema de prueba",
+    "tiempo_en_semanas": 1,
+    "completado": false
+}
