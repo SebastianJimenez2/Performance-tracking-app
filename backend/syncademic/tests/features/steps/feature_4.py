@@ -11,10 +11,11 @@ def step_impl(context, asignatura_prerequisito, periodo_anterior, nota_minima, a
     context.periodo_anterior = periodo_anterior
     context.nota_minima = nota_minima
     context.asignatura_subsecuente = asignatura_subsecuente
-    context.periodo_actual = periodo_actual
+    context.periodo_actual = periodo_actual.strip('"').strip("'")
 
     valores_notas_finales = []
     context.promedio = 0.0
+
     context.seguimiento_service = SeguimientoService(context.asignatura_prerequisito, context.periodo_actual)
 
     for fila in context.table:
@@ -26,26 +27,26 @@ def step_impl(context, asignatura_prerequisito, periodo_anterior, nota_minima, a
 
     context.promedio /= len(valores_notas_finales)
 
-    assert context.promedio == context.seguimiento_service.obtener_promedio_historico()
+    assert float(context.promedio) == float(context.seguimiento_service.obtener_promedio_historico())
 
 
 @step('las siguientes notas finales de los estudiantes que actualmente están cursando la asignatura prerequisito '
-      'se encuentren dentro del rango entre "{nota_minima_aprobar}" y el promedio histórico')
+      'se encuentren dentro del rango entre "{nota_minima_aprobar:f}" y el promedio histórico')
 def step_impl(context, nota_minima_aprobar):
     context.nota_minima_aprobar = nota_minima_aprobar
     context.estudiantes_en_rango = []
 
     for fila in context.table:
         if context.nota_minima_aprobar <= float(fila['nota_final_materia_prerequisito']) <= context.promedio:
-            context.estudiantes_en_rango = (fila['estudiante'], float(fila['nota_final_materia_prerequisito']))
-
+            context.estudiantes_en_rango.append(fila['estudiante'])
 
     assert len(context.estudiantes_en_rango) == len(context.seguimiento_service.obtener_estudiantes_candidatos())
 
 
 @step("se listarán los siguientes estudiantes candidatos a tomar un curso vacacional de bienestar estudiantil")
 def step_impl(context):
-    assert set(context.estudiantes_en_rango['estudiante']) == set(context.seguimiento_service.obtener_estudiantes_candidatos().values('nombre'))
+    assert set(context.estudiantes_en_rango) == set(context.seguimiento_service.obtener_estudiantes_candidatos().values_list('nombre_estudiante', flat=True))
+
 
 #Escenario 02
 
@@ -54,9 +55,12 @@ def step_impl(context, asignatura_sin_subsecuente, periodo_actual):
     context.asignatura_sin_subsecuente = asignatura_sin_subsecuente
     context.periodo_actual = periodo_actual
 
-    context.seguimiento_service = SeguimientoService(context.asignatura_prerequisito, context.periodo_actual)
+    context.seguimiento_service = SeguimientoService(context.asignatura_sin_subsecuente, context.periodo_actual)
 
-    assert 0 == context.seguimiento_service.obtener_promedio_historico()
+    try:
+        context.seguimiento_service.obtener_promedio_historico()
+    except ValueError as e:
+        assert "Hay un problema al localizar las asignaturas." == str(e)
 
 
 

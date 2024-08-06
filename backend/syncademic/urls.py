@@ -1,24 +1,28 @@
-"""
-URL configuration for Performance_tracking_app project.
+# syncademic/urls.py
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-from django.contrib import admin
-from django.urls import path
-from syncademic import views
-from syncademic.views.seguimiento_api_view import SeguimientoMallaAPIView
+from syncademic.views import (
+    ControlNotasAPIView
+)
+from syncademic.views import (
+evaluacion_docente_api_view
+)
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from syncademic.views import DisparadorViewSet, SeguimientoMallaAPIView, ControlNotasAPIView
+from syncademic.views import DisparadorViewSet, SeguimientoMallaAPIView, ControlNotasAPIView, CronogramaAPIView, TemaCronogramaAPIView
+
+router = DefaultRouter()
+router.register(r'auth', DisparadorViewSet, basename='disparador')
+router.register(r'control-notas', ControlNotasAPIView, basename='control-notas')
+router.register(r'evaluacion-docente', evaluacion_docente_api_view, basename='evaluacion-docente')
 
 urlpatterns = [
     path("seguimiento/<str:asignatura_prerequisito>/<str:periodo_actual>/", SeguimientoMallaAPIView.as_view(), name='seguimiento-malla')
+]
+router.register(r'seguimiento-malla', SeguimientoMallaAPIView, basename='seguimiento-malla')
+router.register(r'cronograma', CronogramaAPIView, basename='cronograma')
+router.register(r'tema-cronograma', TemaCronogramaAPIView, basename='tema-cronograma')
+
+urlpatterns = [
+    path('', include(router.urls)),
 ]

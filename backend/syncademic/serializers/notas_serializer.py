@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import HistorialNotas
+from ..models.notas import HistorialNotas
 
 
 class NotasSerializer(serializers.ModelSerializer):
@@ -8,10 +8,7 @@ class NotasSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = HistorialNotas
-        fields = ["id_asignatura",
-                  "id_estudiante",
-                  "grupo",
-                  "periodo",
+        fields = ["id_estudiante",
                   "nota",
                   "tipo_actividad_nombre",
                   "tema"]
