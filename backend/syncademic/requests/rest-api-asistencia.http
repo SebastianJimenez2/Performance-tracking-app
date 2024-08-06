@@ -1,0 +1,4 @@
+GET https://syncademic-0-1.onrender.com/syncademic/asistencia/estudiantes-en-riesgo/1/
+Accept: application/json
+
+###
