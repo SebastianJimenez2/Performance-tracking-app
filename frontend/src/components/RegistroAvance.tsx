@@ -1,22 +1,3 @@
-/* 
-
-Feature 5: Como docente Quiero saber si mi progreso en la asignatura sigue la proyección del sílab 
-  Para adecuar el ritmo de enseñanza de los temas de mi materia.
-
-Grupo 7: 
-Joel Delgado (documentación)
-David Yánez (backend)
-Sebastián Sánchez (frontend)
-
-Documentación asociada:
-Mapa navegacional: https://www.figma.com/design/ihvX1EY7yVl6tCnNEyzsZQ/DCU?node-id=0-1&t=qrWYCvKbCMV9MwSR-1
-
-Entidades backend asociadas: docente, cronograma, tema_cronograma, asignatura
-
-Sección de la feature abordada en esta pantalla:
-Registro de avance semanal según el cronograma de la asignatura
-*/
-
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Alert } from 'react-bootstrap';
 import '../styles/components/RegistroAvance.css';
@@ -83,9 +64,12 @@ function RegistroAvance({ id, handlePageChange }: { id: string, handlePageChange
             if (selectedTemas[+idTema]) {
               const tema = temas.find(t => t.id_tema === +idTema);
               if (tema) {
-                const estado = new Date(currentDate) < new Date(cronograma.fecha_inicio).setDate(new Date(cronograma.fecha_inicio).getDate() + (tema.semana_finalizacion_relativa_a_inicio * 7))
+                const weeksCurrent = Math.floor((new Date(currentDate).getTime() - new Date(cronograma.fecha_inicio).getTime()) / (1000 * 60 * 60 * 24 * 7));
+                const estado = weeksCurrent < tema.semana_finalizacion_relativa_a_inicio
                   ? 'adelantado'
-                  : 'atrasado';
+                  : weeksCurrent > tema.semana_finalizacion_relativa_a_inicio
+                  ? 'atrasado'
+                  : 'normal';
                 return actualizarEstadoTema(+idTema, currentDate, estado);
               }
             }
