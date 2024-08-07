@@ -13,8 +13,8 @@ const Cursos = () => {
                 <h1 className='cursos-title'><strong>Cursos</strong></h1>
                     <div className='container-cards'>
                         <Cards title="Verificación y validación" />
-                        <Cards title="ProgramacionI" />
-                        <Cards title="Comunicacion" />
+                        <Cards title="Programación I" />
+                        <Cards title="Comunicación" />
                     </div>
                 </div>
             </main>
