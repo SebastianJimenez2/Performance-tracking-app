@@ -11,15 +11,23 @@ import { useContextoGlobal } from './ContextoGlobal';
 import PerfilProfesor from './pages/Profesor';
 import { Profesor as TipoProfesor } from './types/Capacitaciones';
 import TablaProfesores from './components/TablaProfesores';
+import SeguimientoSilabo from './components/SeguimientoSilabo';
+import RegistroAvance from './components/RegistroAvance';
+import RegistroAsistencia from './components/RegistroAsistencia';
+import Asistencia from './pages/Asistencia';
 
 
 
 function App() {
   const { paginaActual, rol, profesor } = useContextoGlobal()
   const [isSemesterClosed, setIsSemesterClosed] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState('SeguimientoSilabo');
   const handleSemesterToggle = (isClosed: boolean) => {
     console.log('Semestre cerrado:', isClosed);
     setIsSemesterClosed(isClosed);
+  };
+  const handlePageChange = (page: string) => {
+    setCurrentPage(page);
   };
 
   const renderAsignaturaChildren = (): React.ReactNode[] => {
@@ -28,14 +36,18 @@ function App() {
         <Estudiantes id="Estudiantes" />,
         <Componente3 id="tab número 3" />,
         <EstudiantesCandidatos id="Estudiantes candidatos" />,
-        <Componente3 id="tab número 4" />
+        <RegistroAsistencia id="Registo Asistencia" />
       ];
     } else {
       return [
         <Estudiantes id="Estudiantes" />,
-        <Componente3 id="tab número 3" />,
+        currentPage === 'SeguimientoSilabo' ? (
+          < SeguimientoSilabo id = "Seguimiento sílabo" handlePageChange ={ handlePageChange} />
+        ) : (
+          < RegistroAvance id = "Seguimiento sílabo" handlePageChange ={ handlePageChange} />
+        ),
         <RegistroNotas id="Registro notas" />,
-        <Componente3 id="tab número 4" />
+        <Asistencia id="Asistencia" />
       ];
     }
   };

@@ -7,6 +7,16 @@ from ..models.notas import HistorialNotas, TipoActividad
 
 
 class NotasService:
+    """ Servicio de notas
+
+        Attributes:
+             id_asignatura
+             periodo
+             grupo
+
+        Utilizado para Feature 2
+        Creado por Alejandra Colcha
+    """
 
     def __init__(self):
         self.id_asignatura = None
@@ -16,8 +26,14 @@ class NotasService:
         self.alerta_media = 0
         self.alerta_alta = 0
 
-    # Lista de estudiantes de una asignatura
     def get_lista_estudiantes(self):
+        """ Lista de estudiantes para ingresar notas
+
+            Según asignatura, grupo y periodo configurado para el servicio
+
+            Return:
+                lista_estudiantes (dict): [id_estudiante, nombre_estudiante]
+        """
         estudiantes = Estudiante.objects.filter(
             asignaturas__id_asignatura=self.id_asignatura,
             periodo_cursando__id_periodo=self.periodo,
@@ -30,6 +46,13 @@ class NotasService:
             return estudiantes
 
     def get_promedios_estudiantes(self):
+        """Lista de estudiantes para ingresar notas
+
+            Según asignatura, grupo y periodo configurado para el servicio
+
+            Return:
+                lista_estudiantes (dict): [id_estudiante, nombre_estudiante, email, numero_incidencias, prioridad]
+        """
         estudiantes = Estudiante.objects.filter(
             asignaturas__id_asignatura=self.id_asignatura,
             periodo_cursando__id_periodo=self.periodo,
@@ -39,12 +62,19 @@ class NotasService:
         for estudiante in estudiantes:
             promedio = self.get_promedio_asignatura(estudiante.get('id_estudiante'))
             estudiante['promedio'] = round(promedio, 2)
-            print(round(promedio, 2))
 
         return estudiantes
 
-    # notas de un estudiante basado en el periodo, grupo y asignatura
     def get_notas_estudiante_asignatura(self, id_estudiante):
+        """
+            Notas de un estudiante según la asignatura, grupo y periodo configurado para el servicio
+
+            Parameters:
+                id_estudiante (int): [id_estudiante]
+
+            Return:
+                lista_notas (dict): [id_estudiante, tipo_actividad, nota]
+        """
         notas = HistorialNotas.objects.filter(
             id_asignatura__id_asignatura=self.id_asignatura,
             id_estudiante__id_estudiante=id_estudiante,
@@ -58,6 +88,15 @@ class NotasService:
             return notas
 
     def get_promedio_asignatura(self, id_estudiante: int) -> float:
+        """Promedio de un estudiante según asignatura, grupo y periodo configurado para el servicio
+
+            Parameters:
+                id_estudiante (int): [id_estudiante]
+
+            Return:
+                promedio (float)
+        """
+
         promedio_1 = 0.0
         promedio_2 = 0.0
         try:
@@ -88,6 +127,13 @@ class NotasService:
             print(e)
 
     def save_nota(self, nota: dict):
+        """ Guarda una nota en un estudiante asignatura en el modelo Historial Notas
+            Contabiliza las alertas de estudiantes según prioridad: RIESGO, MEDIA, ALTA.
+
+            Parameters:
+                nota (dict): [id_estudiante, id_asignatura, grupo, nota, tipo_actividad, tema]
+        """
+
         try:
 
             id_est = nota['id_estudiante']
@@ -110,16 +156,17 @@ class NotasService:
             control_nota.minimo_aceptable = asignatura.nota_minima
             control_nota.promedio = round(self.get_promedio_asignatura(int(id_est)), 2)
 
-            if control_nota.existe_riesgo:
-                self.en_riesgo += 1
-                control_nota.estudiante.prioridad = 'RIESGO'
-            elif control_nota.existe_incidencia:
+            if control_nota.existe_incidencia:
                 control_nota.estudiante.numero_incidencias += 1
                 control_nota.definir_prioridad_alerta()
                 if control_nota.estudiante.prioridad == 'MEDIA':
                     self.alerta_media += 1
                 else:
                     self.alerta_alta += 1
+
+            if control_nota.existe_riesgo and control_nota.estudiante.prioridad == 'BAJA':
+                self.en_riesgo += 1
+                control_nota.estudiante.prioridad = 'RIESGO'
             else:
                 control_nota.definir_prioridad_alerta()
 
@@ -131,6 +178,12 @@ class NotasService:
             raise ObjectNotFound(Estudiante._meta.model_name, detail=str(e))
 
     def get_alertas(self):
+        """ Crea el objeto que retorna el conteo de las alertas según prioridad.
+
+            Return:
+                alerta (dict): [en_riesgo, alerta_media, alerta_alta]
+        """
+
         alerta = {
             'en_riesgo': self.en_riesgo,
             'alerta_media': self.alerta_media,
@@ -140,6 +193,8 @@ class NotasService:
         return alerta
 
     def reset_conteo_alertas(self):
+        """ Reinicia el contador de alertas del servicio. """
+
         self.en_riesgo = 0
         self.alerta_media = 0
         self.alerta_alta = 0
