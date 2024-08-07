@@ -95,14 +95,7 @@ function App() {
 }
 
 function Componente_profesor({ id }: { id: string }) {
-  const { setPaginaActual, setProfesor } = useContextoGlobal();
-
-  const handleRowClick = (profesor: TipoProfesor) => {
-    setProfesor(profesor);
-    setPaginaActual('Profesor');
-  };
-
-  return <TablaProfesores alHacerClicEnFila={handleRowClick} />;
+  return <TablaProfesores/>;
 }
 
 function Componente_asignatura({ id }: { id: string }) {

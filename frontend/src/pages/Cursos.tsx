@@ -11,7 +11,11 @@ const Cursos = () => {
             <main className='main-content d-flex justify-content-center align-items-center px-5'>
                 <div>
                 <h1 className='cursos-title'><strong>Cursos</strong></h1>
-                    <Cards />
+                    <div className='container-cards'>
+                        <Cards title="Verificación y validación" />
+                        <Cards title="ProgramacionI" />
+                        <Cards title="Comunicacion" />
+                    </div>
                 </div>
             </main>
         </div>
