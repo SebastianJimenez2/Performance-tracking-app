@@ -1,22 +1,3 @@
-/* 
-
-Feature 5: Como docente Quiero saber si mi progreso en la asignatura sigue la proyección del sílab 
-  Para adecuar el ritmo de enseñanza de los temas de mi materia.
-
-Grupo 7: 
-Joel Delgado (documentación)
-David Yánez (backend)
-Sebastián Sánchez (frontend)
-
-Documentación asociada:
-Mapa navegacional: https://www.figma.com/design/ihvX1EY7yVl6tCnNEyzsZQ/DCU?node-id=0-1&t=qrWYCvKbCMV9MwSR-1
-
-Entidades backend asociadas: docente, cronograma, tema_cronograma, asignatura
-
-Sección de la feature abordada en esta pantalla:
-Visualización del seguimiento del sílabo de la asignatura
-*/
-
 import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import {
@@ -94,22 +75,25 @@ function SeguimientoSilabo({ id, handlePageChange, showNotification }: { id: str
         const cronogramas = await obtenerCronogramas();
         const cronograma = cronogramas.find(c => c.asignatura === asignatura);
         if (cronograma) {
-          let estadoGeneral = 'normal';
           const temas = await obtenerTemasCronograma(cronograma.id_cronograma);
 
           const labels = temas.map(t => t.descripcion);
           const proyeccionIdeal = temas.map(t => t.semana_finalizacion_relativa_a_inicio);
           const avanceReal = temas
             .filter(t => t.completado && t.fecha_completado !== null)
-            .map(t => {
-              const weeks = calculateWeeksBetweenDates(cronograma.fecha_inicio, t.fecha_completado!);
-              if (weeks < t.semana_finalizacion_relativa_a_inicio) {
-                estadoGeneral = 'adelantado';
-              } else if (weeks > t.semana_finalizacion_relativa_a_inicio) {
-                estadoGeneral = 'atrasado';
-              }
-              return weeks;
-            });
+            .map(t => calculateWeeksBetweenDates(cronograma.fecha_inicio, t.fecha_completado!));
+
+          // Determine the overall state
+          let estadoGeneral = 'normal';
+          for (let i = 0; i < avanceReal.length; i++) {
+            if (avanceReal[i] < proyeccionIdeal[i]) {
+              estadoGeneral = 'adelantado';
+              break;
+            } else if (avanceReal[i] > proyeccionIdeal[i]) {
+              estadoGeneral = 'atrasado';
+              break;
+            }
+          }
 
           setEstado(estadoGeneral);
 
@@ -147,7 +131,8 @@ function SeguimientoSilabo({ id, handlePageChange, showNotification }: { id: str
 
   const mensajeEstado = {
     atrasado: "Parece que estás un poco por detrás de lo esperado, recomendamos apresurar el paso con los siguientes temas",
-    adelantado: "Todo está en orden, sigue así"
+    normal: "Todo está en orden, sigue así",
+    adelantado: "¡Wow!, tómate un tiempo de relax con tus alumnos, te lo mereces"
   };
 
   return (
