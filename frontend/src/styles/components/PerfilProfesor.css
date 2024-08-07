@@ -1,0 +1,38 @@
+.contenedor-perfil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    padding-top: 1rem;
+}
+
+.tarjeta-perfil {
+    width: 60%;
+    display: flex;
+    align-items: center;
+}
+
+.card-profesor {
+    width: 50%;
+}
+
+.imagen-profesor {
+    width: 20%;
+    text-align: center;
+    display: block;
+    margin: 2% auto;
+}
+
+.imagen-profesor img {
+    width: 100%;
+    height: auto;
+}
+
+.body-profesor {
+    width: 100%;
+}
+
+.grafico-profesor {
+    width: 60%;
+    margin-left: 5%;
+}

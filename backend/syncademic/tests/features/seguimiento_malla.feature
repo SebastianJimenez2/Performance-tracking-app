@@ -1,16 +1,18 @@
-# Created by Grupo01 at 27/7/2024
+# Created by Grupo 1 at 27/7/2024
 # language: es
 
+# FEATURE 4
+# Creado por: Sebastián Jiménez, Bryan Rosillo, Jorge Segovia
 
-Característica: Identificar estudiantes
+Característica: Identificar estudiantes que necesitan ir a un curso de verano
   Como docente
   quiero identificar estudiantes que se encuentren entre el promedio histórico de estudiantes con problemas
-  en la asignatura pre-requisito y el mínimo establecido por la institución.
+  en la asignatura pre-requisito y el mínimo establecido por la institución
   para decidir si notificar a bienestar estudiantil sobre una asignación a un curso de verano.
 
 
   Escenario: Identificar a los estudiantes con problemas en aquellas asignaturas que tienen una asignatura prerequisito.
-    Dado que el docente desea conocer el promedio histórico con las siguientes notas finales de los estudiantes que cursaron "Programacion1" en el periodo "2024A", y obtuvieron una nota final menor a "6.0" en "Programacion2" en el periodo "2024B"
+    Dado que el docente desea conocer el promedio histórico con las siguientes notas finales de los estudiantes que cursaron "ProgramacionI" en el periodo "2024A", y obtuvieron una nota final menor a "6.0" en "ProgramacionII" en el periodo "2024B"
       | estudiante        | nota_materia_subsecuente_periodo_actual | nota_materia_prerequisito_periodo_anterior |
       | Chris Suarez      | 5                                       | 6.8                                        |
       | Juan Piedra       | 8                                       | 8                                          |
