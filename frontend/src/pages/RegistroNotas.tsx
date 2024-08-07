@@ -1,3 +1,27 @@
+/*
+Feature a la que responde esta pantalla:
+    F2: Identificación de estudiantes con bajas calificaciones
+
+    Como docente quiero saber quienes son los estudiantes con tendencia a tener un promedio por 
+    debajo del mínimo aceptable en base a su perfil e historial académico para comunicarme con ellos
+    y agendar una cita de ser necesaria.
+
+Grupo encargado: Grupo 2
+    - Alejandra Colcha (Backend)
+    - Darío Charro (Documentación)
+    - Martín Mendieta (Frontend)
+
+Documentación asociada:
+    Mapa navegacional y wireframe (pantalla Registro notas): https://www.figma.com/design/ihvX1EY7yVl6tCnNEyzsZQ/DCU?node-id=0-1
+    Tokens de diseño: https://www.figma.com/design/ihvX1EY7yVl6tCnNEyzsZQ/DCU?node-id=116-2
+
+Entidades backend involucradas: Estudiante, Asignatura, Notas
+
+Sección de la feature abordada en esta pantalla:
+    Registro de notas de para actualizar el perfil e historial académico de un estudiante y así poder detectar
+    se tendencia a tener un promedio por debajo del mínimo aceptable. Notificar al docente.
+*/
+
 import { Nota } from "../types/RegistroNotas.ts"
 import NotaEstudiante from "../components/NotaEstudiante.tsx"
 import { useState } from "react"
@@ -15,10 +39,18 @@ type RegistroNotasProps = {
 }
 
 function RegistroNotas({ id }: RegistroNotasProps) {
-
+    
+    // Variables de estado
+        // Tema relacionado a las notas a registrar
     const [tema, setTema] = useState<string>('')
+
+        // Tipo de actividad a registrar: Actividad o Evaluación
     const [tipoActividad, setTipoActividad] = useState<number>(1)
+        
+        // Lista de notas a registrar de tipo Nota -> {id_estudiante, nombre, nota, tema, tipo_actividad}
     const [listaNotas, setListaNotas] = useState<Nota[]>([])
+    
+        // Variables para mostrar alertas de estudiante en riesgo, prioridad media y prioridad alta
     const [mostrarAlertaError, setMostrarAlertaError] = useState<boolean>(false)
     const [mostrarAlertaRiesgo, setMostrarAlertaRiesgo] = useState<boolean>(false)
     const [mostrarAlertaPrioridadMedia, setMostrarAlertaPrioridadMedia] = useState<boolean>(false)
@@ -26,8 +58,13 @@ function RegistroNotas({ id }: RegistroNotasProps) {
     const [estudiantesRiesgo, setEstudiantesRiesgo] = useState<number>(0)
     const [estudiantesPrioridadMedia, setEstudiantesPrioridadMedia] = useState<number>(0)
     const [estudiantesPrioridadAlta, setEstudiantesPrioridadAlta] = useState<number>(0)
+    
+        // Lista de estudiantes obtenida del contexto global
     const { listaEstudiantes } = useContextoGlobal()
 
+    // Funciones
+        // Función que se ejecuta cuando se enfoca un input de nota de un estudiante
+        // Si el estudiante no tiene una nota registrada, se agrega a la lista de notas
     const onFocusNotaEstudiante = (idEstudiante: number, nombre: string) => {
         if (!listaNotas.some(nota => nota.id_estudiante === idEstudiante)) {
             setListaNotas([...listaNotas,
@@ -41,6 +78,8 @@ function RegistroNotas({ id }: RegistroNotasProps) {
         }
     }
 
+        // Función que se ejecuta cuando se cambia la nota de un estudiante
+        // Se busca la nota del estudiante y se actualiza su nota 
     const onChangeNotaEstudiante = (idEstudiante: number, nota: number) => {
         const index = listaNotas.findIndex(nota => nota.id_estudiante === idEstudiante)
         if (index !== -1) {
@@ -48,6 +87,8 @@ function RegistroNotas({ id }: RegistroNotasProps) {
         }
     }
 
+        // Función que se ejecuta cuando se cambia el tema de las notas
+        // Se actualiza el tema de todas las notas
     const onChangeTema = (tema: string) => {
         setTema(tema)
         listaNotas.forEach(nota => {
@@ -55,6 +96,8 @@ function RegistroNotas({ id }: RegistroNotasProps) {
         })
     }
 
+        // Función que se ejecuta cuando se cambia el tipo de actividad de las notas
+        // Se actualiza el tipo de actividad de todas las notas
     const onChangeTipoActividad = (tipoActividad: number) => {
         setTipoActividad(tipoActividad)
         listaNotas.forEach(nota => {
@@ -62,12 +105,16 @@ function RegistroNotas({ id }: RegistroNotasProps) {
         })
     }
 
+        // Función que se ejecuta cuando se presiona el botón de registrar notas
+        // Se valida que todas las notas estén registradas y que el tema no esté vacío
+        // Se registra las notas y se obtiene el conteo de prioridades
+        // Si hay estudiantes en riesgo, prioridad media o prioridad alta, se muestra una alerta
     const registrarNotasEstudiantes = async () => {
         if (listaNotas.some(nota => nota.nota === -1) || listaNotas.length !== listaEstudiantes.length || tema === '') {
             setMostrarAlertaError(true)
             return
         }
-        const conteoPrioridades = await registrarNotas(1, 5, 1, listaNotas)
+        const conteoPrioridades = await registrarNotas(1, 6, 1, listaNotas)
         if (conteoPrioridades.en_riesgo > 0) {
             setEstudiantesRiesgo(conteoPrioridades.en_riesgo)
             setMostrarAlertaRiesgo(true)
@@ -171,6 +218,7 @@ function RegistroNotas({ id }: RegistroNotasProps) {
             </div>
         </>
     )
+    
 }
 
 export default RegistroNotas
