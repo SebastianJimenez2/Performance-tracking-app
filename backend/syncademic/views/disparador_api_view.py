@@ -51,8 +51,8 @@ class DisparadorViewSet(viewsets.ViewSet):
                     })
                 else:
                     aspectos_info.append({
-                        'estado_aspecto': 'Inactivo',
                         'nombre_aspecto': aspecto.nombre,
+                        'estado_aspecto': 'Inactivo',
                         'fecha_inicio': aspecto.fecha_inicio,
                         'fecha_fin': aspecto.fecha_fin
                     })
