@@ -1,6 +1,29 @@
+/*
+Feature 4: Identifiación de estudiantes candidatos a curso de verano
+Como docente
+quiero identificar estudiantes que se encuentren entre el promedio histórico de estudiantes con problemas
+en la asignatura pre-requisito y el mínimo establecido por la institución.
+para decidir si notificar a bienestar estudiantil sobre una asignación a un curso de verano.
+
+Feature asiganara a GRUPO 1:
+- Jiménez Alejandro
+- Rosillo Bryan
+- Segovia Jorge
+
+Link figma: https://www.figma.com/design/ihvX1EY7yVl6tCnNEyzsZQ/DCU?node-id=116-2&t=GrxFJqH8GlzzswaU-1
+        - Wireframe asociado: Lista de estudiantes dentro del rango - F4
+
+Modelos relacionados:
+- Asignatura
+- Periodo
+- Estudiante 
+- HistorialNotas
+*/
+
 import { useEffect, useState } from 'react';
 import { obtenerSeguimientoMalla } from '../services/EstudiantesCandidatos';
 import { EstudianteCandidato } from '../types/EstudiantesCandidatos';
+import { useContextoGlobal } from '../ContextoGlobal';
 
 import '../styles/pages/Estudiantes.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,73 +34,103 @@ type EstudiantesCandidatosProps = {
 };
 
 function EstudiantesCandidatos({ id }: EstudiantesCandidatosProps) {
-        const [data, setData] = useState<EstudianteCandidato[]>([]);
+        // Variables de estado
+        /* 
+        La primera variable cumple con la identificación de estudiantes que se encuentran entre el rango histórico
+        (obtenido en el backend de la aplicación) y el mínimo establecido
+        */
+        const { tituloCurso } = useContextoGlobal();
+        const [datos, setDatos] = useState<EstudianteCandidato[]>([]);                    // Datos recibidos por parte del backend
         const [error, setError] = useState<string | null>(null);
-        const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
-        const [sortColumn, setSortColumn] = useState<string | null>(null);
-        const [selectedRows, setSelectedRows] = useState<Set<number>>(new Set());
+        const [direccionDeOrdenamiento, setDireccionDeOrdenamiento] = useState<'asc' | 'desc'>('asc');
+        const [ordenarColumna, setOrdenarColumna] = useState<string | null>(null);
+        const [filasSeleccionadas, setFilasSeleccionadas] = useState<Set<number>>(new Set());
 
         useEffect(() => {
-                const getData = async () => {
+                const obtenerDatos = async () => {
                         try {
-                                const result = await obtenerSeguimientoMalla();
-                                setData(result);
+                                const resultados = await obtenerSeguimientoMalla(tituloCurso);
+                                if ('error' in resultados) {
+                                        alert(resultados.error);
+                                } else {
+                                        setDatos(resultados);
+                                }
                         } catch (err) {
-                                setError('Error fetching data');
-                        } 
+                                setError('Error fetching datos');
+                        }
                 };
 
-                getData();
-        }, []);
+                if (tituloCurso) {
+                        obtenerDatos();
+                }
+        }, [tituloCurso]);
 
-        const handleSort = (column: string) => {
-                const newDirection = sortColumn === column && sortDirection === 'asc' ? 'desc' : 'asc';
-                setSortDirection(newDirection);
-                setSortColumn(column);
-                const sortedData = [...data].sort((a, b) => {
-                        if (a[column] < b[column]) return newDirection === 'asc' ? -1 : 1;
-                        if (a[column] > b[column]) return newDirection === 'asc' ? 1 : -1;
+        // Método usado para ordenar la tabla al presionar cualquier header de ésta.
+        const manejadorOrdenamiento = (columna: string) => {
+                const nuevaDireccion = ordenarColumna === columna && direccionDeOrdenamiento === 'asc' ? 'desc' : 'asc';
+                setDireccionDeOrdenamiento(nuevaDireccion);
+                setOrdenarColumna(columna);
+                const datosOrdenados = [...datos].sort((a, b) => {
+                        if (a[columna] < b[columna]) return nuevaDireccion === 'asc' ? -1 : 1;
+                        if (a[columna] > b[columna]) return nuevaDireccion === 'asc' ? 1 : -1;
                         return 0;
                 });
-                setData(sortedData);
+                setDatos(datosOrdenados);
         };
 
-        const handleRowSelect = (id: number) => {
-                const newSelectedRows = new Set(selectedRows);
-                if (newSelectedRows.has(id)) {
-                        newSelectedRows.delete(id);
+        // Método usado para seleccionar una fila de la tabla
+        const manejadorDeFilaSeleccionada = (id: number) => {
+                const nuevaFilaSeleccionada = new Set(filasSeleccionadas);
+                if (nuevaFilaSeleccionada.has(id)) {
+                        nuevaFilaSeleccionada.delete(id);
                 } else {
-                        newSelectedRows.add(id);
+                        nuevaFilaSeleccionada.add(id);
                 }
-                setSelectedRows(newSelectedRows);
+                setFilasSeleccionadas(nuevaFilaSeleccionada);
         };
 
-        const handleSelectAll = () => {
-                if (selectedRows.size === data.length) {
-                        setSelectedRows(new Set());
+        // Método usado para seleccionar una o más filas de la tabla
+        const manejadorDeTodasLasFilasSeleccionadas = () => {
+                if (filasSeleccionadas.size === datos.length) {
+                        setFilasSeleccionadas(new Set());
                 } else {
-                        setSelectedRows(new Set(data.map(item => item.id_estudiante)));
+                        setFilasSeleccionadas(new Set(datos.map(item => item.id_estudiante)));
                 }
         };
 
-        const handleNotify = () => {
-                if (selectedRows.size > 0) {
-                        alert(`Se ha notificado ha bienestar estudiantil sobre ${selectedRows.size} estudiantes seleccionado(s)`);
+        // Método usado para simular la notificación a bienestar estudiantil sobre los estudiantes seleccionados
+        const manejadorDeNotificaciones = () => {
+                if (filasSeleccionadas.size > 0) {
+                        alert(`Se ha notificado ha bienestar estudiantil sobre ${filasSeleccionadas.size} estudiantes seleccionado(s)`);
+                        const nuevosDatos = datos.filter(item => !filasSeleccionadas.has(item.id_estudiante));
+                        setDatos(nuevosDatos);
+                        setFilasSeleccionadas(new Set());
                 } else {
                         alert('Se ha notificado a bienestar estudiantil todos los estudiantes');
+                        setDatos([]);
+                        setFilasSeleccionadas(new Set());
                 }
         };
 
+        // Control de error al renderizar los datos por parte del endpoint de la API
         if (error) return <p>{error}</p>;
 
         return (
                 <div id={id} className='estudiantes-contenedor'>
                         <h1>Estudiantes Candidatos</h1>
-
-                        <Button variant="primary" onClick={handleNotify} >
-                                {selectedRows.size > 0 ? `Notificar ${selectedRows.size} seleccionado(s)` : 'Notificar todos'}
+                        {/* 
+                        En esta parte, se define al botón que cumple con la parte de la decisión de la notificación a bienestar 
+                        estudiantil sobre un posible curso de verano al estudiante seleccionado o a todos los estudiantes.
+                        */}
+                        <Button variant="primary" onClick={manejadorDeNotificaciones} >
+                                {filasSeleccionadas.size > 0 ? `Notificar ${filasSeleccionadas.size} seleccionado(s)` : 'Notificar todos'}
                         </Button>
 
+                        {/* 
+                        Tabla que muestra los datos enviados por parte del back end, en donde se muestra el nombre del estudiante,
+                        su email y su promedio de notas. Además, se incluye un checkbox para seleccionar a los estudiantes que se
+                        encuentran dentro del rango histórico y el mínimo establecido por la institución.
+                        */}
                         <div className="contenedor-tabla">
                                 <Table hover>
                                         <thead>
@@ -85,29 +138,29 @@ function EstudiantesCandidatos({ id }: EstudiantesCandidatosProps) {
                                                         <th className='celda-tabla'>
                                                                 <input
                                                                         type="checkbox"
-                                                                        checked={selectedRows.size === data.length}
-                                                                        onChange={handleSelectAll}
+                                                                        checked={filasSeleccionadas.size === datos.length}
+                                                                        onChange={manejadorDeTodasLasFilasSeleccionadas}
                                                                 />
                                                         </th>
-                                                        <th className='celda-tabla' onClick={() => handleSort('nombre_estudiante')}>
-                                                                Nombre Estudiante {sortColumn === 'nombre_estudiante' && (sortDirection === 'asc' ? '↑' : '↓')}
+                                                        <th className='celda-tabla' onClick={() => manejadorOrdenamiento('nombre_estudiante')}>
+                                                                Nombre Estudiante {ordenarColumna === 'nombre_estudiante' && (direccionDeOrdenamiento === 'asc' ? '↑' : '↓')}
                                                         </th>
-                                                        <th className='celda-tabla' onClick={() => handleSort('email')}>
-                                                                Email {sortColumn === 'email' && (sortDirection === 'asc' ? '↑' : '↓')}
+                                                        <th className='celda-tabla' onClick={() => manejadorOrdenamiento('email')}>
+                                                                Email {ordenarColumna === 'email' && (direccionDeOrdenamiento === 'asc' ? '↑' : '↓')}
                                                         </th>
-                                                        <th className='celda-tabla' onClick={() => handleSort('promedio_notas')}>
-                                                                Promedio Notas {sortColumn === 'promedio_notas' && (sortDirection === 'asc' ? '↑' : '↓')}
+                                                        <th className='celda-tabla' onClick={() => manejadorOrdenamiento('promedio_notas')}>
+                                                                Promedio Notas {ordenarColumna === 'promedio_notas' && (direccionDeOrdenamiento === 'asc' ? '↑' : '↓')}
                                                         </th>
                                                 </tr>
                                         </thead>
                                         <tbody>
-                                                {data.map(item => (
-                                                        <tr key={item.id_estudiante} onClick={() => handleRowSelect(item.id_estudiante)}>
+                                                {datos.map(item => (
+                                                        <tr key={item.id_estudiante} onClick={() => manejadorDeFilaSeleccionada(item.id_estudiante)}>
                                                                 <td className='celda-tabla'>
                                                                         <input
                                                                                 type="checkbox"
-                                                                                checked={selectedRows.has(item.id_estudiante)}
-                                                                                onChange={() => handleRowSelect(item.id_estudiante)}
+                                                                                checked={filasSeleccionadas.has(item.id_estudiante)}
+                                                                                onChange={() => manejadorDeFilaSeleccionada(item.id_estudiante)}
                                                                         />
                                                                 </td>
                                                                 <td className='celda-tabla'>{item.nombre_estudiante}</td>
