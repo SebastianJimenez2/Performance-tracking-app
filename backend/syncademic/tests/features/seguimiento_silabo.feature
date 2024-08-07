@@ -1,4 +1,8 @@
+# Creado por Grupo 7 at 29/7/24
 # language: es
+
+# FEATURE 1#
+# Creado por: Joel Delgado, Sebastian Sanchez, David Yanez
 
 Característica: : Seguimiento del progreso del Sílabo de docentes
   Como docente

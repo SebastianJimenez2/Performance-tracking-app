@@ -1,0 +1,35 @@
+# Métodos HTTP
+# Endpoints usados para Feature 8
+# Creado por Christopher Zambrano
+
+# Obtener lista de capacitaciones de un profesor
+GET https://syncademic-0-1.onrender.com/syncademic/capacitacion/6/capacitaciones
+Accept: application/json
+
+###
+# Obtener una lista de docentes con su puntuacion actual
+GET https://syncademic-0-1.onrender.com/syncademic/capacitacion/docentes
+Accept: application/json
+
+###
+# Obtener docente
+GET https://syncademic-0-1.onrender.com/syncademic/capacitacion/docente/6
+
+###
+# Obtener una lista de docentes con sus puntuaciones viejas y perido
+GET https://syncademic-0-1.onrender.com/syncademic/capacitacion/6/puntuacionesViejas
+Accept: application/json
+
+###
+# Crear nueva capacitacion
+POST https://syncademic-0-1.onrender.com/syncademic/capacitacion/nueva/
+content-type: application/json
+
+[
+  {
+    "docente": 1,
+    "nombre_capacitacion": "Curso de Matemáticas",
+    "area": "Matemáticas",
+    "periodo": 6
+}
+]

@@ -15,7 +15,7 @@ import SeguimientoSilabo from './components/SeguimientoSilabo';
 import RegistroAvance from './components/RegistroAvance';
 import RegistroAsistencia from './components/RegistroAsistencia';
 import Asistencia from './pages/Asistencia';
-
+import { Umbral } from './pages/Umbral';
 
 
 function App() {
@@ -34,9 +34,9 @@ function App() {
     if (isSemesterClosed) {
       return [
         <Estudiantes id="Estudiantes" />,
-        <Componente3 id="tab número 3" />,
         <EstudiantesCandidatos id="Estudiantes candidatos" />,
-        <RegistroAsistencia id="Registo Asistencia" />
+        <RegistroAsistencia id="Registo Asistencia" />,
+        <Umbral id='Umbral' />
       ];
     } else {
       return [
@@ -47,7 +47,8 @@ function App() {
           < RegistroAvance id = "Seguimiento sílabo" handlePageChange ={ handlePageChange} />
         ),
         <RegistroNotas id="Registro notas" />,
-        <Asistencia id="Asistencia" />
+        <Asistencia id="Asistencia" />,
+        <Umbral id='Umbral de comprensión' />
       ];
     }
   };
@@ -95,14 +96,7 @@ function App() {
 }
 
 function Componente_profesor({ id }: { id: string }) {
-  const { setPaginaActual, setProfesor } = useContextoGlobal();
-
-  const handleRowClick = (profesor: TipoProfesor) => {
-    setProfesor(profesor);
-    setPaginaActual('Profesor');
-  };
-
-  return <TablaProfesores alHacerClicEnFila={handleRowClick} />;
+  return <TablaProfesores/>;
 }
 
 function Componente_asignatura({ id }: { id: string }) {
