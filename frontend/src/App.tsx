@@ -13,6 +13,8 @@ import { Profesor as TipoProfesor } from './types/Capacitaciones';
 import TablaProfesores from './components/TablaProfesores';
 import SeguimientoSilabo from './components/SeguimientoSilabo';
 import RegistroAvance from './components/RegistroAvance';
+import RegistroAsistencia from './components/RegistroAsistencia';
+import Asistencia from './pages/Asistencia';
 
 
 
@@ -34,7 +36,7 @@ function App() {
         <Estudiantes id="Estudiantes" />,
         <Componente3 id="tab número 3" />,
         <EstudiantesCandidatos id="Estudiantes candidatos" />,
-        <Componente3 id="tab número 4" />
+        <RegistroAsistencia id="Registo Asistencia" />
       ];
     } else {
       return [
@@ -45,20 +47,18 @@ function App() {
           < RegistroAvance id = "Seguimiento sílabo" handlePageChange ={ handlePageChange} />
         ),
         <RegistroNotas id="Registro notas" />,
-        <Componente3 id="tab número 4" />
+        <Asistencia id="Asistencia" />
       ];
     }
   };
 
   const mostrarPagina = () => {
 
-    if (rol == 'Admin') {
+    if (rol === 'administrador') {
       switch (paginaActual) {
         case 'Profesor':
           return profesor ? <PerfilProfesor profesor={profesor} /> : <div>No se ha seleccionado ningún profesor</div>;
-        case 'Login':
-          return <Login />
-        default:
+        case 'Home':
           return (
             <>
               <Asignatura cerrarSemestre={() => console.log('Cerrando semestre')}>
@@ -68,22 +68,22 @@ function App() {
             </>
           );
       }
-    } else {
+    } else if (rol === 'docente') {
 
       switch (paginaActual) {
         case 'Cursos':
           return <Cursos />
         case 'Capacitaciones':
           return <Capacitaciones />
-        case 'Login':
-          return <Login />
-        default:
+        case 'Home':
           return (
             <Asignatura cerrarSemestre={handleSemesterToggle}>
               {renderAsignaturaChildren()}
             </Asignatura>
           );
       }
+    } else {
+      return <Login />
     }
   }
 
@@ -95,14 +95,7 @@ function App() {
 }
 
 function Componente_profesor({ id }: { id: string }) {
-  const { setPaginaActual, setProfesor } = useContextoGlobal();
-
-  const handleRowClick = (profesor: TipoProfesor) => {
-    setProfesor(profesor);
-    setPaginaActual('Profesor');
-  };
-
-  return <TablaProfesores alHacerClicEnFila={handleRowClick} />;
+  return <TablaProfesores/>;
 }
 
 function Componente_asignatura({ id }: { id: string }) {

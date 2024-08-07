@@ -1,0 +1,59 @@
+.asistencia-contenedor {
+    padding: 20px;
+  }
+
+  h2 {
+    border-bottom: 2px solid #000;
+  }
+  .registrar-asistencia-contenedor{
+    display: flex;
+  }
+  .derecho-ra-contenedor, .izquierdo-ra-contenedor{
+    flex-grow: 2;
+  }
+  .registro-asistencia-info-contenedor {
+    flex: 8;
+    background-color: #f8f9fa;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 80px;
+    padding-right: 80px;
+    border-radius: 15px;
+    border: 1px solid;
+  }
+  
+  .semana-horario-contenedor {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+.izquierdo-contenedor{
+    flex:18;
+}
+  
+  .semana-info, .horario-info {
+    flex: 2;
+  }
+  
+  .lista-estudiantes {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .estudiante-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .estudiante-checkbox {
+    margin-left: 10px;
+  }
+  
+  .registrar-button {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+  }

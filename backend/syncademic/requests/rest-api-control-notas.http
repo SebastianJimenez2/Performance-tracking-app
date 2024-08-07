@@ -1,19 +1,26 @@
-GET https://syncademic-0-1.onrender.com/syncademic/control-notas/estudiantes/1/5/1//
+# Métodos HTTP
+# Endpoints usados para Feature 2
+# Creado por Alejandra Colcha
+
+# Obtener lista de estudiantes con sus promedios
+GET https://syncademic-0-1.onrender.com/syncademic/control-notas/estudiantes/1/6/1//
 Accept: application/json
 
 ###
-GET https://syncademic-0-1.onrender.com/syncademic/control-notas/1/5/1//
+# Obtener lista de estudiantes para iniciar registro de una nota
+GET https://syncademic-0-1.onrender.com/syncademic/control-notas/1/6/1//
 Accept: application/json
 
 ###
-POST https://syncademic-0-1.onrender.com/syncademic/control-notas/1/5/1//
+# Guardar notas de estudiantes y obtener el recuento de alertas
+POST https://syncademic-0-1.onrender.com/syncademic/control-notas/1/6/1//
 content-type: application/json
 
 [
   {
     "id_estudiante": 1,
     "nombre": "Juan Perez",
-    "nota": 4,
+    "nota": 10,
     "tema": "introduccion",
     "tipo_actividad": 1
   },

@@ -22,8 +22,8 @@ Esquema del escenario: Puntuación de capacitaciones por area afín
 Esquema del escenario: Identificación de incumplimiento en el registro de capacitaciones
   Dado que el docente tiene "<capacitaciones>" registradas
   Entonces se marca al registro del docente como "<estado>"
-  Y la institución decide que "<envia>" un recordatorio al docente
+  Y la institución decide que "<envia>" un denota al docente
   Ejemplos:
-  | capacitaciones  | estado     | envia    |
-  | 1               | completo   | no envia |
-  | 0               | incompleto | envia    |
+  | capacitaciones  | estado     | envia |
+  | 1               | completo   | si    |
+  | 0               | incompleto | no    |

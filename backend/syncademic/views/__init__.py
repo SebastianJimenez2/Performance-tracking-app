@@ -10,7 +10,7 @@ from .evaluacion_docente_api_view import EvaluacionViewSet
 from .asignatura_view import AsignaturaViewSet
 from .docente_view import DocenteViewSet
 from .capacitacion_api_view import CapacitacionAPIView
-
+from .silabo_api_view import SilaboAPIView
 
 _all_ = [
     'DisparadorViewSet',
@@ -19,5 +19,4 @@ _all_ = [
     'AsistenciaAPIView',
     'CronogramaAPIView',
     'TemaCronogramaAPIView',
-    'CapacitacionAPIView'
 ]
