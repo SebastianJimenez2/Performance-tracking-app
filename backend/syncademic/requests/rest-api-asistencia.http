@@ -2,3 +2,61 @@ GET https://syncademic-0-1.onrender.com/syncademic/asistencia/estudiantes-en-rie
 Accept: application/json
 
 ###
+GET https://syncademic-0-1.onrender.com/syncademic/asistencia/lista-estudiantes/
+Accept: application/json
+
+###
+POST https://syncademic-0-1.onrender.com/syncademic/asistencia/registrar-asistencia/
+content-type: application/json
+
+[
+ {
+        "estudiante": 1,
+        "asignatura": 2,
+        "semana": 1,
+        "dia": 5,
+        "presente": true
+    },
+    {
+        "estudiante": 3,
+        "asignatura": 1,
+        "semana": 3,
+        "dia": 2,
+        "presente": false
+    },
+    {
+        "estudiante": 4,
+        "asignatura": 5,
+        "semana": 6,
+        "dia": 4,
+        "presente": true
+    },
+    {
+        "estudiante": 5,
+        "asignatura": 3,
+        "semana": 7,
+        "dia": 1,
+        "presente": false
+    },
+    {
+        "estudiante": 2,
+        "asignatura": 4,
+        "semana": 2,
+        "dia": 6,
+        "presente": true
+    },
+    {
+        "estudiante": 6,
+        "asignatura": 7,
+        "semana": 4,
+        "dia": 3,
+        "presente": false
+    },
+    {
+        "estudiante": 7,
+        "asignatura": 2,
+        "semana": 8,
+        "dia": 5,
+        "presente": true
+    }
+]
