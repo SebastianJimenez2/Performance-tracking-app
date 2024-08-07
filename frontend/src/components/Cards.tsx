@@ -1,3 +1,7 @@
+/**
+ * Creado por: David Torres
+ */
+
 import React from 'react';
 import { useContextoGlobal } from '../ContextoGlobal'; // Asegúrate de importar el contexto
 import 'bootstrap/dist/css/bootstrap.min.css';
