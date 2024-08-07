@@ -17,7 +17,7 @@ Escenario: Alerta por umbral de comprensión inferior al 70% en un tema específ
     | Evaluación de sentimientos    | 5                 | 3                   |
     | Evaluaciones de la asignatura | 20                | 13                  |
   Cuando se calcula el umbral de comprensión promedio del tema y es inferior al 70%
-  Entonces el docente debe recibir una alerta sugiriendo implementar refuerzo académico
+  Entonces el docente debe tener la capacidad de visualizar el tema sobre un fondo rojo para determinar la necesidad de implementar actividades de refuerzo
 
 Escenario: Indicar imposibilidad de identificar temas no comprendidos por falta de evaluaciones
   Dado que el docente de "Profesionalismo en informática" ha concluido la enseñanza del tema "Pirámide jurídica"

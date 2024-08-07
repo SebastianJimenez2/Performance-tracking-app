@@ -32,7 +32,8 @@ def step_impl(context, umbral):
     assert context.umbral_calculado < context.umbral_requerido
 
 
-@step('el docente debe recibir una alerta sugiriendo implementar refuerzo académico')
+@step('el docente debe tener la capacidad de visualizar el tema sobre un fondo rojo '
+      'para determinar la necesidad de implementar actividades de refuerzo')
 def step_impl(context):
     alerta = context.gestor_evaluacion_tematica.generar_alerta_refuerzo()
     assert alerta is not None
