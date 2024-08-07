@@ -67,6 +67,8 @@ class ControlNotas:
             self.estudiante.prioridad = "MEDIA"
         elif incidencias >= 3:
             self.estudiante.prioridad = "ALTA"
+        elif incidencias == 0 and not self.existe_riesgo:
+            self.estudiante.prioridad = "BAJA"
 
     @property
     def existe_riesgo(self):

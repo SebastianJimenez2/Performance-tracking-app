@@ -110,16 +110,17 @@ class NotasService:
             control_nota.minimo_aceptable = asignatura.nota_minima
             control_nota.promedio = round(self.get_promedio_asignatura(int(id_est)), 2)
 
-            if control_nota.existe_riesgo:
-                self.en_riesgo += 1
-                control_nota.estudiante.prioridad = 'RIESGO'
-            elif control_nota.existe_incidencia:
+            if control_nota.existe_incidencia:
                 control_nota.estudiante.numero_incidencias += 1
                 control_nota.definir_prioridad_alerta()
                 if control_nota.estudiante.prioridad == 'MEDIA':
                     self.alerta_media += 1
                 else:
                     self.alerta_alta += 1
+
+            if control_nota.existe_riesgo and control_nota.estudiante.prioridad == 'BAJA':
+                self.en_riesgo += 1
+                control_nota.estudiante.prioridad = 'RIESGO'
             else:
                 control_nota.definir_prioridad_alerta()
 
