@@ -31,7 +31,7 @@ class EvaluacionViewSet(viewsets.ModelViewSet):
         data = [{'docente': DocenteSerializer(docente).data, 'promedio': promedio} for docente, promedio in resultados]
         return Response(data, status=status.HTTP_200_OK)
 
-    '''
+
     @action(detail=False, methods=['get'], url_path='evaluaciones-docente/(?P<docente_id>[^/.]+)')
     def evaluaciones_docente(self, request, docente_id):
         servicio = evaluacion_docente_service()
@@ -39,12 +39,11 @@ class EvaluacionViewSet(viewsets.ModelViewSet):
         data = [
             {
                 'evaluacion': EvaluacionSerializer(evaluacion).data,
-                'periodo': evaluacion.asignatura.periodo
             }
             for evaluacion in evaluaciones
         ]
         return Response(data, status=status.HTTP_200_OK)
-    '''
+
 
     @action(detail=False, methods=['get'], url_path='detalle-asignatura/(?P<asignatura_id>[^/.]+)')
     def detalle_asignatura(self, request, asignatura_id):
