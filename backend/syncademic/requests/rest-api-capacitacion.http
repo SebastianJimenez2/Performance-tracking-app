@@ -12,20 +12,24 @@ GET http://0.0.0.0:8000/syncademic/capacitacion/docentes
 Accept: application/json
 
 ###
+# Obtener docente
+GET http://0.0.0.0:8000/syncademic/capacitacion/docente/6
+
+###
 # Obtener una lista de docentes con sus puntuaciones viejas y perido
 GET http://0.0.0.0:8000/syncademic/capacitacion/6/puntuacionesViejas
 Accept: application/json
 
 ###
 # Crear nueva capacitacion
-POST https://0.0.0.0:8000/syncademic/capacitaciones/1/6/nuevo
+POST http://0.0.0.0:8000/syncademic/capacitacion/nueva/
 content-type: application/json
 
 [
   {
-    "id_profesor": 1,
-    "nombre": "CursoA",
-    "area": "Matematicas",
+    "docente": 1,
+    "nombre_capacitacion": "Curso de Matemáticas",
+    "area": "Matemáticas",
     "periodo": 6
-  }
+}
 ]

@@ -13,7 +13,6 @@ class CapacitacionService:
         self.id_asignatura = None
         self.nombre_capacitacion = None
         self.area_capacitacion = None
-        self.imagen_capacitacion = None
 
     # Lista de Puntuaciones
     def get_lista_puntuaciones(self, id_docente):
@@ -42,10 +41,16 @@ class CapacitacionService:
         return docentes
 
     def get_docente(self, id_docente):
-        docentes = Docente.objects.filter(
-            id_docente__id_docente=id_docente
-        ).values('id_docente', 'nombre', 'estado_capacitacion', 'carrera', 'correo', 'puntaje_actual')
-        return docentes
+        try:
+            docente = Docente.objects.filter(
+                id_docente=id_docente
+            ).values('id_docente', 'nombre', 'estado_capacitacion', 'carrera', 'correo', 'puntaje_actual')
+            if not docente:
+                raise ObjectNotFound(Docente._meta.model_name, "Docente no encontrado")
+            return docente[0]
+        except Exception as e:
+            raise ObjectNotFound(Docente._meta.model_name, detail=str(e))
+
 
     def get_lista_all_capacitaciones(self):
         capacitaciones = Docente.objects.values('id_capacitacion', 'docente', 'nombre', 'area', 'periodo')
@@ -74,19 +79,16 @@ class CapacitacionService:
         ).values('area')
         return asignaturas[0].get('area')
 
-    def save_capacitacion(self, nota: dict):
+    def save_capacitacion(self, data):
         try:
 
-            id_est = nota['id_estudiante']
-            docente_bd = Docente.objects.get(id_docente=id_est)
-            capacitacion = Capacitacion.objects.get(id_capacitacion=self.id_capacitacion)
+            docente_bd = Docente.objects.get(id_docente=1)
 
             Capacitacion.objects.create(
-                id_capacitacion= capacitacion,
-                docente = docente_bd,
-                nombre_capacitacion = self.nombre_capacitacion,
-                area = self.nombre_capacitacion,
-                periodo = self.periodo
+                docente=data.docente_bd,
+                nombre_capacitacion=data.nombre_capacitacion,
+                area=data.nombre_capacitacion,
+                periodo=data.periodo
             )
 
             docente_bd.save()
