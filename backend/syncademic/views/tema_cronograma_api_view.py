@@ -19,6 +19,10 @@ class TemaCronogramaAPIView(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['put'], url_path='check')
     def check_tema(self, request, pk=None):
+        """
+            Actualiza los atributos completado y fecha_completado de un tema-cronograma.
+            PUT /tema-cronograma/<int:id_tema>/check
+        """
         fecha_actual = request.data.get('fecha_actual')
         if not fecha_actual:
             return Response({"error": "La fecha actual es requerida."}, status=status.HTTP_400_BAD_REQUEST)
@@ -33,6 +37,10 @@ class TemaCronogramaAPIView(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['post'], url_path='create')
     def crear_tema_cronograma(self, request):
+        """
+            Crea un cronograma y calcula el orden cronológico del tema  y la semana de finalizacion esperada.
+            POST /tema-cronograma/create
+        """
         id_cronograma = request.data.get('cronograma')
         if not id_cronograma:
             return Response({'error': 'cronograma es requerido'}, status=status.HTTP_400_BAD_REQUEST)
