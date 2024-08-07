@@ -1,59 +1,58 @@
 .asistencia-container {
-    padding: 20px;
-    border-radius: 5px;
-    width: 400px;
-  }
-  
+  padding: 20px;
+  border-radius: 5px;
+  width: 400px;
+}
+
 .lista-estudiantes {
-    list-style-type: none;
-    padding: 0;
-    margin-bottom: 10px;
-  }
-  
-  .estudiante-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 0;
-  }
-  .mes{
-    font-size:x-large;
-  }
-  .selector-medida-mes{
-    display: flex;
-  }
-  .estudiantes-abandono-contenedor{
-    display: flex;
-  }
-  .izquierdo-contenedor, .derecho-contenedor{
-    flex: 18;
-  }
-  .tasa-abandono-contenedor{
-    flex:85%;
-    border-radius: 15px;
-    box-shadow: 0px 1px 1px #000000;
-    background-color: #f8f9fa;
-  }
-  .tasa-abandono-info-contenedor{
-    display: flex; 
-    justify-content: space-between;
-    padding-left: 6em;
-    padding-right: 6em;
-    padding-top: 4em;
-  }
-  .lista-estudiantes{
-    padding-left: 6em;
-    padding-right: 6em;
-    padding-top: 4em;
-    padding-bottom: 4em;
-  }
-  .registrar-asistencia-contenedor{
-    padding-left: 6em;
-    padding-right: 6em;
-    padding-top: 4em;
-  }
-  .registrar-asistencia{
-    width: 100%;
-    height: 100%;
-  }
-  
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+.estudiante-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+}
+.mes{
+  font-size:x-large;
+}
+.selector-medida-mes{
+  display: flex;
+}
+.estudiantes-abandono-contenedor{
+  display: flex;
+}
+.izquierdo-contenedor, .derecho-contenedor{
+  flex: 18;
+}
+.tasa-abandono-contenedor{
+  flex:85%;
+  border-radius: 15px;
+  box-shadow: 0px 1px 1px #000000;
+  background-color: #f8f9fa;
+}
+.tasa-abandono-info-contenedor{
+  display: flex; 
+  justify-content: space-between;
+  padding-left: 6em;
+  padding-right: 6em;
+  padding-top: 4em;
+}
+.lista-estudiantes{
+  padding-left: 6em;
+  padding-right: 6em;
+  padding-top: 4em;
+  padding-bottom: 4em;
+}
+.registrar-asistencia-contenedor{
+  padding-left: 6em;
+  padding-right: 6em;
+  padding-top: 4em;
+}
+.registrar-asistencia{
+  width: 100%;
+  height: 100%;
+}
