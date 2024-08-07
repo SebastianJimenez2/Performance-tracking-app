@@ -22,8 +22,8 @@ class AsistenciaAPIView(viewsets.ViewSet):
     def actualizar_asistencia(self, request):
         serializer = AsistenciaSerializer(data=request.data)
         if serializer.is_valid():
-            estudiante_id = serializer.validated_data['estudiante']['id_estudiante']
-            asignatura_id = serializer.validated_data['asignatura']['id_asignatura']
+            estudiante_id = serializer.validated_data['estudiante'].id
+            asignatura_id = serializer.validated_data['asignatura'].id
             semana = serializer.validated_data['semana']
             dia = serializer.validated_data['dia']
             presente = serializer.validated_data['presente']

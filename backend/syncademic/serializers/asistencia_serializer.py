@@ -1,16 +1,12 @@
 from rest_framework import serializers
 from ..models.asistencia import Asistencia
-from . import EstudianteSerializer
-
+from ..models.estudiante import Estudiante
+from ..models.asignatura import Asignatura
 
 class AsistenciaSerializer(serializers.ModelSerializer):
-    estudiante = EstudianteSerializer()
+    estudiante = serializers.PrimaryKeyRelatedField(queryset=Estudiante.objects.all())
+    asignatura = serializers.PrimaryKeyRelatedField(queryset=Asignatura.objects.all())
 
     class Meta:
         model = Asistencia
         fields = ['id_asistencia', 'estudiante', 'asignatura', 'semana', 'dia', 'presente']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        from . import AsignaturaSerializer
-        self.fields['asignatura'] = AsignaturaSerializer()
