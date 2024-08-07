@@ -13,6 +13,8 @@ import { Profesor as TipoProfesor } from './types/Capacitaciones';
 import TablaProfesores from './components/TablaProfesores';
 import SeguimientoSilabo from './components/SeguimientoSilabo';
 import RegistroAvance from './components/RegistroAvance';
+import RegistroAsistencia from './components/RegistroAsistencia';
+import Asistencia from './pages/Asistencia';
 
 
 
@@ -34,7 +36,7 @@ function App() {
         <Estudiantes id="Estudiantes" />,
         <Componente3 id="tab número 3" />,
         <EstudiantesCandidatos id="Estudiantes candidatos" />,
-        <Componente3 id="tab número 4" />
+        <RegistroAsistencia id="Registo Asistencia" />
       ];
     } else {
       return [
@@ -45,7 +47,7 @@ function App() {
           < RegistroAvance id = "Seguimiento sílabo" handlePageChange ={ handlePageChange} />
         ),
         <RegistroNotas id="Registro notas" />,
-        <Componente3 id="tab número 4" />
+        <Asistencia id="Asistencia" />
       ];
     }
   };
