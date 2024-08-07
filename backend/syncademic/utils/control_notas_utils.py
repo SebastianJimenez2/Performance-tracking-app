@@ -1,10 +1,18 @@
-class EstadoEstudiante:
-    """
-            EstadoEstudiante
-            Clase auxiliar para recopilar solo la información necesaria del estudiante
-            para realizar la verificación de incidencias por bajas calificaciones.
+# Clases de utilidades para control de notas
+# Utilizado para Feature 2
+# Creado por Alejandra Colcha
 
-            Atributos: nombre, email, numero_incidencias, prioridad
+class EstadoEstudiante:
+    """ EstadoEstudiante
+
+        Clase auxiliar para recopilar solo la información necesaria del estudiante
+        para realizar la verificación de incidencias por bajas calificaciones.
+
+        Attributes:
+            nombre
+            email
+            numero_incidencias
+            prioridad
     """
 
     def __init__(self, nombre: str, email: str):
@@ -47,11 +55,14 @@ class EstadoEstudiante:
 
 
 class ControlNotas:
-    """
-        CONTROL NOTAS
-        Recibe un estudiante para realizar el control respecto a su promedio.
-        Verifica si existe riesgo de bajar en el promedio o si ya lo hizo,
-        cuál es su prioridad de atención
+    """ Verifica si existe riesgo de bajar en el promedio o si ya lo hizo,
+        cuál es su prioridad de atención.
+
+        Attributes:
+            estudiante (EstadoEstudiante)
+            rango_advertencia
+            minimo_aceptable
+            promedio
     """
 
     def __init__(self, estudiante: EstadoEstudiante):
@@ -61,6 +72,10 @@ class ControlNotas:
         self.promedio: float = 0.0
 
     def definir_prioridad_alerta(self):
+        """ Define la prioridad del estudiante basado en su número de incidencias por bajas calificaciones.
+
+            Prioridad: BAJA, MEDIA, ALTA
+        """
         incidencias = self.estudiante.numero_incidencias
 
         if 0 < incidencias < 3:
@@ -72,10 +87,16 @@ class ControlNotas:
 
     @property
     def existe_riesgo(self):
+        """ Riesgo de bajar su promedio del minimo aceptable
+            Return:
+                bool: True si existe riesgo, False si no existe."""
         return 0 < float(self.promedio) - float(self.minimo_aceptable) <= self.rango_advertencia
 
     @property
     def existe_incidencia(self):
+        """ Incidencia: el estudiante ya bajó su promedio del minimo aceptable
+            Return:
+                bool: True si existe incidencia, False si no existe."""
         return self.promedio < self.minimo_aceptable
 
     @property
