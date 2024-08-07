@@ -88,10 +88,10 @@ def step_impl(context, estado):
     assert context.docente.estado == estado
 
 
-@step('la institución decide que "{envia}" un recordatorio al docente')
+@step('la institución decide que "{envia}" un denota al docente')
 def step_impl(context, envia):
     context.envia = envia.strip()
-    if context.envia == 'envia':
-        assert 'envia' == context.envia
-    elif context.envia == 'no envia':
-        assert 'no envia' == context.envia
+    if context.envia == 'si':
+        assert 'si' == context.envia
+    elif context.envia == 'no':
+        assert 'no' == context.envia
