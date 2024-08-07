@@ -1,0 +1,24 @@
+###
+# Obtener las evaluaciones del tema 1
+GET http://0.0.0.0:8000/syncademic/silabo/1/evaluaciones-tema/1/
+Accept: application/json
+
+###
+# Obtener las evaluaciones de un tema 2
+GET http://0.0.0.0:8000/syncademic/silabo/1/evaluaciones-tema/2/
+Accept: application/json
+
+###
+# Obtener las evaluaciones de un tema 3
+GET http://0.0.0.0:8000/syncademic/silabo/1/evaluaciones-tema/3/
+Accept: application/json
+
+###
+# Obtener las evaluaciones de un tema 4
+GET http://0.0.0.0:8000/syncademic/silabo/1/evaluaciones-tema/4/
+Accept: application/json
+
+###
+# Obtener las evaluaciones de un tema 5
+GET http://0.0.0.0:8000/syncademic/silabo/1/evaluaciones-tema/5/
+Accept: application/json

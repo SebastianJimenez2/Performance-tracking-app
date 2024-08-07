@@ -1,9 +1,8 @@
-
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
 from syncademic.views import DisparadorViewSet, SeguimientoMallaAPIView, ControlNotasAPIView, CronogramaAPIView, \
-    TemaCronogramaAPIView, AsistenciaAPIView, EvaluacionViewSet, AsignaturaViewSet, DocenteViewSet
+    TemaCronogramaAPIView, AsistenciaAPIView, EvaluacionViewSet, AsignaturaViewSet, DocenteViewSet, CapacitacionAPIView, SilaboAPIView
 
 router = DefaultRouter()
 router.register(r'auth', DisparadorViewSet, basename='disparador')
@@ -15,6 +14,8 @@ router.register(r'tema-cronograma', TemaCronogramaAPIView, basename='tema-cronog
 router.register(r'asistencia', AsistenciaAPIView, basename='asistencia')
 router.register(r'asignatura', AsignaturaViewSet, basename='asignatura')
 router.register(r'docente', DocenteViewSet, basename='docente')
+router.register(r'capacitacion', CapacitacionAPIView, basename='capacitacion')
+router.register(r'silabo', SilaboAPIView, basename='silabo')
 
 
 urlpatterns = [

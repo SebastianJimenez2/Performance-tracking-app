@@ -1,10 +1,11 @@
 import { isValidElement } from "react";
 import { useState } from "react";
-import ImagenPRofesor from "../assets/profesor.jpg";
+import ImagenProfesor from "../assets/profesor.jpg";
 import Button from "react-bootstrap/Button";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../styles/components/Tabs.css";
+import { useContextoGlobal } from "../ContextoGlobal";
 
 
 type TabsProps = {
@@ -13,6 +14,8 @@ type TabsProps = {
 }
 
 function Tabs({ children, cerrarSemestre }: TabsProps) {
+
+    const { usuario } = useContextoGlobal();
 
     const [tabActivo, setTabActivo] = useState<string>(
         isValidElement(children[0])
@@ -41,8 +44,8 @@ function Tabs({ children, cerrarSemestre }: TabsProps) {
         <div className="contenedor-tabs">
             <nav className="barra-lateral">
                 <div className="perfil-profesor">
-                    <img src={ImagenPRofesor} alt="Foto de perfil del profesor de la asignatura" />
-                    <p>Mario Romero</p>
+                    <img src={ImagenProfesor} alt="Foto de perfil del profesor de la asignatura" />
+                    <p>{usuario}</p>
                 </div>
                 <div className="tabs">
                     {
