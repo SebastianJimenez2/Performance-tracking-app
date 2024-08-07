@@ -2,7 +2,7 @@
 <html xmlns:str="http://exslt.org/strings" xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Test Results &mdash; registroDeAsistencia.feature</title>
+        <title>Test Results &mdash; Umbral de comprensión de un tema</title>
         <style type="text/css">
           html {
             height: 100%
@@ -572,9 +572,9 @@ jQuery.cookie = function(name, value, options) {
     <body>
         <div id="container">
             <div id="header">
-                <div class="time" xmlns="">3 ms</div>
+                <div class="time" xmlns="">0 ms</div>
                 <h1>
-                    registroDeAsistencia.feature: <strong><span class="total" xmlns="http://www.w3.org/1999/xhtml">8 total, </span><span class="passed">8 passed</span></strong>
+                    feature_3m.feature: <strong><span class="total" xmlns="http://www.w3.org/1999/xhtml">8 total, </span><span class="passed">8 passed</span></strong>
                 </h1>
                 <div id="treecontrol">
                     <ul>
@@ -593,60 +593,60 @@ jQuery.cookie = function(name, value, options) {
                 <ul id="tree">
                     <li xmlns="" class="level top open">
                         <span><em class="time">
-                                <div class="time">3 ms</div>
-                            </em>Distinci&oacute;n de estudiantes propensos a abandonar la asignatura</span>
+                                <div class="time">0 ms</div>
+                            </em>Identificaci&oacute;n de temas no comprendidos</span>
                         <ul>
                             <li class="level suite open">
                                 <span><em class="time">
-                                        <div class="time">2 ms</div>
-                                    </em>Distinci&oacute;n del riesgo de abandono del estudiante seg&uacute;n la asistencia -- @1.1</span>
+                                        <div class="time">0 ms</div>
+                                    </em>Alerta por umbral de comprensi&oacute;n inferior al 70% en un tema espec&iacute;fico</span>
                                 <ul>
                                     <li class="level test">
                                         <span><em class="time">
-                                                <div class="time">1 ms</div>
-                                            </em><em class="status">passed</em>Dado un estudiante con tasa de asistencia 50 % mensual</span>
-                                    </li>
-                                    <li class="level test">
-                                        <span><em class="time">
-                                                <div class="time">1 ms</div>
-                                            </em><em class="status">passed</em>Cuando la tasa de asistencia se encuentre entre 0 % y 70 %</span>
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>Dado que el docente de "Profesionalismo en Inform&aacute;tica" ha finalizado la ense&ntilde;anza del tema "Marca Personal"</span>
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
                                                 <div class="time">0 ms</div>
-                                            </em><em class="status">passed</em>Entonces se marca al estudiante en riesgo alto de abandono alertando al profesor</span>
+                                            </em><em class="status">passed</em>Y se han registrado las siguientes puntuaciones en las evaluaciones para determinar el umbral de comprensi&oacute;n</span>
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
                                                 <div class="time">0 ms</div>
-                                            </em><em class="status">passed</em>Y &eacute;l decide si notificar a bienestar estudiantil.</span>
+                                            </em><em class="status">passed</em>Cuando se calcula el umbral de comprensi&oacute;n promedio del tema y es inferior al 70%</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>Entonces el docente debe recibir una alerta sugiriendo implementar refuerzo acad&eacute;mico</span>
                                     </li>
                                 </ul>
                             </li>
                             <li class="level suite open">
                                 <span><em class="time">
-                                        <div class="time">1 ms</div>
-                                    </em>Distinci&oacute;n del riesgo de abandono del estudiante seg&uacute;n la asistencia -- @1.2</span>
+                                        <div class="time">0 ms</div>
+                                    </em>Indicar imposibilidad de identificar temas no comprendidos por falta de evaluaciones</span>
                                 <ul>
                                     <li class="level test">
                                         <span><em class="time">
                                                 <div class="time">0 ms</div>
-                                            </em><em class="status">passed</em>Dado un estudiante con tasa de asistencia 75 % mensual</span>
+                                            </em><em class="status">passed</em>Dado que el docente de "Profesionalismo en inform&aacute;tica" ha concluido la ense&ntilde;anza del tema "Pir&aacute;mide jur&iacute;dica"</span>
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
                                                 <div class="time">0 ms</div>
-                                            </em><em class="status">passed</em>Cuando la tasa de asistencia se encuentre entre 71 % y 100 %</span>
-                                    </li>
-                                    <li class="level test">
-                                        <span><em class="time">
-                                                <div class="time">1 ms</div>
-                                            </em><em class="status">passed</em>Entonces se marca al estudiante en riesgo bajo de abandono alertando al profesor</span>
+                                            </em><em class="status">passed</em>Y el tema "Pir&aacute;mide jur&iacute;dica" no cuenta con todas las evaluaciones necesarias</span>
                                     </li>
                                     <li class="level test">
                                         <span><em class="time">
                                                 <div class="time">0 ms</div>
-                                            </em><em class="status">passed</em>Y &eacute;l decide no notificar a bienestar estudiantil.</span>
+                                            </em><em class="status">passed</em>Cuando se intenta determinar el umbral de comprensi&oacute;n alcanzado por los estudiantes</span>
+                                    </li>
+                                    <li class="level test">
+                                        <span><em class="time">
+                                                <div class="time">0 ms</div>
+                                            </em><em class="status">passed</em>Entonces la fila correspondiente a "Pir&aacute;mide jur&iacute;dica" aparecer&aacute; destacada en blanco en el informe</span>
                                     </li>
                                 </ul>
                             </li>
@@ -656,7 +656,7 @@ jQuery.cookie = function(name, value, options) {
             </div>
         </div>
         <div id="footer">
-            <p>Generated by PyCharm on 8/4/24, 1:30 PM</p>
+            <p>Generated by PyCharm on 8/6/24, 11:53 PM</p>
         </div>
     </body>
 </html>

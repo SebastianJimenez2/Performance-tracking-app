@@ -1,12 +1,16 @@
 import { Table, Button } from 'react-bootstrap';
 import { Profesor } from '../types/Capacitaciones';
+import { useContextoGlobal } from '../ContextoGlobal'
 
-type PropiedadesTablaProfesores = {
-  alHacerClicEnFila: (profesor: Profesor) => void; // Definir el tipo de alHacerClicEnFila
-};
 
-function TablaProfesores({ alHacerClicEnFila }: PropiedadesTablaProfesores) {
+function TablaProfesores() {
 
+  const { setProfesor, setPaginaActual } = useContextoGlobal()
+
+  const alHacerClicEnFila = (profesor: Profesor) => {
+    setProfesor(profesor);
+    setPaginaActual('Profesor');
+  };
 
   const profesores: Profesor[] = [
     { id: 1, nombre: "David Torres Páez", email: "email1@123.com", carrera: "Sistemas", puntaje: 45, urlImagen: 'https://via.placeholder.com/150', encuestaCompletada: false },
@@ -60,10 +64,7 @@ function TablaProfesores({ alHacerClicEnFila }: PropiedadesTablaProfesores) {
           ))}
         </tbody>
       </Table>
-      <div className="d-flex justify-content-center mt-3">
-        <Button onClick={enviarRecordatorioATodos} className="mx-2">Recordatorio a todos</Button>
-        <Button variant="warning" onClick={enviarRecordatorioAIncompletos} className="mx-2">Recordatorio a incompletos</Button>
-      </div>
+      
     </div>
   );
 }
