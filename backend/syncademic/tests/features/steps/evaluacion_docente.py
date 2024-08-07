@@ -6,7 +6,7 @@ fake = Faker()
 
 
 # Escenario 1
-@step('que existen al menos dos docentes que han impartido la asignatura "{nombre_asignatura}"')
+@step('que existen dos o más docentes que han impartido la asignatura "{nombre_asignatura}"')
 def step_impl(context, nombre_asignatura):
     context.asignatura = Asignatura(nombre_asignatura)
     context.docente1 = Docente(fake.name())
