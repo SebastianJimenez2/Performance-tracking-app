@@ -1,6 +1,6 @@
 ### Crongrama
 
-GET https://syncademic-0-1.onrender.com/syncademic/cronograma/
+GET http://127.0.0.1:8000/syncademic/cronograma/
 Accept: application/json
 
 ###
@@ -56,4 +56,9 @@ Accept: application/json
 ###
 
 GET https://syncademic-0-1.onrender.com/syncademic/cronograma/1/completados?hasta_semana=5
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:8000/syncademic/docente/
 Accept: application/json

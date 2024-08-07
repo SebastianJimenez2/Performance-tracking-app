@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 
-function TrainingRegistration() {
-  const initialAreas = [
-    { id: '1', name: 'Marketing' },
-    { id: '2', name: 'Desarrollo' },
-    { id: '3', name: 'Recursos Humanos' },
-    { id: '4', name: 'Finanzas' }
+function FormularioCapacitacion() {
+  const areasIniciales = [
+    { id: '1', nombre: 'Marketing' },
+    { id: '2', nombre: 'Desarrollo' },
+    { id: '3', nombre: 'Recursos Humanos' },
+    { id: '4', nombre: 'Finanzas' }
   ];
 
-  const [selectedArea, setSelectedArea] = useState("");
+  const [areaSeleccionada, setAreaSeleccionada] = useState("");
 
-  const handleAreaChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedArea(event.target.value);
+  const manejarCambioArea = (evento: React.ChangeEvent<HTMLSelectElement>) => {
+    setAreaSeleccionada(evento.target.value);
   };
 
   return (
@@ -21,22 +21,22 @@ function TrainingRegistration() {
         <Col md={8} lg={6}>
           <h2 className="text-center">Registrar Capacitación</h2>
           <Form>
-            <Form.Group className="mb-3" controlId="formTraining">
+            <Form.Group className="mb-3" controlId="formCapacitacion">
               <Form.Label>Capacitación:</Form.Label>
               <Form.Control type="text" placeholder="Ingrese el nombre de la capacitación" />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formArea">
               <Form.Label>Área:</Form.Label>
-              <Form.Select value={selectedArea} onChange={handleAreaChange}>
+              <Form.Select value={areaSeleccionada} onChange={manejarCambioArea}>
                 <option value="">Seleccione un área</option>
-                {initialAreas.map(area => (
-                  <option key={area.id} value={area.id}>{area.name}</option>
+                {areasIniciales.map(area => (
+                  <option key={area.id} value={area.id}>{area.nombre}</option>
                 ))}
               </Form.Select>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formFile">
+            <Form.Group className="mb-3" controlId="formDocumento">
               <Form.Label>Documento:</Form.Label>
               <Form.Control type="file" />
             </Form.Group>
@@ -55,7 +55,7 @@ function TrainingRegistration() {
   );
 }
 
-export default TrainingRegistration;
+export default FormularioCapacitacion;
 
 
 
