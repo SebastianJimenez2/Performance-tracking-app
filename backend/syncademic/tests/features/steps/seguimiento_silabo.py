@@ -1,9 +1,3 @@
-"""
-  Grupo 7
-  Integrantes: Joel Delgado, Sebastian Sanchez, David Yanez
-"""
-
-
 from datetime import datetime, timedelta
 
 from behave import *
