@@ -1,0 +1,31 @@
+# Métodos HTTP
+# Endpoints usados para Feature 8
+
+###
+# Obtener lista de capacitaciones de un profesor SI
+GET http://0.0.0.0:8000/syncademic/capacitacion/6/capacitaciones
+Accept: application/json
+
+###
+# Obtener una lista de docentes con su puntuacion actual
+GET http://0.0.0.0:8000/syncademic/capacitacion/docentes
+Accept: application/json
+
+###
+# Obtener una lista de docentes con sus puntuaciones viejas y perido
+GET http://0.0.0.0:8000/syncademic/capacitacion/6/puntuacionesViejas
+Accept: application/json
+
+###
+# Crear nueva capacitacion
+POST https://0.0.0.0:8000/syncademic/capacitaciones/1/6/nuevo
+content-type: application/json
+
+[
+  {
+    "id_profesor": 1,
+    "nombre": "CursoA",
+    "area": "Matematicas",
+    "periodo": 6
+  }
+]

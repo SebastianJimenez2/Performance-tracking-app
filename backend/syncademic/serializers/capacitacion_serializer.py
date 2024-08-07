@@ -9,3 +9,10 @@ class CapacitacionSerializer(serializers.ModelSerializer):
         model = Capacitacion
         fields = '__all__'
 
+class ListaCapacitacionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Capacitacion
+        fields = [
+            "id_capacitacion",
+            "nombre_capacitacion"
+        ]
