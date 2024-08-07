@@ -60,7 +60,7 @@ function RegistroNotas({ id }: RegistroNotasProps) {
     const [estudiantesPrioridadAlta, setEstudiantesPrioridadAlta] = useState<number>(0)
     
         // Lista de estudiantes obtenida del contexto global
-    const { listaEstudiantes } = useContextoGlobal()
+    const { listaEstudiantes, asignatura, curso, periodoActivo } = useContextoGlobal()
 
     // Funciones
         // Función que se ejecuta cuando se enfoca un input de nota de un estudiante
@@ -114,7 +114,7 @@ function RegistroNotas({ id }: RegistroNotasProps) {
             setMostrarAlertaError(true)
             return
         }
-        const conteoPrioridades = await registrarNotas(1, 6, 1, listaNotas)
+        const conteoPrioridades = await registrarNotas(asignatura, periodoActivo, curso, listaNotas)
         if (conteoPrioridades.en_riesgo > 0) {
             setEstudiantesRiesgo(conteoPrioridades.en_riesgo)
             setMostrarAlertaRiesgo(true)

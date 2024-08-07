@@ -59,13 +59,13 @@ function Estudiantes({ id }: EstudiantesProps) {
     const [filtro, setFiltro] = useState<string>('Todos')
     
         // Función para actualizar la lista de estudiantes en el contexto global
-    const {setListaEstudiantes} = useContextoGlobal()
+    const { setListaEstudiantes, asignatura, curso, periodoActivo } = useContextoGlobal()
 
     // Obtener lista de estudiantes del backend al cargar la página
     useEffect(() => {
         const fetchEstudiantes = async () => {
             try {
-                const estudiantesFetch = await obtenerEstudiantes(1, 6, 1)
+                const estudiantesFetch = await obtenerEstudiantes(asignatura, periodoActivo, curso)
                 setEstudiantes(estudiantesFetch)
                 setEstudiantesVisibles(estudiantesFetch)
                 setListaEstudiantes(estudiantesFetch)
