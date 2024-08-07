@@ -5,7 +5,7 @@ import '../styles/pages/Login.css';
 const Login = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const { setPaginaActual } = useContextoGlobal(); // Hook para actualizar la página actual
+  const { setPaginaActual, setRol,setUsuario } = useContextoGlobal(); // Hook para actualizar la página actual
 
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent form from refreshing the page
@@ -16,8 +16,10 @@ const Login = () => {
       return;
     }
 
-    // Aquí implementar la lógica de autenticación
-    // verificar email y contraseña
+    if(email== "admin@epn.edu.ec"){
+      setRol('Admin')
+      setUsuario('Admin')
+    }
 
     // Redirigir a la página Login
     setPaginaActual('Cursos');

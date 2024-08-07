@@ -2,32 +2,32 @@ import { useState } from 'react';
 import { Table, Button, Form } from 'react-bootstrap';
 import file from '../assets/file.svg';
 
-function CourseTable() {
-  const courses = [
-    { id: 1, name: "Curso 1", area: "Mecánica", semester: "2024-A", documentUrl: "url-to-download-document-1.pdf" },
-    { id: 2, name: "Curso 2", area: "Economía", semester: "2023-B", documentUrl: "url-to-download-document-2.pdf" },
-    { id: 3, name: "Curso 3", area: "Sistemas", semester: "2024-A", documentUrl: "url-to-download-document-3.pdf" }
+function TablaCapacitaciones() {
+  const cursos = [
+    { id: 1, nombre: "Curso 1", area: "Mecánica", semestre: "2024-A", urlDocumento: "url-to-download-document-1.pdf" },
+    { id: 2, nombre: "Curso 2", area: "Economía", semestre: "2023-B", urlDocumento: "url-to-download-document-2.pdf" },
+    { id: 3, nombre: "Curso 3", area: "Sistemas", semestre: "2024-A", urlDocumento: "url-to-download-document-3.pdf" }
   ];
 
-  const [selectedSemester, setSelectedSemester] = useState('2024-A'); // Estado para el semestre seleccionado
+  const [semestreSeleccionado, setSemestreSeleccionado] = useState('2024-A'); // Estado para el semestre seleccionado
 
-  const handleDownload = (url: string) => {
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', '');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const manejarDescarga = (url: string): void => {
+    const enlace = document.createElement('a');
+    enlace.href = url;
+    enlace.setAttribute('download', '');
+    document.body.appendChild(enlace);
+    enlace.click();
+    document.body.removeChild(enlace);
   };
 
-  const filteredCourses = courses.filter(course => course.semester === selectedSemester);
+  const cursosFiltrados = cursos.filter(curso => curso.semestre === semestreSeleccionado);
 
   return (
     <div style={{ maxWidth: '80%', margin: '2rem auto' }}>
       <Form.Select
         aria-label="Selecciona un semestre"
-        value={selectedSemester}
-        onChange={e => setSelectedSemester(e.target.value)}
+        value={semestreSeleccionado}
+        onChange={e => setSemestreSeleccionado(e.target.value)}
         style={{ marginBottom: '20px', width: '15%', justifyContent: 'center' }}
       >
         <option value="2024-A">2024-A</option>
@@ -43,14 +43,14 @@ function CourseTable() {
           </tr>
         </thead>
         <tbody>
-          {filteredCourses.map(course => (
-            <tr key={course.id}>
-              <td>{course.name}</td>
-              <td>{course.area}</td>
-              <td>{course.semester}</td>
+          {cursosFiltrados.map(curso => (
+            <tr key={curso.id}>
+              <td>{curso.nombre}</td>
+              <td>{curso.area}</td>
+              <td>{curso.semestre}</td>
               <td>
-                <Button variant="link" onClick={() => handleDownload(course.documentUrl)}>
-                  <img src={file} alt="Download" style={{ width: 24, height: 24 }} />
+                <Button variant="link" onClick={() => manejarDescarga(curso.urlDocumento)}>
+                  <img src={file} alt="Descargar" style={{ width: 24, height: 24 }} />
                 </Button>
               </td>
             </tr>
@@ -61,4 +61,4 @@ function CourseTable() {
   );
 }
 
-export default CourseTable;
+export default TablaCapacitaciones;
