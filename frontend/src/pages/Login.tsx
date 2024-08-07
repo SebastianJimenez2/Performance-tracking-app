@@ -12,21 +12,20 @@ const Login = () => {
 
     // Validar campos
     if (!email || !password) {
-      alert('Please fill in both fields.');
+      alert('Complete ambos campos para iniciar sesión.');
       return;
     }
 
     if(email == "admin@epn.edu.ec"){
-      setRol('Admin')
-      setUsuario('Admin')
+      setRol('administrador')
+      setUsuario('Administrador')
+      setPaginaActual('Home');
     }else{
-      setRol('normal')
-      setUsuario('Mario')
+      setRol('docente')
+      setUsuario('Mario Romero')
+      setPaginaActual('Cursos');
     }
 
-
-    // Redirigir a la página Login
-    setPaginaActual('Cursos');
   };
 
   return (
@@ -43,7 +42,7 @@ const Login = () => {
             <input
               id="email"
               type="email"
-              placeholder="david.torres@epn.edu.ec"
+              placeholder="email@epn.edu.ec"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required

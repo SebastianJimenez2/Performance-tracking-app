@@ -16,7 +16,7 @@
 }
 
 .celda-tabla {
-    text-align: center;
+    text-align: center !important;
 }	
 
 .riesgo {
