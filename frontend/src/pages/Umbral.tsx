@@ -35,7 +35,7 @@ export const Umbral = ({ id }: UmbralProps) => {
                         </tr>
                         <tr className='comprende'>
                             <td className='celda-tabla'>Revisiones</td>
-                            <td className='celda-tabla'>90</td>
+                            <td className='celda-tabla'>90%</td>
                         </tr>
                         <tr>
                             <td className='celda-tabla'>Mejoramiento del proceso</td>
