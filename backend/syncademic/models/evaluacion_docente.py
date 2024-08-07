@@ -10,3 +10,4 @@ class Evaluacion(models.Model):
     calificacion = models.FloatField()
     asignatura = models.ForeignKey(Asignatura, on_delete=models.CASCADE)
     docente = models.ForeignKey(Docente, on_delete=models.CASCADE)
+    periodo = models.CharField(max_length=5)
