@@ -1,0 +1,23 @@
+.cursos-container {
+    font-family: 'Montserrat', sans-serif;
+    background-image: url("https://img.freepik.com/fotos-premium/fondo-ondas-moradas-blancas-fondo-ondas-blancas_916191-5569.jpg");
+    background-size: cover;
+    background-position: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    padding: 2em 0;
+    
+}
+
+.cursos-title {
+    text-align: center;
+    color: white;
+    margin-bottom: 1rem;
+    
+}

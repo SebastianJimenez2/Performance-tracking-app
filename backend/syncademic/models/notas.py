@@ -5,6 +5,22 @@ from syncademic.models.periodo import Periodo
 
 
 class HistorialNotas(models.Model):
+    """ Modelo Historial Notas
+
+        Utilizado para Feature 2
+        Creado por Alejandra Colcha
+
+        Attributes:
+            id_nota (int),
+            id_asignatura (int),
+            id_estudiante (int),
+            grupo (int),
+            periodo(int),
+            nota (float),
+            tipo_actividad(int),
+            tema (str)
+    """
+
     id_nota = models.AutoField(primary_key=True)
     id_asignatura = models.ForeignKey(Asignatura, on_delete=models.CASCADE)
     id_estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE, related_name='estudiantes')
@@ -23,6 +39,15 @@ class HistorialNotas(models.Model):
 
 
 class TipoActividad(models.Model):
+    """ Modelo Tipo Actividad
+        Utilizado en modelo Historial Notas para Feature 2
+        Creado por Alejandra Colcha
+
+        Atributos:
+            id_tipo_actividad (int),
+            nombre_tipo (str),
+            peso (float)
+    """
     id_tipo_actividad = models.AutoField(primary_key=True)
     nombre_tipo = models.CharField(max_length=50)
 
