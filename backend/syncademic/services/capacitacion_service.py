@@ -1,8 +1,8 @@
 from ..exceptions.not_found import ObjectNotFound
-from ..utils import AreaDocente, AreaCapacitacion, ControlAreas
 from ..models.asignatura import Asignatura
 from ..models.docente import Docente
 from ..models.capacitacion import Capacitacion
+from ..models.puntuacion_docente import Puntuacion_docente
 
 
 class CapacitacionService:
@@ -13,13 +13,23 @@ class CapacitacionService:
         self.id_asignatura = None
         self.nombre_capacitacion = None
         self.area_capacitacion = None
-        self.imagen_capacitacion = None
 
-    # Lista de capacitaciones de un periodo
-    def get_lista_capacitaciones(self):
+    # Lista de Puntuaciones
+    def get_lista_puntuaciones(self, id_docente):
+        puntuaciones = Puntuacion_docente.objects.filter(
+            id_docente__id_docente=id_docente
+        ).values('id_puntuacion', 'id_docente', 'periodo', 'puntaje')
+        if puntuaciones is None:
+            raise ObjectNotFound(Capacitacion._meta.model_name,
+                                 "No se han encontrado registros para los parámetros dados")
+        else:
+            return puntuaciones
+
+    # Lista de capacitaciones de docente
+    def get_lista_capacitaciones(self, id_docente):
         capacitaciones = Capacitacion.objects.filter(
-            docente__id_docente=self.id_docente
-        ).values('id_capacitacion', 'nombre_capacitacion', 'area', 'periodo', 'image')
+            docente__id_docente=id_docente
+        ).values('id_capacitacion', 'nombre_capacitacion', 'area', 'periodo')
         if capacitaciones is None:
             raise ObjectNotFound(Capacitacion._meta.model_name,
                                  "No se han encontrado registros para los parámetros dados")
@@ -27,11 +37,24 @@ class CapacitacionService:
             return capacitaciones
 
     def get_lista_docentes(self):
-        docentes = Docente.objects.filter(
-            periodo_cursando__id_periodo=self.periodo
-        ).values('id_docente', 'nombre', 'carrera', 'correo')
-
+        docentes = Docente.objects.values('id_docente', 'nombre', 'carrera', 'correo')
         return docentes
+
+    def get_docente(self, id_docente):
+        try:
+            docente = Docente.objects.filter(
+                id_docente=id_docente
+            ).values('id_docente', 'nombre', 'estado_capacitacion', 'carrera', 'correo', 'puntaje_actual')
+            if not docente:
+                raise ObjectNotFound(Docente._meta.model_name, "Docente no encontrado")
+            return docente[0]
+        except Exception as e:
+            raise ObjectNotFound(Docente._meta.model_name, detail=str(e))
+
+
+    def get_lista_all_capacitaciones(self):
+        capacitaciones = Docente.objects.values('id_capacitacion', 'docente', 'nombre', 'area', 'periodo')
+        return capacitaciones
 
     # notas de un estudiante basado en el periodo, grupo y asignatura
     def get_nota_capacitacion_docente(self, id_docente, capacitaciones) -> int:
@@ -44,31 +67,28 @@ class CapacitacionService:
         except Exception as e:
             print(e)
 
-    def get_nota_docente(self, id_docente, area_capacitacion) -> int:
+    def get_nota_docente(self, id_docente, area) -> int:
         nota = 2
-        if self.get_area_docente(id_docente) == area_capacitacion:
+        if self.get_area_docente(id_docente) == area:
             nota = 5
         return nota
 
-    def get_area_docente(self, id_docente) -> int:
+    def get_area_docente(self, id_docente) -> str:
         asignaturas = Asignatura.objects.filter(
-            docente__id_docente=self.id_docente
+            docente__id_docente=id_docente
         ).values('area')
         return asignaturas[0].get('area')
 
-    def save_capacitacion(self, nota: dict):
+    def save_capacitacion(self, data):
         try:
 
-            id_est = nota['id_estudiante']
-            docente_bd = Docente.objects.get(id_docente=id_est)
-            capacitacion = Capacitacion.objects.get(id_capacitacion=self.id_capacitacion)
+            docente_bd = Docente.objects.get(id_docente=1)
 
             Capacitacion.objects.create(
-                id_capacitacion= capacitacion,
-                docente = docente_bd,
-                nombre_capacitacion = self.nombre_capacitacion,
-                area = self.nombre_capacitacion,
-                periodo = self.periodo
+                docente=data.docente_bd,
+                nombre_capacitacion=data.nombre_capacitacion,
+                area=data.nombre_capacitacion,
+                periodo=data.periodo
             )
 
             docente_bd.save()
@@ -78,7 +98,8 @@ class CapacitacionService:
 
     def get_alertas(self):
         alerta = {
-            'Capacitacion agregada true'
+            'Capacitacion agregada': "true",
+            'Registro minimo': "completado"
         }
 
         return alerta
