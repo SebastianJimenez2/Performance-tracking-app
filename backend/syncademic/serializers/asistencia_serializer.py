@@ -4,6 +4,11 @@ from ..models.estudiante import Estudiante
 from ..models.asignatura import Asignatura
 
 class AsistenciaSerializer(serializers.ModelSerializer):
+    """ Serializer para modelo Asignatura
+
+            Utilizado para Feature 1
+            Creado por Christian Hernández
+        """
     estudiante = serializers.PrimaryKeyRelatedField(queryset=Estudiante.objects.all())
     asignatura = serializers.PrimaryKeyRelatedField(queryset=Asignatura.objects.all())
 
