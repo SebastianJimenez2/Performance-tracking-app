@@ -15,4 +15,4 @@ class Asistencia(models.Model):
         unique_together = ('estudiante', 'asignatura', 'semana', 'dia')
 
     def __str__(self):
-        return f"{self.estudiante.nombre} - {self.asignatura.nombre} - Semana {self.semana} - {self.dia}"
+        return f"{self.estudiante.nombre_estudiante} - {self.asignatura.nombre} - Semana {self.semana} - {self.dia}"
