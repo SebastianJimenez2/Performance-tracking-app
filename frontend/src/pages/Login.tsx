@@ -16,10 +16,14 @@ const Login = () => {
       return;
     }
 
-    if(email== "admin@epn.edu.ec"){
+    if(email == "admin@epn.edu.ec"){
       setRol('Admin')
       setUsuario('Admin')
+    }else{
+      setRol('normal')
+      setUsuario('Mario')
     }
+
 
     // Redirigir a la página Login
     setPaginaActual('Cursos');
