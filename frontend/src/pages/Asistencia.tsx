@@ -57,9 +57,7 @@ const Asistencia: React.FC<AsistenciaProps> = ({ id }) => {
     setShowModal(false);
   };
   const handleRegistrarAsistencia = () => {
-    const link = document.createElement('a');
-  link.href = '../components/RegistrarAsistencia';
-  link.click();
+
   };
 
   return (
