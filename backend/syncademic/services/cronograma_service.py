@@ -7,20 +7,10 @@ from ..utils import cronograma_utils
 
 class CronogramaService:
 
-    """
-    @staticmethod
-    def get_cronograma_by_id(cronograma_id: int):
-        try:
-            return Cronograma.objects.get(id=cronograma_id)
-        except Cronograma.DoesNotExist:
-            raise ObjectNotFound("Cronograma no encontrado")
-    """
+    """ Servicio de Cronograma
 
-    """
-    @staticmethod
-    def get_cronograma_asignatura(asignatura_id: int):
-        cronograma = Cronograma.objects.filter(asignatura_id=asignatura_id)
-        return cronograma
+        Utilizado para Feature 5
+        Creado por David Yanez
     """
     
     @staticmethod

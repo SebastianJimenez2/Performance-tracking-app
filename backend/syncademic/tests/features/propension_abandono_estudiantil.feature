@@ -1,12 +1,8 @@
-# Created by chris at 8/2/2024
+# Creado por Grupo 1 at 23/7/24
 # language: es
 
-
-  # Feature 1
-  # Integrantes:
-   # - Anrrango Erika -> Desarrolladora FrontEnd
-   # - Hernández Christian -> Desarrollador BackEnd
-   # - Pillajo Edwin -> Documentación
+# FEATURE  2
+# Creado por: Erika Anrrango, Christian Hernández, Edwin Pillajo
 
 
 Característica: Distinción de estudiantes propensos a abandonar la asignatura
