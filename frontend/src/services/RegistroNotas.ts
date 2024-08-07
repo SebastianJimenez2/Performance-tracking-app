@@ -1,4 +1,23 @@
-import { Nota, RespuestaRegistroNotas } from "../types/RegistroNotas";
+import { Nota, RespuestaRegistroNotas } from "../types/RegistroNotas"; 
+/* 
+
+Importar tipos de dato Nota y RespuestaRegistroNotas 
+
+  Nota = {
+      id_estudiante: number,
+      nombre: string,
+      nota: number,
+      tema: string,
+      tipo_actividad: number
+  }
+
+  RespuestaRegistroNotas = {
+      en_riesgo: number,
+      alerta_media: number,
+      alerta_alta: number
+  }
+
+*/
 
 export const registrarNotas = async (
   asignatura: number,
