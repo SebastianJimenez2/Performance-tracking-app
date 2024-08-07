@@ -40,3 +40,5 @@ class SilaboAPIView(viewsets.ViewSet):
         silabos = Silabo.objects.all()
         serializer = SilaboSerializer(silabos, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+

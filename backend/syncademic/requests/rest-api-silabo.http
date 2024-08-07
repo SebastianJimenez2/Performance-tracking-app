@@ -1,38 +1,24 @@
-# Obtener todos los sílabos
-GET http://127.0.0.1:8000/api/silabo/
-Accept: application/json
-
 ###
-# Obtener los temas de un sílabo específico (por ejemplo, sílabo con ID 1)
-GET http://0.0.0.0:8000/syncademic/silabo/1/temas/
-Accept: application/json
-
-###
-# Obtener las evaluaciones de un tema específico dentro de un sílabo (por ejemplo, tema con ID 1 dentro del sílabo con ID 1)
+# Obtener las evaluaciones del tema 1
 GET http://0.0.0.0:8000/syncademic/silabo/1/evaluaciones-tema/1/
 Accept: application/json
 
 ###
-# Crear un nuevo sílabo (Ejemplo de datos)
-POST http://localhost:8000/api/silabo/
-Content-Type: application/json
-
-{
-  "asignatura": "Nueva Asignatura"
-}
+# Obtener las evaluaciones de un tema 2
+GET http://0.0.0.0:8000/syncademic/silabo/1/evaluaciones-tema/2/
+Accept: application/json
 
 ###
-# Crear un nuevo tema dentro de un sílabo específico (por ejemplo, sílabo con ID 1)
-POST http://localhost:8000/api/silabo/1/temas/
-Content-Type: application/json
+# Obtener las evaluaciones de un tema 3
+GET http://0.0.0.0:8000/syncademic/silabo/1/evaluaciones-tema/3/
+Accept: application/json
 
+###
+# Obtener las evaluaciones de un tema 4
+GET http://0.0.0.0:8000/syncademic/silabo/1/evaluaciones-tema/4/
+Accept: application/json
 
-[
- {
-        "titulo": "Nuevo Tema",
-        "prueba_kahoot": 8.5,
-        "prueba_sentimientos": 7.5,
-        "prueba_tema": 9.0
- }
-]
-
+###
+# Obtener las evaluaciones de un tema 5
+GET http://0.0.0.0:8000/syncademic/silabo/1/evaluaciones-tema/5/
+Accept: application/json
