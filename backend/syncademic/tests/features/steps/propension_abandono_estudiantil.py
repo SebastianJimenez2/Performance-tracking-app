@@ -6,6 +6,7 @@ use_step_matcher("parse")
 
 fake = Faker("es")
 
+
 @step("un estudiante con tasa de asistencia {tasa_asistencia} % mensual")
 def step_impl(context, tasa_asistencia):
     context.tasa_asistencia = float(tasa_asistencia)
@@ -29,11 +30,13 @@ def step_impl(context, tasa_asistencia):
             )
             context.asistencias.append(asistencia)
 
+
 @step("la tasa de asistencia se encuentre entre {minimo} % y {maximo} %")
 def step_impl(context, minimo, maximo):
     context.minimo = float(minimo)
     context.maximo = float(maximo)
     context.estudiantes_en_riesgo = ControlAsistencia.obtener_estudiantes_en_riesgo(context.estudiantes, context.asistencias, 1)
+
 
 @step("se marca al estudiante en riesgo {riesgo} de abandono alertando al docente")
 def step_impl(context, riesgo):
@@ -46,7 +49,8 @@ def step_impl(context, riesgo):
         else:
             assert riesgo == 'bajo', f"Se esperaba que el riesgo fuera 'bajo', pero se encontró '{riesgo}'"
 
-@step("él decide {posible_notificacion}notificar a bienestar estudiantil.")
+
+@step("él decide {posible_notificacion} notificar a bienestar estudiantil.")
 def step_impl(context, posible_notificacion):
     context.posible_notificacion = posible_notificacion.strip()
     if context.posible_notificacion == 'sí':
