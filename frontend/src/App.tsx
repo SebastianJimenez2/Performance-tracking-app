@@ -34,7 +34,6 @@ function App() {
     if (isSemesterClosed) {
       return [
         <Estudiantes id="Estudiantes" />,
-        <Componente3 id="tab número 3" />,
         <EstudiantesCandidatos id="Estudiantes candidatos" />,
         <RegistroAsistencia id="Registo Asistencia" />
       ];
