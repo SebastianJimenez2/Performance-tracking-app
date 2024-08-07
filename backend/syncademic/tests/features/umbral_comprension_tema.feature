@@ -1,6 +1,9 @@
 # Created by kevin at 24/7/24
 # language: es
 
+  # Feature 3
+  # Grupo 8: René Simbaña, Kevin Sailema.
+
 Característica: Identificación de temas no comprendidos
 Como docente
 quiero recibir una alerta sobre los temas que pudieron no haber sido comprendidos por los estudiantes y pudiesen representar complicaciones en la unidad entrante

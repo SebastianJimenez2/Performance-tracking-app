@@ -10,6 +10,14 @@
     flex-direction: column;
 }
 
+.container-cards {
+    display: flex;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 5rem;
+    padding: 0 1rem;
+    margin: 2em 0;
+}
+
 .main-content {
     padding: 2em 0;
     
