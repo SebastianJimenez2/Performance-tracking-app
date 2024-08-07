@@ -1,0 +1,34 @@
+/**
+ * Creado por: David Torres
+ */
+.toast-body button {
+    padding: 0;
+    background: transparent;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+}
+
+.toast-body button:hover {
+    text-decoration: none;
+    color: #0056b3;
+}
+
+/* Toast body text styles */
+.toast-body strong {
+    color: black;
+    font-weight: bold;
+}
+
+/* Modal body styles */
+.modal-body {
+    text-align: center;
+}
+
+.modal-body h5 {
+    margin-bottom: 1rem;
+}
+
+.modal-body p {
+    margin-bottom: 0.5rem;
+}

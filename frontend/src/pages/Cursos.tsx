@@ -1,3 +1,6 @@
+/**
+ * Creado por: David Torres
+ */
 import React from 'react';
 import BarraNavegacion from '../components/BarraNavegacion';
 import Cards from '../components/Cards.tsx';

@@ -32,6 +32,7 @@ import Alert from 'react-bootstrap/Alert';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { obtenerEstudiantes } from '../services/Estudiantes'; // Función para obtener estudiantes del backend
 import { useContextoGlobal } from '../ContextoGlobal';
+import NotificacionesHoras from '../components/CargaHorariaAtrasada';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/pages/Estudiantes.css'
@@ -142,6 +143,7 @@ function Estudiantes({ id }: EstudiantesProps) {
                         ))}
                     </tbody>
                 </Table>
+                <NotificacionesHoras />
             </div>
             <Modal
                 show={estudianteSeleccionado !== null}

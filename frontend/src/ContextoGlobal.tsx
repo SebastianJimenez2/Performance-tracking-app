@@ -20,8 +20,6 @@ type contextoType = {
     setCurso: (curso: number) => void;
     periodoActivo: number;
     setPeriodoActivo: (periodoActivo: number) => void;
-    tituloCurso: string, 
-    setTituloCurso: (tituloCurso: string) => void;
 }
 
 const ContextoGlobal = createContext<contextoType | undefined>(undefined)
@@ -35,10 +33,9 @@ export function ProveedorContextoGlobal({ children }: { children: ReactNode }) {
     const [asignatura, setAsignatura] = useState<number>(0);
     const [curso, setCurso] = useState<number>(0);
     const [periodoActivo, setPeriodoActivo] = useState<number>(6);
-    const [tituloCurso, setTituloCurso] = useState<string>('');
 
     return (
-        <ContextoGlobal.Provider value={{ paginaActual, setPaginaActual, listaEstudiantes, setListaEstudiantes, profesor, setProfesor, rol, setRol, usuario, setUsuario, asignatura, setAsignatura, curso, setCurso, periodoActivo, setPeriodoActivo, tituloCurso, setTituloCurso }}>
+        <ContextoGlobal.Provider value={{ paginaActual, setPaginaActual, listaEstudiantes, setListaEstudiantes, profesor, setProfesor, rol, setRol, usuario, setUsuario, asignatura, setAsignatura, curso, setCurso, periodoActivo, setPeriodoActivo }}>
             {children}
         </ContextoGlobal.Provider>
     )
