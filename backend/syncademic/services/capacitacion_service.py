@@ -98,8 +98,8 @@ class CapacitacionService:
 
     def get_alertas(self):
         alerta = {
-            'Capacitacion agregada': "true",
-            'Registro minimo': "completado"
+            'Capacitacion_agregada': "true",
+            'Registro_minimo': "completado"
         }
 
         return alerta
