@@ -3,7 +3,10 @@ class AreaDocente:
                 AreaDocente
                 Clase auxiliar para recopilar solo la información necesaria del docente.
 
-                Atributos: nombre, áreas, puntos_capacitacion
+                Atributos:
+                nombre,
+                áreas,
+                puntos_capacitacion
     """
 
     def __init__(self, nombre: str):
@@ -69,7 +72,9 @@ class AreaCapacitacion:
                 AreaCapacitacion
                 Clase auxiliar para recopilar solo la información necesaria de la capacitacion.
 
-                Atributos: nombre, área
+                Atributos:
+                nombre,
+                área
         """
 
         def __init__(self, nombre: str):
@@ -97,6 +102,10 @@ class ControlAreas:
     """
             CONTROL ÁREAS
             Recibe un docente para comparar su area respecto al area de una capacitacion.
+
+            Attributes:
+            docente (AreaDocente)
+            capacitacion (AreaCapacitacion)
     """
 
     def __init__(self, docente: AreaDocente, capacitacion: AreaCapacitacion):
