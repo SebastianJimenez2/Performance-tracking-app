@@ -8,7 +8,7 @@ from ..models.capacitacion import Capacitacion
 class CapacitacionService:
 
     def __init__(self):
-        self.periodo = 6
+        self.periodo = None
         self.id_docente = None
         self.id_asignatura = None
         self.nombre_capacitacion = None
@@ -68,14 +68,20 @@ class CapacitacionService:
                 docente = docente_bd,
                 nombre_capacitacion = self.nombre_capacitacion,
                 area = self.nombre_capacitacion,
-                periodo = self.periodo,
-                image = self.imagen_capacitacion
+                periodo = self.periodo
             )
 
             docente_bd.save()
 
         except Exception as e:
             raise ObjectNotFound(Docente._meta.model_name, detail=str(e))
+
+    def get_alertas(self):
+        alerta = {
+            'Capacitacion agregada true'
+        }
+
+        return alerta
 
     @property
     def periodo(self):
@@ -97,7 +103,7 @@ class CapacitacionService:
     def id_asignatura(self):
         return self._id_asignatura
 
-    @periodo.setter
+    @id_asignatura.setter
     def id_asignatura(self, id_asignatura):
         self._id_asignatura = id_asignatura
 

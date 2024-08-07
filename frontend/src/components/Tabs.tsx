@@ -1,6 +1,6 @@
 import { isValidElement } from "react";
 import { useState } from "react";
-import ImagenPRofesor from "../assets/profesor.jpg";
+import ImagenProfesor from "../assets/profesor.jpg";
 import Button from "react-bootstrap/Button";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -41,7 +41,7 @@ function Tabs({ children, cerrarSemestre }: TabsProps) {
         <div className="contenedor-tabs">
             <nav className="barra-lateral">
                 <div className="perfil-profesor">
-                    <img src={ImagenPRofesor} alt="Foto de perfil del profesor de la asignatura" />
+                    <img src={ImagenProfesor} alt="Foto de perfil del profesor de la asignatura" />
                     <p>Mario Romero</p>
                 </div>
                 <div className="tabs">

@@ -9,6 +9,11 @@ class EstudianteSerializer(serializers.ModelSerializer):
 
 
 class ListaEstudianteSerializer(serializers.ModelSerializer):
+    """ Lista de estudiantes para iniciar proceso de ingreso de notas.
+
+        Utilizado para Feature 2
+        Creado por Alejandra Colcha
+    """
     class Meta:
         model = Estudiante
         fields = [

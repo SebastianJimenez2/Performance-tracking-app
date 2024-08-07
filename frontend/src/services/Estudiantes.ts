@@ -1,4 +1,12 @@
-import { Estudiante } from "../types/RegistroNotas";
+import { Estudiante } from "../types/Estudiantes"; /* Importar tipo de dato Estudiante -> 
+                                                      {
+                                                        id_estudiante: number,
+                                                        nombre_estudiante: string,
+                                                        email: string,
+                                                        numero_incidencias: number,
+                                                        prioridad: string,
+                                                        promedio: number
+                                                      }*/
 
 export const obtenerEstudiantes = async (
   asignatura: number,

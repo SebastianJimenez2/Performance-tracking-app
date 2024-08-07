@@ -9,6 +9,7 @@ from .tema_cronograma_api_view import TemaCronogramaAPIView
 from .evaluacion_docente_api_view import EvaluacionViewSet
 from .asignatura_view import AsignaturaViewSet
 from .docente_view import DocenteViewSet
+from .capacitacion_api_view import CapacitacionAPIView
 
 
 _all_ = [
@@ -17,5 +18,6 @@ _all_ = [
     'ControlNotasAPIView',
     'AsistenciaAPIView',
     'CronogramaAPIView',
-    'TemaCronogramaAPIView'
+    'TemaCronogramaAPIView',
+    'CapacitacionAPIView'
 ]
