@@ -52,13 +52,11 @@ function App() {
 
   const mostrarPagina = () => {
 
-    if (rol == 'Admin') {
+    if (rol === 'administrador') {
       switch (paginaActual) {
         case 'Profesor':
           return profesor ? <PerfilProfesor profesor={profesor} /> : <div>No se ha seleccionado ningún profesor</div>;
-        case 'Login':
-          return <Login />
-        default:
+        case 'Home':
           return (
             <>
               <Asignatura cerrarSemestre={() => console.log('Cerrando semestre')}>
@@ -68,22 +66,22 @@ function App() {
             </>
           );
       }
-    } else {
+    } else if (rol === 'docente') {
 
       switch (paginaActual) {
         case 'Cursos':
           return <Cursos />
         case 'Capacitaciones':
           return <Capacitaciones />
-        case 'Login':
-          return <Login />
-        default:
+        case 'Home':
           return (
             <Asignatura cerrarSemestre={handleSemesterToggle}>
               {renderAsignaturaChildren()}
             </Asignatura>
           );
       }
+    } else {
+      return <Login />
     }
   }
 
