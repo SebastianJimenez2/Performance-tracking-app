@@ -1,32 +1,28 @@
-/**Feature1:Distinción de estudiantes propensos a abandonar la asignatura
- * Como docente
-  Quiero identificar automáticamente aquellos estudiantes con posible tasa de abandono
-  Para decidir si notificar a bienestar estudiantil sobre un posible abandono.
- * Integrantes:
-  Anrrango Erika -> Desarrolladora FrontEnd
-  Hernández Christian -> Desarrollador BackEnd
-  Pillajo Edwin -> Documentación
- * https://www.figma.com/design/ihvX1EY7yVl6tCnNEyzsZQ/DCU?node-id=0-1&t=xo35RUXDQw3SNzwP-1
- * En el Wireframe
- * Registrar asistencia
- */
-  import React, { useState, useEffect } from 'react';
+// Importa los hooks de React y componentes de React-Bootstrap
+import React, { useState, useEffect } from 'react';
 import { Dropdown, Button, Form, Alert } from 'react-bootstrap';
+// Importa el contexto global y estilos
 import { useContextoGlobal } from '../ContextoGlobal';
 import '../styles/components/RegistroAsistencia.css';
+// Importa el tipo de datos de estudiantes
 import { Estudiante } from '../types/Estudiantes';
 
+// Define las propiedades que recibe el componente
 type RegistroAsistenciaProps = {
   id: string;
 };
 
+// Define la interfaz para el estado de asistencia
 interface Asistencia {
   id_estudiante: number;
   presente: boolean;
 }
 
+// Define el componente funcional
 const RegistroAsistencia: React.FC<RegistroAsistenciaProps> = ({ id }) => {
+  // Extrae la lista de estudiantes del contexto global
   const { listaEstudiantes } = useContextoGlobal();
+  // Define los estados locales
   const [semana, setSemana] = useState<string | null>(null);
   const [horario, setHorario] = useState<string | null>(null);
   const [asistencias, setAsistencias] = useState<Asistencia[]>([]);
@@ -34,11 +30,13 @@ const RegistroAsistencia: React.FC<RegistroAsistenciaProps> = ({ id }) => {
   const [mostrarSiguienteSemana, setMostrarSiguienteSemana] = useState<boolean>(false);
   const [registrosPorSemana, setRegistrosPorSemana] = useState<{ [key: string]: number }>({});
 
+  // Define los horarios disponibles
   const horarios = [
     "11:00-13:00",
     "15:00-17:00"
   ];
 
+  // Efecto para limpiar el mensaje después de 2 segundos
   useEffect(() => {
     if (mensaje) {
       const timer = setTimeout(() => {
@@ -48,6 +46,7 @@ const RegistroAsistencia: React.FC<RegistroAsistenciaProps> = ({ id }) => {
     }
   }, [mensaje]);
 
+  // Maneja el cambio de estado de las asistencias
   const handleCheckChange = (id_estudiante: number) => {
     setAsistencias((prevAsistencias) => {
       const index = prevAsistencias.findIndex(asistencia => asistencia.id_estudiante === id_estudiante);
@@ -60,6 +59,7 @@ const RegistroAsistencia: React.FC<RegistroAsistenciaProps> = ({ id }) => {
     });
   };
 
+  // Maneja el click en el botón de registrar
   const handleRegistrarClick = () => {
     if (semana && horario) {
       const registro = {
@@ -70,10 +70,12 @@ const RegistroAsistencia: React.FC<RegistroAsistenciaProps> = ({ id }) => {
       console.log('Asistencia registrada', registro);
       setMensaje('Registro exitoso de asistencia');
 
+      // Resetea los estados después de registrar
       setAsistencias([]);
       setSemana(null);
       setHorario(null);
 
+      // Actualiza el contador de registros por semana
       setRegistrosPorSemana((prevRegistros) => {
         const count = prevRegistros[semana] || 0;
         return { ...prevRegistros, [semana]: count + 1 };
@@ -83,6 +85,7 @@ const RegistroAsistencia: React.FC<RegistroAsistenciaProps> = ({ id }) => {
     }
   };
 
+  // Verifica si la semana está completa (dos registros)
   const isSemanaCompleta = semana ? (registrosPorSemana[semana] || 0) >= 2 : false;
 
   return (
