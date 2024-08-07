@@ -3,13 +3,9 @@ from syncademic.models.aspecto import Aspecto, Docente
 
 
 def run():
-    # Borrar todos los aspectos existentes de los docentes que vamos a actualizar
-    Aspecto.objects.filter(docente__id_docente__in=[1, 3]).delete()
-
-    # Docente Ana Marciana
-    docente_ana, created = Docente.objects.get_or_create(
-        id_docente=3,
-        defaults={'nombre': 'Ana Marciana', 'correo': 'profesor_c@example.com', 'estado': 'activo'}
+    # Obtener el docente Ana Marciana o crear uno si no existe
+    docente, created = Docente.objects.get_or_create(
+        id_docente=3
     )
 
     if not created:
