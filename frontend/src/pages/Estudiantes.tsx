@@ -20,13 +20,13 @@ function Estudiantes({ id }: EstudiantesProps) {
 
     const [estudiantes, setEstudiantes] = useState<Estudiante[]>([])
     const [estudiantesVisibles, setEstudiantesVisibles] = useState<Estudiante[]>([])
-    const [buscado, setBuscado] = useState<boolean>(false)
     const [estudianteSeleccionado, setEstudianteSeleccionado] = useState<Estudiante | null>(null)
     const [estudianteCitado, setEstudianteCitado] = useState<boolean>(false)
     const [filtro, setFiltro] = useState<string>('Todos')
     const {setListaEstudiantes} = useContextoGlobal()
 
     useEffect(() => {
+        console.log('Obteniendo estudiantes')
         const fetchEstudiantes = async () => {
             try {
                 const estudiantesFetch = await obtenerEstudiantes(1, 5, 1)
@@ -37,11 +37,8 @@ function Estudiantes({ id }: EstudiantesProps) {
                 console.error('Error obteniendo estudiantes:', error)
             }
         }
-        if (!buscado) {
-            fetchEstudiantes()
-            setBuscado(true)
-        }
-    })
+        fetchEstudiantes()
+    }, [setListaEstudiantes])
 
     const mostrarModalEstudiante = (estudiante: Estudiante) => {
         setEstudianteSeleccionado(estudiante)

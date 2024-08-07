@@ -21,9 +21,7 @@ def step_impl(context, promedio):
     assert context.control_calificaciones.promedio == float(promedio)
 
 
-@step(
-    'el profesor estableció un rango de advertencia de "{rango_advertencia:f}" para una nota mínima aceptable de "{'
-    'minimo}"')
+@step('el rango de advertencia es de "{rango_advertencia:f}" para una nota mínima aceptable de "{minimo}"')
 def step_impl(context, rango_advertencia, minimo):
     """
     :type context: behave.runner.Context

@@ -1,6 +1,14 @@
 # Created by chris at 8/2/2024
 # language: es
 
+
+  # Feature 1
+  # Integrantes:
+   # - Anrrango Erika -> Desarrolladora FrontEnd
+   # - Hernández Christian -> Desarrollador BackEnd
+   # - Pillajo Edwin -> Documentación
+
+
 Característica: Distinción de estudiantes propensos a abandonar la asignatura
   Como docente
   Quiero identificar automáticamente aquellos estudiantes con posible tasa de abandono
@@ -9,7 +17,7 @@ Característica: Distinción de estudiantes propensos a abandonar la asignatura
   Esquema del escenario: Distinción del riesgo de abandono del estudiante según la asistencia
     Dado un estudiante con tasa de asistencia <tasa_asistencia> % mensual
     Cuando la tasa de asistencia se encuentre entre <minimo> % y <maximo> %
-    Entonces se marca al estudiante en riesgo <riesgo> de abandono alertando al profesor
+    Entonces se marca al estudiante en riesgo <riesgo> de abandono alertando al docente
     Y él decide <posible_notificacion> notificar a bienestar estudiantil.
 
     Ejemplos:
