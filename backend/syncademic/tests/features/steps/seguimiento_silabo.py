@@ -1,3 +1,9 @@
+"""
+  Grupo 7
+  Integrantes: Joel Delgado, Sebastian Sanchez, David Yanez
+"""
+
+
 from datetime import datetime, timedelta
 
 from behave import *
@@ -8,7 +14,6 @@ from syncademic.models.tema_cronograma import TemaCronograma
 from syncademic.services.cronograma_service import CronogramaService
 from syncademic.services.tema_cronograma_service import TemaCronogramaService
 from syncademic.utils import cronograma_utils
-
 
 
 @step('el docente visualiza su progreso de la semana {semana_actual} en base a que {temas_marcados}')

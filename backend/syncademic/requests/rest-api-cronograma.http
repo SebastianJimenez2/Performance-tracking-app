@@ -18,7 +18,7 @@ Accept: application/json
 
 ###
 
-GET http://127.0.0.1:8000/syncademic/cronograma/20/
+GET https://syncademic-0-1.onrender.com/syncademic/cronograma/1/
 Accept: application/json
 
 ###
@@ -29,18 +29,18 @@ Accept: application/json
 
 {
     "asignatura": 1,
-    "estado": "atrasado",
+    "estado": "normal",
     "fecha_inicio": "2024-08-05"
 }
 
 ###
 
-DELETE https://syncademic-0-1.onrender.com/syncademic/cronograma/4/
+DELETE https://syncademic-0-1.onrender.com/syncademic/cronograma/6/
 Accept: application/json
 
 ###
 ### arreglar
-GET http://127.0.0.1:8000/syncademic/cronograma/temas-cronograma/20/
+GET https://syncademic-0-1.onrender.com/syncademic/cronograma/temas-cronograma/1/
 Accept: application/json
 
 ###
@@ -50,10 +50,15 @@ Accept: application/json
 
 ###
 
-GET https://syncademic-0-1.onrender.com/syncademic/cronograma/12/estado
+GET https://syncademic-0-1.onrender.com/syncademic/cronograma/2/estado
 Accept: application/json
 
 ###
 
 GET https://syncademic-0-1.onrender.com/syncademic/cronograma/1/completados?hasta_semana=5
+Accept: application/json
+
+###
+
+GET https://syncademic-0-1.onrender.com/syncademic/asignatura/
 Accept: application/json
