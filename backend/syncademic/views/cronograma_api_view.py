@@ -16,6 +16,10 @@ class CronogramaAPIView(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['get'], url_path='temas-cronograma/(?P<cronograma_id>[^/.]+)')
     def temas_cronograma(self, request, cronograma_id=None):
+        """
+            Obtiene todos los temas de un cronograma.
+            GET /cronograma/temas-cronograma/<int:cronograma_id>
+        """
         try:
             temas = CronogramaService.get_temas_cronograma(int(cronograma_id))
             if temas:
@@ -29,6 +33,10 @@ class CronogramaAPIView(viewsets.ModelViewSet):
         
     @action(detail=True, methods=['get'], url_path='completados')
     def get_completados(self, request, pk=None):
+        """
+            Obtiene el numero de temas completados hasta una semana especificada.
+            GET cronograma/<int:cronograma_id>/completados?hasta_semana=<int:semana>
+        """
         hasta_semana = request.query_params.get('hasta_semana')
         if hasta_semana is None:
             return Response({"error": "Se requiere el parámetro 'hasta_semana'."}, status=status.HTTP_400_BAD_REQUEST)
@@ -44,6 +52,10 @@ class CronogramaAPIView(viewsets.ModelViewSet):
         
     @action(detail=True, methods=['get'], url_path='estado')
     def get_estado(self, request, pk=None):
+        """
+            Obtiene el estado de un cronograma.
+            GET cronograma/<int:cronograma_id>/estado
+        """
         try:
             estado = CronogramaService.get_estado_cronograma(int(pk))
             return Response({'estado': estado}, status=status.HTTP_200_OK)
