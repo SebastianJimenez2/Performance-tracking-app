@@ -12,6 +12,8 @@ type contextoType = {
     setProfesor: (profesor: Profesor | null) => void; 
     rol: string; 
     setRol: (modo: string) => void; 
+    usuario:string;
+    setUsuario: (usuario: string) => void;
     
 }
 
@@ -22,10 +24,10 @@ export function ProveedorContextoGlobal({ children }: { children: ReactNode }) {
     const [listaEstudiantes, setListaEstudiantes] = useState<Estudiante[]>([])
     const [profesor, setProfesor] = useState<Profesor | null>(null);
     const [rol, setRol] = useState<string>('normal');
-
+    const [usuario, setUsuario] = useState<string>('Mario Romero');
 
     return (
-        <ContextoGlobal.Provider value={{ paginaActual, setPaginaActual, listaEstudiantes, setListaEstudiantes,profesor, setProfesor, rol, setRol }}>
+        <ContextoGlobal.Provider value={{ paginaActual, setPaginaActual, listaEstudiantes, setListaEstudiantes,profesor, setProfesor, rol, setRol, usuario,setUsuario }}>
             {children}
         </ContextoGlobal.Provider>
     )
