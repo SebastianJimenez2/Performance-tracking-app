@@ -23,7 +23,7 @@ function TablaCapacitaciones() {
   const cursosFiltrados = cursos.filter(curso => curso.semestre === semestreSeleccionado);
 
   return (
-    <div style={{ maxWidth: '80%', margin: '2rem auto' }}>
+    <div style={{ maxWidth: '80%', margin: '0 auto' }}>
       <Form.Select
         aria-label="Selecciona un semestre"
         value={semestreSeleccionado}

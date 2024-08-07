@@ -21,10 +21,10 @@ function Profesor({ profesor }: { profesor: TipoProfesor }) {
   const { setPaginaActual } = useContextoGlobal();
 
   const volverAListaProfesores = () => {
-    setPaginaActual('Profesores');
+    setPaginaActual('Home');
   };
 
-  const [profesorData, setProfesor] = useState<TipoProfesor | null>(datosIniciales);
+  const [profesorData] = useState<TipoProfesor | null>(datosIniciales);
 
   return (
     <div>
