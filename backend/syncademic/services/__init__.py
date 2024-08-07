@@ -9,4 +9,6 @@ from syncademic.services.asistencia_service import AsistenciaService
 from syncademic.services.cronograma_service import CronogramaService
 from syncademic.services.tema_cronograma_service import TemaCronogramaService
 
+from syncademic.services.capacitacion_service import CapacitacionService
+
 
