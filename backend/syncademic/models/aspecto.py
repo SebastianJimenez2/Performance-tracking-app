@@ -22,10 +22,9 @@ class Aspecto(models.Model):
 
     def determinar_estado_notificacion(self, tiempo_transcurrido, progreso_actual):
         reglas = [
-            {"estado": "CRITICO", "condicion": lambda t, p: t > 90 and p <= 50},
-            {"estado": "INTENSO", "condicion": lambda t, p: 80 < t <= 90 and p <= 50},
-            {"estado": "NORMAL", "condicion": lambda t, p: 50 < t <= 80 and p < 50},
-            {"estado": "BAJO", "condicion": lambda t, p: t <= 50 and p < 20},
+            {"estado": "CRITICO", "condicion": lambda t, p: 80 < t <= 90 and p <= 50},
+            {"estado": "INTENSO", "condicion": lambda t, p: 80 >= t > 50 > p},
+            {"estado": "NORMAL", "condicion": lambda t, p: t <= 50 and p < 20},
             {"estado": "BAJO", "condicion": lambda t, p: True},  # Estado por defecto
         ]
 
