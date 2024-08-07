@@ -23,6 +23,7 @@ Modelos relacionados:
 import { useEffect, useState } from 'react';
 import { obtenerSeguimientoMalla } from '../services/EstudiantesCandidatos';
 import { EstudianteCandidato } from '../types/EstudiantesCandidatos';
+import { useContextoGlobal } from '../ContextoGlobal';
 
 import '../styles/pages/Estudiantes.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -38,6 +39,7 @@ function EstudiantesCandidatos({ id }: EstudiantesCandidatosProps) {
         La primera variable cumple con la identificación de estudiantes que se encuentran entre el rango histórico
         (obtenido en el backend de la aplicación) y el mínimo establecido
         */
+        const { tituloCurso } = useContextoGlobal();
         const [datos, setDatos] = useState<EstudianteCandidato[]>([]);                    // Datos recibidos por parte del backend
         const [error, setError] = useState<string | null>(null);
         const [direccionDeOrdenamiento, setDireccionDeOrdenamiento] = useState<'asc' | 'desc'>('asc');
@@ -47,15 +49,21 @@ function EstudiantesCandidatos({ id }: EstudiantesCandidatosProps) {
         useEffect(() => {
                 const obtenerDatos = async () => {
                         try {
-                                const resultados = await obtenerSeguimientoMalla();
-                                setDatos(resultados);
+                                const resultados = await obtenerSeguimientoMalla(tituloCurso);
+                                if ('error' in resultados) {
+                                        alert(resultados.error);
+                                } else {
+                                        setDatos(resultados);
+                                }
                         } catch (err) {
                                 setError('Error fetching datos');
                         }
                 };
 
-                obtenerDatos();
-        }, []);
+                if (tituloCurso) {
+                        obtenerDatos();
+                }
+        }, [tituloCurso]);
 
         // Método usado para ordenar la tabla al presionar cualquier header de ésta.
         const manejadorOrdenamiento = (columna: string) => {
