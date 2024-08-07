@@ -1,12 +1,12 @@
 ### Crongrama
 
-GET http://127.0.0.1:8000/syncademic/cronograma/
+GET https://syncademic-0-1.onrender.com/syncademic/cronograma/
 Accept: application/json
 
 ###
 
 # Mandar con una fecha actual
-POST http://127.0.0.1:8000/syncademic/cronograma/
+POST https://syncademic-0-1.onrender.com/syncademic/cronograma/
 Content-Type: application/json
 Accept: application/json
 
@@ -18,29 +18,29 @@ Accept: application/json
 
 ###
 
-GET http://127.0.0.1:8000/syncademic/cronograma/13/
+GET https://syncademic-0-1.onrender.com/syncademic/cronograma/1/
 Accept: application/json
 
 ###
 
-PUT http://127.0.0.1:8000/syncademic/cronograma/12/
+PUT https://syncademic-0-1.onrender.com/syncademic/cronograma/1/
 Content-Type: application/json
 Accept: application/json
 
 {
     "asignatura": 1,
     "estado": "normal",
-    "fecha_inicio": "2024-09-05"
+    "fecha_inicio": "2024-08-05"
 }
 
 ###
 
-DELETE http://127.0.0.1:8000/syncademic/cronograma/19/
+DELETE https://syncademic-0-1.onrender.com/syncademic/cronograma/6/
 Accept: application/json
 
 ###
 ### arreglar
-GET http://127.0.0.1:8000/syncademic/cronograma/temas-cronograma/14/
+GET https://syncademic-0-1.onrender.com/syncademic/cronograma/temas-cronograma/1/
 Accept: application/json
 
 ###
@@ -50,10 +50,15 @@ Accept: application/json
 
 ###
 
-GET http://127.0.0.1:8000/syncademic/cronograma/12/estado
+GET https://syncademic-0-1.onrender.com/syncademic/cronograma/2/estado
 Accept: application/json
 
 ###
 
-GET http://127.0.0.1:8000/syncademic/cronograma/12/completados?hasta_semana=2
+GET https://syncademic-0-1.onrender.com/syncademic/cronograma/1/completados?hasta_semana=5
+Accept: application/json
+
+###
+
+GET https://syncademic-0-1.onrender.com/syncademic/asignatura/
 Accept: application/json

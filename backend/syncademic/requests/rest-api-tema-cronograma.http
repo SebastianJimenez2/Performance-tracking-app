@@ -1,35 +1,49 @@
 ### Temas cronograma
 
-GET http://127.0.0.1:8000/syncademic/tema-cronograma/
+GET https://syncademic-0-1.onrender.com/syncademic/tema-cronograma/
 Accept: application/json
 
 ###
 
-GET http://127.0.0.1:8000/syncademic/tema-cronograma/16
-Accept: application/json
-
-###
-
-PUT http://127.0.0.1:8000/syncademic/tema-cronograma/16/
+### USAR ESTE METODO PARA CREAR UN TEMA CRONOGRAMA
+POST https://syncademic-0-1.onrender.com/syncademic/tema-cronograma/create/
 Content-Type: application/json
 Accept: application/json
 
 {
-    "cronograma": 12,
-    "descripcion": "Tema Actualizado",
-    "orden": 3,
-    "tiempo_en_semanas": 2,
-    "completado": true
+    "cronograma": 1,
+    "descripcion": "Tema de prueba",
+    "tiempo_en_semanas": 1,
+    "completado": false
 }
 
 ###
 
-DELETE http://127.0.0.1:8000/syncademic/tema-cronograma/41/
+GET https://syncademic-0-1.onrender.com/syncademic/tema-cronograma/2
 Accept: application/json
 
 ###
 
-PUT http://127.0.0.1:8000/syncademic/tema-cronograma/31/check/
+PUT https://syncademic-0-1.onrender.com/syncademic/tema-cronograma/2/
+Content-Type: application/json
+Accept: application/json
+
+{
+    "cronograma": 1,
+    "descripcion": "Tema Actualizado",
+    "orden": 2,
+    "tiempo_en_semanas": 2,
+    "completado": false
+}
+
+###
+
+DELETE https://syncademic-0-1.onrender.com/syncademic/tema-cronograma/13/
+Accept: application/json
+
+###
+
+PUT https://syncademic-0-1.onrender.com/syncademic/tema-cronograma/2/check/
 Content-Type: application/json
 Accept: application/json
 
@@ -38,15 +52,3 @@ Accept: application/json
 }
 
 ###
-
-### USAR ESTE METODO PARA CREAR UN TEMA CRONOGRAMA
-POST http://127.0.0.1:8000/syncademic/tema-cronograma/create/
-Content-Type: application/json
-Accept: application/json
-
-{
-    "cronograma": 14,
-    "descripcion": "Tema de prueba",
-    "tiempo_en_semanas": 1,
-    "completado": false
-}

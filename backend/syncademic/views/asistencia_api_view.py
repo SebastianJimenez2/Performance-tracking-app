@@ -22,8 +22,8 @@ class AsistenciaAPIView(viewsets.ViewSet):
     def actualizar_asistencia(self, request):
         serializer = AsistenciaSerializer(data=request.data)
         if serializer.is_valid():
-            estudiante_id = serializer.validated_data['estudiante']['id_estudiante']
-            asignatura_id = serializer.validated_data['asignatura']['id_asignatura']
+            estudiante_id = serializer.validated_data['estudiante'].id
+            asignatura_id = serializer.validated_data['asignatura'].id
             semana = serializer.validated_data['semana']
             dia = serializer.validated_data['dia']
             presente = serializer.validated_data['presente']
@@ -36,3 +36,11 @@ class AsistenciaAPIView(viewsets.ViewSet):
             except ObjectNotFound as e:
                 return Response({'Error': e.detail}, status=status.HTTP_404_NOT_FOUND)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=False, methods=['get'], url_path='lista-estudiantes')
+    def lista_estudiantes(self, request):
+        try:
+            estudiantes = AsistenciaService.obtener_lista_estudiantes()
+            return Response({'estudiantes': estudiantes}, status=status.HTTP_200_OK)
+        except ObjectNotFound as e:
+            return Response({'error': str(e)}, status=status.HTTP_404_NOT_FOUND)

@@ -7,10 +7,13 @@ from ..models.notas import HistorialNotas
 from ..serializers import ListaEstudianteSerializer
 from ..services import NotasService
 from ..exceptions.not_found import ObjectNotFound
-import json
 
 
 class ControlNotasAPIView(viewsets.ModelViewSet):
+    """ API Endpoint para ControlNotas.
+        Utilizado para Feature 2
+        Creado por Alejandra Colcha
+    """
     queryset = HistorialNotas.objects.all()
     serializer_class = ListaEstudianteSerializer
     permission_classes = (permissions.AllowAny,)
@@ -18,6 +21,9 @@ class ControlNotasAPIView(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['get'], url_path='estudiantes/(?P<id_asignatura>[^/.]+)/(?P<periodo>[^/.]+)/(?P<grupo>[^/.]+)/')
     def get_promedios(self, request, id_asignatura, periodo, grupo):
+        """ Obtiene la lista de estudiantes con sus promedios de la asignatura, periodo y grupo indicados.
+            GET /estudiantes/<int:id_asignatura>/<int:periodo>/<int:grupo>
+        """
         self.service.id_asignatura = id_asignatura
         self.service.periodo = periodo
         self.service.grupo = grupo
@@ -30,7 +36,9 @@ class ControlNotasAPIView(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['get'], url_path='(?P<id_asignatura>[^/.]+)/(?P<periodo>[^/.]+)/(?P<grupo>[^/.]+)/')
     def get(self, request, id_asignatura, periodo, grupo):
-
+        """ Obtiene la lista de estudiantes para el ingreso de notas de la asignatura, periodo y grupo indicados.
+            GET /<int:id_asignatura>/<int:periodo>/<int:grupo>
+        """
         self.service.id_asignatura = id_asignatura
         self.service.periodo = periodo
         self.service.grupo = grupo
@@ -44,7 +52,13 @@ class ControlNotasAPIView(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['post'], url_path='(?P<id_asignatura>[^/.]+)/(?P<periodo>[^/.]+)/(?P<grupo>[^/.]+)/')
     def post(self, request, id_asignatura, periodo, grupo):
+        """ Actualiza la lista de notas para la asignatura, periodo y grupo indicados.
+            POST /<int:id_asignatura>/<int:periodo>/<int:grupo>
 
+            Body: lista de objetos con atributos [id_estudiante, nombre, nota, tema, tipo_actividad]
+
+            Response: [en_riesgo, alerta_media, alerta_alta]
+        """
         for notas_data in request.data:
             data = {
                 'id_estudiante': notas_data['id_estudiante'],
@@ -61,5 +75,6 @@ class ControlNotasAPIView(viewsets.ModelViewSet):
             self.service.save_nota(data)
 
         mensaje = self.service.get_alertas()
+        self.service.reset_conteo_alertas()
 
-        return Response(json.dumps(mensaje), status=status.HTTP_201_CREATED)
+        return Response(mensaje, status=status.HTTP_201_CREATED)
