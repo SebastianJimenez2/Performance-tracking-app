@@ -9,10 +9,18 @@ import '../styles/components/BarraNavegacion.css';
 
 
 function BarraNavegacion() {
-    const { setPaginaActual } = useContextoGlobal()
+    const { setPaginaActual, setRol, setAsignatura, setCurso, setUsuario, rol } = useContextoGlobal()
 
     const cambiarPagina = (pagina: string) => {
         setPaginaActual(pagina)
+    }
+
+    const cerrarSesion = () => {
+        setRol('')
+        setUsuario('')
+        setAsignatura(0)
+        setCurso(0)
+        setPaginaActual('Login')
     }
 
     return (
@@ -23,12 +31,18 @@ function BarraNavegacion() {
                 <Navbar.Collapse className="justify-content-end">
                     <Nav>
                         <img src={Perfil} width={15}></img>
-                        <NavDropdown title="Perfil docente" data-bs-theme="light">
-                            <NavDropdown.Header>Perfil del docente</NavDropdown.Header>
-                            <NavDropdown.Item onClick={() => cambiarPagina('Cursos')}>Cursos</NavDropdown.Item>
-                            <NavDropdown.Item onClick={() => cambiarPagina('Capacitaciones')}>Capacitaciones</NavDropdown.Item>
+                        <NavDropdown title={`Perfil ${rol}`} data-bs-theme="light">
+                            <NavDropdown.Header>Perfil del {rol}</NavDropdown.Header>
+                            {
+                                rol === 'docente' &&
+                                <NavDropdown.Item onClick={() => cambiarPagina('Cursos')}>Cursos</NavDropdown.Item>
+                            }
+                            {
+                                rol === 'docente' &&
+                                <NavDropdown.Item onClick={() => cambiarPagina('Capacitaciones')}>Capacitaciones</NavDropdown.Item>
+                            }
                             <NavDropdown.Divider />
-                            <NavDropdown.Item onClick={() => cambiarPagina('Login')}>Cerrar sesión</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => cerrarSesion()}>Cerrar sesión</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>

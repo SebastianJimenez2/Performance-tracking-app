@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../styles/components/Tabs.css";
+import { useContextoGlobal } from "../ContextoGlobal";
 
 
 type TabsProps = {
@@ -13,6 +14,8 @@ type TabsProps = {
 }
 
 function Tabs({ children, cerrarSemestre }: TabsProps) {
+
+    const { usuario } = useContextoGlobal();
 
     const [tabActivo, setTabActivo] = useState<string>(
         isValidElement(children[0])
@@ -42,7 +45,7 @@ function Tabs({ children, cerrarSemestre }: TabsProps) {
             <nav className="barra-lateral">
                 <div className="perfil-profesor">
                     <img src={ImagenProfesor} alt="Foto de perfil del profesor de la asignatura" />
-                    <p>Mario Romero</p>
+                    <p>{usuario}</p>
                 </div>
                 <div className="tabs">
                     {
