@@ -4,13 +4,39 @@ from ..models.periodo import Periodo
 from ..models.estudiante import Estudiante
 from django.db.models import OuterRef, Avg, Subquery
 
+
 class SeguimientoService:
+    """
+        Servicio de seguimiento de malla
+
+        Clase destinada a manejar la mayoría de la lógica de negocio.
+        Tiene contacto directo con los modelos - base de datos.
+
+        Attributes:
+            asignatura_prerequisito: String
+            periodo_actual: String
+
+        Utilizado para Feature 4.
+        Creado por Bryan Rosillo.
+    """
+
     def __init__(self, asignatura_prerequisito: str, periodo_actual: str):
         self.asignatura_prerequisito = asignatura_prerequisito
         self.periodo_actual = periodo_actual
 
     def obtener_estudiantes_candidatos(self):
+        """
+            Tiene como fin determinar los estudiantes que necesitan ir al curso de verano.
+            Esto en base a sus promedios finales de una asignatura prerequisito en un periódo
+            específico, y a un rango establecido por la nota mínima de las asignaturas y
+            un promedio histórico de las materias relacionadas.
+
+            Return:
+                estudiantes_candidatos: QuerySet[Estudiante]
+        """
+
         try:
+
             # Se busca la asignatura y periodo actual.
             asignatura_prerequisito = Asignatura.objects.get(nombre=self.asignatura_prerequisito)
             periodo_actual = Periodo.objects.get(nombre=self.periodo_actual)
@@ -25,7 +51,8 @@ class SeguimientoService:
                 .filter(id_asignatura=asignatura_prerequisito.id_asignatura)
                 .filter(periodo=periodo_actual.id_periodo)
                 .values('id_estudiante')
-                .annotate(promedio=Subquery(self.obtener_promedio_notas_estudiantes(asignatura_prerequisito, periodo_actual)))
+                .annotate(
+                    promedio=Subquery(self.obtener_promedio_notas_estudiantes(asignatura_prerequisito, periodo_actual)))
                 .filter(promedio__gte=asignatura_prerequisito.nota_minima)
                 .filter(promedio__lte=self.obtener_promedio_historico())
             ).values_list('id_estudiante', flat=True)
@@ -34,7 +61,8 @@ class SeguimientoService:
 
             estudiantes_candidatos = Estudiante.objects.filter(
                 id_estudiante__in=id_estudiantes_candidatos
-            ).annotate(promedio_notas=Subquery(self.obtener_promedio_notas_estudiantes(asignatura_prerequisito, periodo_actual)))
+            ).annotate(promedio_notas=Subquery(
+                self.obtener_promedio_notas_estudiantes(asignatura_prerequisito, periodo_actual)))
 
             return estudiantes_candidatos
 
@@ -46,12 +74,20 @@ class SeguimientoService:
                 "no tiene una asignatura subsecuente.")
 
     def obtener_promedio_historico(self):
+        """
+            Sirve para obtener el promedio histórico a partir de una asignatura prerequisito, y un
+            periódo.
+
+            Return:
+                promedio_historico: float
+        """
+
         try:
             # Para obtener el promedio histórico, hay que determinar las asignaturas y periodos.
             asignatura_prerequisito = Asignatura.objects.get(nombre=self.asignatura_prerequisito)
             asignatura_subsecuente = Asignatura.objects.get(id_asignatura=asignatura_prerequisito.subsecuente_id)
             periodo_actual = Periodo.objects.get(nombre=self.periodo_actual)
-            periodo_anterior = Periodo.objects.get(id_periodo=periodo_actual.id_periodo-1)
+            periodo_anterior = Periodo.objects.get(id_periodo=periodo_actual.id_periodo - 1)
 
             # Obtenemos a los estudiantes que tienen menos de la nota mínima en la asignatura subsecuente actual.
             estudiantes_asignatura_subsecuente_periodo_actual = (
@@ -63,7 +99,6 @@ class SeguimientoService:
                     self.obtener_promedio_notas_estudiantes(asignatura_subsecuente, periodo_actual)))
                 .filter(promedio_notas__lt=asignatura_subsecuente.nota_minima)
             ).values_list('id_estudiante', flat=True)
-
 
             if estudiantes_asignatura_subsecuente_periodo_actual.exists():
 
@@ -96,9 +131,15 @@ class SeguimientoService:
         except Exception as e:
             raise ValueError(f"Se produjo un error al calcular el promedio histórico -> {str(e)}")
 
-
-    #Este método es útil para obtener el promedio de todas las notas del estudiante.
     def obtener_promedio_notas_estudiantes(self, asignatura, periodo):
+        """
+            Este método es útil para obtener el promedio de todas las notas del estudiante.
+            Es un subquery, por lo tanto, debe ser empleado en una consulta.
+
+            Return:
+                promedio_notas_estudiantes: QuerySet
+        """
+
         promedio_notas_estudiantes = (
             HistorialNotas.objects
             .filter(id_asignatura=asignatura.id_asignatura,
