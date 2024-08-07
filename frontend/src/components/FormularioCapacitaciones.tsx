@@ -16,8 +16,8 @@ function FormularioCapacitacion() {
   };
 
   return (
-    <Container className="mt-5" >
-      <Row className="justify-content-center">
+    <div style={{minWidth:'100%', maxHeight:'10%', padding: '20px 20px'}} >
+      <Row className="justify-content-center" style={{minWidth:'100%', maxHeight:'20%', }}>
         <Col md={8} lg={6}>
           <h2 className="text-center">Registrar Capacitación</h2>
           <Form>
@@ -51,7 +51,7 @@ function FormularioCapacitacion() {
           </Form>
         </Col>
       </Row>
-    </Container>
+    </div>
   );
 }
 

@@ -7,6 +7,7 @@ class Docente(models.Model):
     correo = models.EmailField(max_length=150)
     estado_capacitacion = models.CharField(max_length=50)
     carrera = models.CharField(max_length=50)
+    puntaje_actual = models.CharField(max_length=50)
 
     def __str__(self):
         return self.nombre + self.correo

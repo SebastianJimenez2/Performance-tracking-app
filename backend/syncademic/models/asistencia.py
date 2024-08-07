@@ -4,6 +4,19 @@ from .asignatura import Asignatura
 
 
 class Asistencia(models.Model):
+    """ Modelo Asistencia
+
+        Utilizado para Feature 1
+        Creado por Christian Hernández
+
+        Attributes:
+            id_asistencia (int),
+            estudiante (int),
+            asignatura (int),
+            semana (int),
+            dia (str),
+            presente (bool)
+    """
     id_asistencia = models.AutoField(primary_key=True)
     estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE)
     asignatura = models.ForeignKey(Asignatura, on_delete=models.CASCADE)
